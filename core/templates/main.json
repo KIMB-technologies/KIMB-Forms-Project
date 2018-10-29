@@ -1,0 +1,10 @@
+{
+	"%%HOST%%" : "",
+	"%%PAGENAME%%" : "page name",
+	"%%TITLE%%" : "title",
+	"%%SUBTITLE%%" : "sub-title",
+	"%%MAINBUTTONDEST%%" : "mainbutton destination",
+	"%%MAINBUTTONTASK%%" : "mainbutton label",
+	"%%INNERCONTAINER%%" : "inner data",
+	"%%MOREFOOTER%%" : "more footer"
+}

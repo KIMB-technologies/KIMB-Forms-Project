@@ -1,7 +1,5 @@
 # KIMB-Forms-Project
 
->
-> **Under development.**
->
+> Small tool for coordinate volunteers and meetings.
 
-Small Google Forms like tool for recruiting volunteers
+> **Under development.**

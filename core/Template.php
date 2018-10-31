@@ -37,7 +37,7 @@ class Template{
 	 * @param $value html value
 	 */
 	public function setContent($key, $value){
-		$key = str_replace("%%", "", $key);
+		$key = "%%".str_replace("%%", "", $key)."%%";
 		if( isset( $this->placeholder[$key] ) ){
 			$this->placeholder[$key] = $value;
 			return true;

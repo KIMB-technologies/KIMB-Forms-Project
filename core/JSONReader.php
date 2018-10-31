@@ -44,10 +44,10 @@ class JSONReader{
 		$this->filepath = self::$path . $filename . '.json';
 
 		// file lock
-		$this->filehandler = fopen( $this->filepath, 'w+' );
+		$this->filehandler = fopen( $this->filepath, 'r' );
 		if( !flock( $this->filehandler, LOCK_SH) ){
 			//Fehler
-			throw new Exception('Unable to find lock file!');
+			throw new Exception('Unable to lock file!');
 		}
 
 		//Datei öffnen

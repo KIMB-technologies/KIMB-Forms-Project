@@ -29,6 +29,7 @@ class JSONReader{
 
 	//Daten über die geöffnete JSON
 	private
+		$filehandler, // fopen handler
 		$data, //JSON Daten Array
 		$filepath, //Vollständiger Dateipfad
 		$datahash, //Hash des JSON-Strings auf dem Dateissystem
@@ -42,6 +43,13 @@ class JSONReader{
 		//Dateinamen erstellen
 		$this->filepath = self::$path . $filename . '.json';
 
+		// file lock
+		$this->filehandler = fopen( $this->filepath, 'w+' );
+		if( !flock( $this->filehandler, LOCK_SH) ){
+			//Fehler
+			throw new Exception('Unable to find lock file!');
+		}
+
 		//Datei öffnen
 		//	vorhnaden?
 		if( is_file( $this->filepath ) ){
@@ -52,9 +60,6 @@ class JSONReader{
 		elseif( is_dir( dirname( $this->filepath ) ) ){
 			//leeres Array
 			$this->data = '[]';
-
-			//Datei anlegen
-			file_put_contents( $this->filepath, $this->data );
 		}
 		else{
 			//Fehler
@@ -86,6 +91,9 @@ class JSONReader{
 	//schreibe Datei bei Objektzerstörung
 	public function __destruct(){
 		$this->write_content();
+		//unlock and close
+		flock($this->filehandler, LOCK_UN );
+		fclose($this->filehandler);
 	}
 
 	//Datei schreiben
@@ -99,14 +107,16 @@ class JSONReader{
 			//ueberhaupt geändert?
 			//JSON okay?
 			if( $nowhash != $this->datahash && $json !== false ){
-				//schreiben
-				$re = file_put_contents( $this->filepath, $json );
-				//Hash anpassen?
-				if( $re ){
-					$this->datahash = $nowhash;
+				if( flock( $this->filehandler, LOCK_EX ) ){ //exclusive log
+					//schreiben
+					$re = file_put_contents( $this->filepath, $json );
+					//Hash anpassen?
+					if( $re ){
+						$this->datahash = $nowhash;
+					}
+					//Rückgabe
+					return $re;
 				}
-				//Rückgabe
-				return $re;
 			}
 		}
 		return false;

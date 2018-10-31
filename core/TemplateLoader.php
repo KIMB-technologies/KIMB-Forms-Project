@@ -7,11 +7,11 @@ class TemplateLoader{
 		$configjson; 
 
 	private static $tasks = array(
-		'admin',
-		'new',
-		'poll',
-		'start'
-	);
+			'admin',
+			'new',
+			'poll',
+			'start'
+		);
 
 	public function __construct(){
 		$this->maintemplate = new Template( 'main' );
@@ -26,6 +26,8 @@ class TemplateLoader{
 		if( in_array( $task, self::$tasks ) ){
 			$this->includetemp = new Template( $task );
 			$this->maintemplate->includeTemplate($this->includetemp);
+
+			$this->mainSetup();
 
 			switch ($task){
 				case 'new' :
@@ -43,7 +45,18 @@ class TemplateLoader{
 		}
 	}
 
+	private function mainSetup(){
+		$this->maintemplate->setContent( 'TITLE', $this->configjson->getValue( ['site', 'pagename'] ) );
+		$this->maintemplate->setContent( 'SUBTITLE', 'Small tool for coordinate volunteers and meetings.' );
+		$this->maintemplate->setContent( 'MAINBUTTONDEST', Utilities::generateLink('new') );
+		$this->maintemplate->setContent( 'MAINBUTTONTASK', 'Neue Umfrage' );
+	}
+
 	private function taskNew(){
+	
+	}
+
+	private function taskAdmin(){
 
 	}
 
@@ -51,18 +64,9 @@ class TemplateLoader{
 
 	}
 
-	private function taskAdmin(){
-
-	}
-
 	private function taskStart(){
-		$this->maintemplate->setContent( 'TITLE', $this->configjson->getValue( ['site', 'pagename'] ) );
-		$this->maintemplate->setContent( 'SUBTITLE', 'Small tool for coordinate volunteers and meetings.' );
-		$this->maintemplate->setContent( 'MAINBUTTONDEST', Utilities::generateLink('new') );
-		$this->maintemplate->setContent( 'MAINBUTTONTASK', 'New Poll' );
+		
 	}
-
-	
 
 	public function __destruct(){
 		$this->maintemplate->output();

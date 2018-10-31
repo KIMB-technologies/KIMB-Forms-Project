@@ -1,0 +1,43 @@
+
+<div class="container">
+	<div class="card-deck mb-3 text-center">
+		<div class="card mb-4 box-shadow">
+			<div class="card-header">
+				<h4 class="font-weight-normal">Erstellen</h4>
+		</div>
+		<div class="card-body">
+			<p>
+				Eine neuen Umfrage erstellen.
+			</p>
+			<button id="newlos">Los</button>
+		</div>
+	</div>
+	<div class="card mb-4 box-shadow">
+		<div class="card-header">
+			<h4 class="my-0 font-weight-normal">Teilnehmen</h4>
+		</div>
+		<div class="card-body">
+			<p>
+				Mit einer Umfrage ID an einer Umfrage teilnehmen.
+			</p>
+			<input type="text" placeholder="Umfrage ID" id="pollid">
+			<button id="polllos">Los</button>
+		</div>
+	</div>
+	<div class="card mb-4 box-shadow">
+		<div class="card-header">
+			<h4 class="my-0 font-weight-normal">Bearbeiten</h4>
+		</div>
+		<div class="card-body">
+			<p>
+				Mit einem Admin-Code die Ergebnisse einer Umfrage sehen und Einstellungen anpassen.
+			</p>
+			<input type="text" placeholder="Admin-Code" id="admincode">
+			<button id="adminlos">Los</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	var template_name = 'start';
+</script>

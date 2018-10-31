@@ -1,14 +1,11 @@
 $( function (){
 	$(document).tooltip();
 
-	if( typeof template_name === "undefined" ){
-		var template_name = '';
-	}
 	switch(template_name){
 		case "new":
 			template_new();
 			break;
-		case '':
+		default:
 			break;
 	}
 });

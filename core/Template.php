@@ -16,14 +16,33 @@ class Template{
 	private $placeholder = array();
 	private $inner = null;
 
+	private static $lang = 'de';
+	private static $allLangs = array(
+		'de',
+		'en'
+	);
+
+	/**
+	 * Change the language of the site
+	 * see $allLangs for list
+	 * @param lang the lang to use
+	 */
+	public static function setLanguage( $lang ){
+		if( in_array( $lang, self::$allLangs ) ){
+			self::$lang = $lang;
+		}
+	}
+
 	/**
 	 * Create an new Template
-	 * @param name The name of the template ./templates/<name>.html(.json)
+	 * @param name The name of the template
+	 * 		./templates/<name>.json)
+	 * 		./templates/<name>_<lang>.html
 	 */
 	public function __construct( $name ){
 		if( Utilities::checkFileName( $name ) ) {
 			try{
-				$this->htmldata = file_get_contents( __DIR__ . '/templates/' . $name . '.html' );
+				$this->htmldata = file_get_contents( __DIR__ . '/templates/' . $name .  '_' . self::$lang . '.html' );
 				$this->placeholder = json_decode( file_get_contents( __DIR__ . '/templates/' . $name . '.json' ) , true);
 			} catch (Exception $e) {
 			    die( 'Unable to load Template data!' );

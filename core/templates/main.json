@@ -6,5 +6,6 @@
 	"%%MAINBUTTONDEST%%" : "mainbutton destination",
 	"%%MAINBUTTONTASK%%" : "mainbutton label",
 	"%%INNERCONTAINER%%" : "inner data",
-	"%%MOREFOOTER%%" : "more footer"
+	"%%MOREFOOTER%%" : "more footer",
+	"%%LANGUAGEBUTTONS%%" : "<button type='button' class='btn btn-secondary' lang='a'>language a</button>"
 }

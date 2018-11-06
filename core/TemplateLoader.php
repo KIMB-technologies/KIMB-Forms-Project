@@ -47,9 +47,15 @@ class TemplateLoader{
 
 	private function mainSetup(){
 		$this->maintemplate->setContent( 'TITLE', $this->configjson->getValue( ['site', 'pagename'] ) );
-		$this->maintemplate->setContent( 'SUBTITLE', 'Small tool for coordinate volunteers and meetings.' );
+		$this->maintemplate->setContent( 'SUBTITLE', LanguageManager::getTranslation( 'SUBTITLE' ) );
 		$this->maintemplate->setContent( 'MAINBUTTONDEST', Utilities::generateLink('new') );
-		$this->maintemplate->setContent( 'MAINBUTTONTASK', 'Neue Umfrage' );
+		$this->maintemplate->setContent( 'MAINBUTTONTASK',  LanguageManager::getTranslation('MAINBUTTONTASK'));
+
+		$langsel = '';
+		foreach( LanguageManager::getAllLanguages() as $key => $name ){
+			$langsel .= '<button type="button" class="btn btn-secondary" lang="'.$key.'">'.$name.'</button>';
+		}
+		$this->maintemplate->setContent( 'LANGUAGEBUTTONS', $langsel );
 	}
 
 	private function taskNew(){

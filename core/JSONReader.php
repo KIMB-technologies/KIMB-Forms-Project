@@ -1,5 +1,7 @@
 <?php
 
+defined('WW-PAGE') or die('Wrong page!');
+
 /**
  * Diese Klasse stellt den Zugriff auf JSON-Dateien des Systems bereit
  */
@@ -42,17 +44,19 @@ class JSONReader{
 	public function __construct( $filename ){
 		//Dateinamen erstellen
 		$this->filepath = self::$path . $filename . '.json';
+		
+		$isfile = is_file( $this->filepath );
 
 		// file lock
-		$this->filehandler = fopen( $this->filepath, 'r' );
-		if( !flock( $this->filehandler, LOCK_SH) ){
+		$this->filehandler = fopen( $this->filepath, 'c+' );
+		if( !flock( $this->filehandler, LOCK_SH ) ){
 			//Fehler
 			throw new Exception('Unable to lock file!');
 		}
 
 		//Datei öffnen
 		//	vorhnaden?
-		if( is_file( $this->filepath ) ){
+		if( $isfile ){
 			//auslesen
 			$this->data = file_get_contents( $this->filepath );
 		}
@@ -65,20 +69,19 @@ class JSONReader{
 			//Fehler
 			throw new Exception('Unable to find file or folder!');
 		}
-
-		//Datei gefüllt?
-		if( !empty( $this->data ) ){
-			//Hash für später
-			$this->datahash = hash( 'sha512', $this->data );
-			//JSON Parsen
-			$this->data = json_decode( $this->data, true);
-			//Fehler?
-			if( !is_array( $this->data ) ){
-				throw new Exception('Zombiefile!');	
-			}
+		
+		if( empty( $this->data ) ){
+			$this->data = '[]';
 		}
-		else{
-			throw new Exception('Unable to open file!');
+
+		
+		//Hash für später
+		$this->datahash = hash( 'sha512', $this->data );
+		//JSON Parsen
+		$this->data = json_decode( $this->data, true);
+		//Fehler?
+		if( !is_array( $this->data ) ){
+			throw new Exception('Zombiefile!');	
 		}
 
 		//Schreibbar?

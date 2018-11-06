@@ -1,7 +1,5 @@
 <?php
 
-defined('WW-PAGE') or die('Wrong page!');
-
 /**
  * Diese Klasse stellt den Zugriff auf JSON-Dateien des Systems bereit
  */

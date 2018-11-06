@@ -1,6 +1,8 @@
 $( function (){
 	$(document).tooltip();
 
+	template_main();
+
 	switch(template_name){
 		case "new":
 			template_new();
@@ -9,6 +11,12 @@ $( function (){
 			break;
 	}
 });
+
+function template_main(){
+	$( "div#languagebuttons button" ).click(function (){
+		window.location.href = $(this).attr('linkdest');
+	});
+}
 
 function template_new(){
 	function personMeetingUpdate(){

@@ -15,8 +15,16 @@ class LanguageManager{
 	/**
 	 * Load Translation and set on other classes
 	 */
-	public static function init( $lang = 'de' ){
-		self::setLanguage( $lang );
+	public static function init(){
+		if(!empty( $_GET['language'] )){
+			self::setLanguage( $_GET['language'] );
+		}
+		else if( !empty( $_SESSION['language'] )){
+			self::setLanguage( $_SESSION['language'] );
+		}
+		else{
+			self::setLanguage( $lang );
+		}
 		$json = new JSONReader( 'translation_' . self::$lang );
 		self::$trans = $json->getArray();
 	}
@@ -29,6 +37,7 @@ class LanguageManager{
 	public static function setLanguage( $lang ){
 		if( in_array( $lang, self::$allLangs ) ){
 			self::$lang = $lang;
+			$_SESSION['language'] = $lang;
 		}
 		self::updateClasses();
 	}
@@ -41,7 +50,7 @@ class LanguageManager{
 	}
 
 	/**
-	 * Sets the current language to system classes
+	 * Gets all languages and their names
 	 */
 	public static function getAllLanguages(){
 		$data = array();
@@ -49,6 +58,13 @@ class LanguageManager{
 			$data[$key] = self::getTranslation( $key );
 		}
 		return $data;
+	}
+
+	/**
+	 * Gets the current language Key.
+	 */
+	public static function getCurrentLanguage(){
+		return self::$lang;
 	}
 
 	/**

@@ -9,7 +9,7 @@
 			<p>
 				Create a new poll.
 			</p>
-			<button id="newlos">Go</button>
+			<button id="newlos"  class="btn btn-primary">Go</button>
 		</div>
 	</div>
 	<div class="card mb-4 box-shadow">
@@ -20,8 +20,11 @@
 			<p>
 				Fill out a poll, using a poll ID.
 			</p>
-			<input type="text" placeholder="Poll ID" id="pollid">
-			<button id="polllos">Go</button>
+			<div class="row">
+				<input type="text" class="form-control col-sm-9" placeholder="Poll ID" id="pollid">
+				&nbsp;
+				<button id="polllos" class="btn btn-primary col-sm-2">Go</button>
+			</div>
 		</div>
 	</div>
 	<div class="card mb-4 box-shadow">
@@ -32,8 +35,11 @@
 			<p>
 				Edit a poll and see the results, using an Admin-Code.
 			</p>
-			<input type="text" placeholder="Admin-Code" id="admincode">
-			<button id="adminlos">Go</button>
+			<div class="row">
+				<input type="text" class="form-control col-sm-9" placeholder="Admin-Code" id="admincode">
+				&nbsp;
+				<button id="adminlos" class="btn btn-primary col-sm-2">Go</button>
+			</div>
 		</div>
 	</div>
 </div>

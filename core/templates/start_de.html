@@ -9,7 +9,7 @@
 			<p>
 				Eine neuen Umfrage erstellen.
 			</p>
-			<button id="newlos">Los</button>
+			<button id="newlos" class="btn btn-primary">Los</button>
 		</div>
 	</div>
 	<div class="card mb-4 box-shadow">
@@ -20,8 +20,11 @@
 			<p>
 				Mit einer Umfrage ID an einer Umfrage teilnehmen.
 			</p>
-			<input type="text" placeholder="Umfrage ID" id="pollid">
-			<button id="polllos">Los</button>
+			<div class="row">
+				<input type="text" class="form-control col-sm-9" placeholder="Umfrage ID" id="pollid">
+				&nbsp;
+				<button id="polllos" class="btn btn-primary col-sm-2">Los</button>
+			</div>
 		</div>
 	</div>
 	<div class="card mb-4 box-shadow">
@@ -32,8 +35,11 @@
 			<p>
 				Mit einem Admin-Code die Ergebnisse einer Umfrage sehen und Einstellungen anpassen.
 			</p>
-			<input type="text" placeholder="Admin-Code" id="admincode">
-			<button id="adminlos">Los</button>
+			<div class="row">
+				<input type="text" class="form-control col-sm-9" placeholder="Admin-Code" id="admincode">
+				&nbsp;
+				<button id="adminlos" class="btn btn-primary col-sm-2">Los</button>
+			</div>
 		</div>
 	</div>
 </div>

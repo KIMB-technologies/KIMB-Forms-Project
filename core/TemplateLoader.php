@@ -53,7 +53,8 @@ class TemplateLoader{
 
 		$langsel = '';
 		foreach( LanguageManager::getAllLanguages() as $key => $name ){
-			$langsel .= '<button type="button" class="btn btn-secondary" lang="'.$key.'">'.$name.'</button>';
+			$active = ($key == LanguageManager::getCurrentLanguage()) ? ' active' : '';
+			$langsel .= '<button type="button" class="btn btn-secondary'. $active .'" linkdest="'. Utilities::currentLinkGenerator($append = '&language='.$key) .'">'.$name.'</button>';
 		}
 		$this->maintemplate->setContent( 'LANGUAGEBUTTONS', $langsel );
 	}

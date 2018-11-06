@@ -4,75 +4,86 @@
 
 <div class="container">
 	<div class="alert alert-dark" role="alert">
-		<div class="row align-items-start">
+		<div class="row">
 			<div class="col">
 				<h4>Allgemein</h4>
 			</div>
 		</div>
-		<div class="row align-items-start">
+		<div class="row">
 			<div class="col">
-				<input name="pollname" placeholder="Name"><br />
-				<textarea placeholder="Beschreibung" name="description"></textarea>
+				<input name="pollname" class="form-control" placeholder="Name des Formulars"><br />
 			</div>
 			<div class="col">
 				<div title="Personen für eine Menge von Terminen suchen, jede Person kann einen oder mehrere Termine wählen,
 				solange dort noch Plätze frei sind. Die Ergebnisse sind nicht öffentlich.">
-					<input type="radio" name="formtype" value="person" checked> Personen suchen
+					<input type="radio" name="formtype" class="form-check-input" value="person" checked> Personen suchen
 				</div>
 				<div title="Termine für eine Menge von Personen suchen, jede Person kann sich für eine oder mehrere der
 				Möglichkeiten eintragen, die Ergebnisse sind für alle sichtbar.">
-					<input type="radio" name="formtype" value="meeting"> Termin finden
+					<input type="radio" name="formtype" class="form-check-input" value="meeting"> Termin finden
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col">
+				<textarea placeholder="Beschreibung des Formulars" class="form-control" name="description"></textarea>
+			</div>			
+		</div>
 	</div>
 	<div class="alert alert-light" role="alert">
-		<div class="row align-items-start">
+		<div class="row">
 			<div class="col">
 				<h4>Termine</h4>
 			</div>
 		</div>
-		<div class="row align-items-start" id="examplecontainer">
+		<div class="row " id="examplecontainer">
 			<div class="col col-1 laufindex">
 				1
 			</div>
 			<div class="col">
-				<input type="text" placeholder="Bezeichnung" name="bezeichnungen[]"><br />
-				<input type="number" placeholder="Anzahl" name="anzahlen[]" class="persononly"
-					title="Anzahl der maximal gesuchten Personen.">
+				<div class="form-group">
+					<input type="text" placeholder="Bezeichnung dieses Termins" name="bezeichnungen[]" class="form-control">
+					<input type="number" placeholder="Anzahl an Personen" name="anzahlen[]" class="persononly form-control"
+						title="Anzahl der für diesen Termin maximal gesuchten Personen.">
+				</div>
 			</div>
 			<div class="col">
-				<textarea placeholder="Hinweis" name="hinweise[]" class="hinweise"></textarea>
+				<div class="form-group">
+					<textarea placeholder="Hinweise zum Termin" name="hinweise[]" class="hinweise form-control"></textarea>
+				</div>
 			</div>
-			<hr />
 		</div>
-		<div class="row align-items-start">
+		<div class="row">
 			<div class="col col-1 laufindex">
 				2
 			</div>
 			<div class="col">
-				<input type="text" placeholder="Bezeichnung" name="bezeichnungen[]"><br />
-				<input type="number" placeholder="Anzahl" name="anzahlen[]" class="persononly"
-					title="Anzahl der maximal gesuchten Personen.">
+				<div class="form-group">
+					<input type="text" placeholder="Bezeichnung dieses Termins" name="bezeichnungen[]" class="form-control">
+					<input type="number" placeholder="Anzahl an Personen" name="anzahlen[]" class="persononly form-control"
+						title="Anzahl der für diesen Termin maximal gesuchten Personen.">
+				</div>
 			</div>
 			<div class="col">
-				<textarea placeholder="Hinweis" name="hinweise[]" class="hinweise"></textarea>
+				<div class="form-group">
+					<textarea placeholder="Hinweise zum Termin" name="hinweise[]" class="hinweise form-control"></textarea>
+				</div>
 			</div>
-			<hr />
 		</div>
 		<div id="add-more-here">
 		</div>
 		<div class="row align-items-start">
 			<div class="col">
-				<button id="new-weiterer" type="button">Weiterer</button>
+				<div class="form-group">
+					<button id="new-weiterer" class="btn btn-secondary" type="button">Weiterer Termin</button>
+				</div>
 			</div>
-			<hr />
 		</div>
 	</div>
-	<div class="row align-items-start">
+	<div class="row">
 		<div class="col">
 			<div class="alert alert-primary" role="alert">
-				<input type="submit" value="Erstellen">
+				<input type="submit" class="btn btn-primary" value="Erstellen">
 			</div>
 		</div>
 	</div>

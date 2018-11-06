@@ -43,6 +43,12 @@ class TemplateLoader{
 					$this->taskStart();
 			}
 		}
+		else{
+			$this->mainSetup();
+			$this->includetemp = new Template( 'error' );
+			$this->maintemplate->includeTemplate($this->includetemp);
+			http_response_code(404);
+		}
 	}
 
 	private function mainSetup(){

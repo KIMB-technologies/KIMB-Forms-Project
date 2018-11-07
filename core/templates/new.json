@@ -1,3 +1,4 @@
 {
-	"%%FORMDEST%%" : ""
+	"%%FORMDEST%%" : "",
+	"%%INNERCONTAINER%%" : ""
 }

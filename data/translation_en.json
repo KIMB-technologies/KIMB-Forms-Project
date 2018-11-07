@@ -1,6 +1,7 @@
 {
-    "SUBTITLE": "Small tool for coordinate volunteers and meetings.",
-    "MAINBUTTONTASK": "New Poll",
+    "SUBTITLE": "Small tool to coordinate volunteers and meetings.",
+    "MAINBUTTONTASK-new": "New Poll",
+    "MAINBUTTONTASK-start": "Overview",
     "de": "German",
     "en": "English"
 }

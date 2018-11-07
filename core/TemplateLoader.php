@@ -4,7 +4,8 @@ class TemplateLoader{
 
 	private $maintemplate,
 		$includetemp,
-		$configjson; 
+		$configjson,
+		$htmloutput = true; 
 
 	private static $tasks = array(
 			'admin',
@@ -54,8 +55,6 @@ class TemplateLoader{
 	private function mainSetup(){
 		$this->maintemplate->setContent( 'TITLE', $this->configjson->getValue( ['site', 'pagename'] ) );
 		$this->maintemplate->setContent( 'SUBTITLE', LanguageManager::getTranslation( 'SUBTITLE' ) );
-		$this->maintemplate->setContent( 'MAINBUTTONDEST', Utilities::generateLink('new') );
-		$this->maintemplate->setContent( 'MAINBUTTONTASK',  LanguageManager::getTranslation('MAINBUTTONTASK'));
 
 		$langsel = '';
 		foreach( LanguageManager::getAllLanguages() as $key => $name ){
@@ -66,23 +65,49 @@ class TemplateLoader{
 	}
 
 	private function taskNew(){
-	
+		$this->maintemplate->setContent( 'MAINBUTTONDEST', Utilities::generateLink('start') );
+		$this->maintemplate->setContent( 'MAINBUTTONTASK',  LanguageManager::getTranslation('MAINBUTTONTASK-start'));
+
+		if( PollCreator::checkForPostData() ){
+			$pollcreator = new PollCreator();
+			if( $pollcreator->createPollByPostData() ){ // Fehler??
+				$this->htmloutput = false;
+				http_response_code(303);
+				header( 'Location: ' . $pollcreator->getAdminLink() );
+				die();
+			}
+			else{
+				$alert = new Template( 'alert' );
+				$this->includetemp->includeTemplate($alert);
+				$alert->setContent( 'ALERTMESSAGE', $pollcreator->errorMessage() );
+			}
+		}
+		$this->includetemp->setContent( 'FORMDEST', Utilities::generateLink('new') );
 	}
 
 	private function taskAdmin(){
-
+		$this->maintemplate->setContent( 'MAINBUTTONDEST', Utilities::generateLink('new') );
+		$this->maintemplate->setContent( 'MAINBUTTONTASK',  LanguageManager::getTranslation('MAINBUTTONTASK-new'));
 	}
 
 	private function taskPoll(){
-
+		$this->maintemplate->setContent( 'MAINBUTTONDEST', Utilities::generateLink('start') );
+		$this->maintemplate->setContent( 'MAINBUTTONTASK',  LanguageManager::getTranslation('MAINBUTTONTASK-start'));
 	}
 
 	private function taskStart(){
-		
+		$this->maintemplate->setContent( 'MAINBUTTONDEST', Utilities::generateLink('new') );
+		$this->maintemplate->setContent( 'MAINBUTTONTASK',  LanguageManager::getTranslation('MAINBUTTONTASK-new'));
+
+		$this->includetemp->setContent( 'URLLOS', Utilities::generateLink('new') );
+		$this->includetemp->setContent( 'URLPOLL', Utilities::generateLink('poll', '<poll>') );
+		$this->includetemp->setContent( 'URLADMIN', Utilities::generateLink('admin', '', '<admin>') );
 	}
 
 	public function __destruct(){
-		$this->maintemplate->output();
+		if( $this->htmloutput ){
+			$this->maintemplate->output();
+		}
 	}
 }
 

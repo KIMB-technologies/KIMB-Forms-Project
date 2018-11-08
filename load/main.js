@@ -40,7 +40,7 @@ function template_new(){
 		);
 		personMeetingUpdate();
 		$("div.laufindex" ).last().text( ++laufindex );
-		$("input[type=text], input[type=text], textarea").unbind("change").change(save);
+		$("input[type=text], input[type=number], textarea").unbind("change").change(save);
 	}
 	$("button#new-weiterer").click( weitererTermin );
 
@@ -50,19 +50,18 @@ function template_new(){
 			weitererTermin();
 		}
 
+		$("input[name=formtype][value="+ data.formtype +"]").prop('checked', true)
+		personMeetingUpdate();
+
 		$("input[type=text]").each((k,v) => {
 			$( v ).val( data["inputsText"][k] );
 		});
 		$("input[type=number]").each((k,v) => {
 			$( v ).val( data["inputsNum"][k] );
-			data["inputsNum"][k] = $( v ).val();
 		});
 		$("textarea").each((k,v) => {
 			$( v ).val( data["textAr"][k] );
 		});
-
-		$("input[name=formtype][value="+ data.formtype +"]").prop('checked', true)
-		personMeetingUpdate();
 	}
 	if( localStorage.hasOwnProperty("newPollData") ){
 		loadSaved();
@@ -87,7 +86,7 @@ function template_new(){
 		});
 		localStorage.setItem( "newPollData", JSON.stringify( data ) );
 	}
-	$("input[type=text], input[type=text], textarea").change(save);
+	$("input[type=text], input[type=number], textarea").change(save);
 }
 
 function template_start(){

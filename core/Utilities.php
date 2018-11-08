@@ -13,7 +13,7 @@ class Utilities{
 	}
 
 	/**
-	 * Generates a System Link
+	 * Generates a System Link/ URL
 	 * @param $task the task (start is default)
 	 * @param $pollid the poll (empty string is default)
 	 */
@@ -28,9 +28,14 @@ class Utilities{
 
 	/**
 	 * Generates the current link
-	 * @param $append a string to append at the end
+	 * 	Additional params should be parsed by urlParser() into $_GET
+	 * @param $params parameter to append at the end; array( 'param' => 'value' )
 	 */
-	public static function currentLinkGenerator($append = ''){
+	public static function currentLinkGenerator($params = array()){
+		$append = '';
+		foreach( $params as $par => $val ){
+			$append .= '&' . $par . '=' . urlencode( $val ); 
+		}
 		$a = self::urlParser();
 		$a['pollid'] = ( $a['pollid'] === false) ? '' : $a['pollid'];
 		$a['admincode'] = ( $a['admincode'] === false) ? '' : $a['admincode'];
@@ -38,10 +43,13 @@ class Utilities{
 	}
 
 	/**
-	 * Parses the current url into an array
+	 * Parses the current url into an array, addition params into $_GET
 	 * @return ['task' => task, 'pollid' => pollid or false, 'admincode' => admincode or false]
 	 */
 	public static function urlParser(){
+		// addition params from currentLinkGenerator( $params )
+		//	should be parsed here into $_GET['param'] = value
+		//	only necessary if, typical &par=val is not used
 		return array(
 			'task' => isset($_GET['task']) ? preg_replace( '[^a-z]', '', $_GET['task'] ) : 'start',
 			'pollid' => isset($_GET['pollid']) ?  preg_replace( '[^a-z0-9]', '', $_GET['pollid'] ) : false,

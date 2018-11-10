@@ -1,0 +1,21 @@
+{
+    "code": {
+        "admin": "ckizzaqtzi052cbd06z9",
+        "poll": "MfNnwiFpyo"
+    },
+    "pollname": "Beispiel",
+    "formtype": "person",
+    "description": "Ein Text\r\n\r\n## Wichtig\r\n\r\n-  Eine\r\n- *tolle*\r\n- **Liste**",
+    "termine": [
+        {
+            "bez": "Termin A",
+            "anz": 2,
+            "des": "Bla"
+        },
+        {
+            "bez": "Termin B",
+            "anz": 4,
+            "des": ""
+        }
+    ]
+}

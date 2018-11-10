@@ -3,5 +3,11 @@
     "MAINBUTTONTASK-start": "\u00dcbersicht",
     "MAINBUTTONTASK-new": "Neue Umfrage",
     "de": "Deutsch",
-    "en": "Englisch"
+    "en": "Englisch",
+    "NameTypBeschAngeb": "Bitte Namen, Typ und Beschreibung angeben!",
+    "ZuVielTerm": "Zu viele Termine!",
+    "TermBenMaxAanz": "Termine ben\u00f6tigen maximale Anzahl Personen!",
+    "MinEinTermNoet": "Mindestens ein Termin ben\u00f6tigt!",
+    "UnBeAdmC": "Unbekannter Admin-Code!",
+    "UnBeUmfr": "Unbekannte Umfrage!"
 }

@@ -4,12 +4,30 @@ class Utilities{
 
 	private static $configjson = null;
 
+	public const POLL_ID = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890';
+	public const ADMIN_CODE = 'abcdefghijklmnopqrstuvwxyz01234567890';
+
 	/**
 	 * Checks if a String is a valid file-name (file only, no dirs)
 	 * @param $name the filename
 	 */
 	public static function checkFileName($name){
 		return is_string($name) && preg_match( '/^[A-Za-z0-9]+$/', $name ) === 1;
+	}
+
+	/**
+	 * Generates a random code
+	 * @param $len the code lenght
+	 * @param $chars the chars to choose of (string)
+	 * 	e.g. consts POLL_ID, ADMIN_CODE
+	 */
+	public static function randomCode( $len, $chars ){
+		$r = '';
+		$charAnz = strlen( $chars );
+		for($i = 0; $i < $len; $i++){
+			$r .= $chars{random_int(0, $charAnz-1)};
+		}
+		return $r;
 	}
 
 	/**
@@ -52,7 +70,7 @@ class Utilities{
 		//	only necessary if, typical &par=val is not used
 		return array(
 			'task' => isset($_GET['task']) ? preg_replace( '[^a-z]', '', $_GET['task'] ) : 'start',
-			'pollid' => isset($_GET['pollid']) ?  preg_replace( '[^a-z0-9]', '', $_GET['pollid'] ) : false,
+			'pollid' => isset($_GET['poll']) ?  preg_replace( '[^a-z0-9]', '', $_GET['poll'] ) : false,
 			'admincode' => isset($_GET['admin']) ?  preg_replace( '[^a-z0-9]', '', $_GET['admin'] ) : false
 		);
 	}

@@ -7,6 +7,9 @@ class TemplateLoader{
 		$configjson,
 		$htmloutput = true; 
 
+	/**
+	 * All possible URL Tasks
+	 */
 	private static $tasks = array(
 			'admin',
 			'new',
@@ -14,6 +17,9 @@ class TemplateLoader{
 			'start'
 		);
 
+	/**
+	 * Init Template Loader
+	 */
 	public function __construct(){
 		$this->maintemplate = new Template( 'main' );
 		$this->configjson = new JSONReader( 'config' );
@@ -23,6 +29,9 @@ class TemplateLoader{
 		$this->maintemplate->setContent( 'MOREFOOTER', $this->configjson->getValue( ['site', 'footercontent'] ) );
 	}
 
+	/**
+	 * Decide what to display on URL Task
+	 */
 	public function decideOnTask( $task ){
 		if( in_array( $task, self::$tasks ) ){
 			$this->includetemp = new Template( $task );
@@ -52,6 +61,9 @@ class TemplateLoader{
 		}
 	}
 
+	/**
+	 * Setup for main Template
+	 */
 	private function mainSetup(){
 		$this->maintemplate->setContent( 'TITLE', $this->configjson->getValue( ['site', 'pagename'] ) );
 		$this->maintemplate->setContent( 'SUBTITLE', LanguageManager::getTranslation( 'SUBTITLE' ) );
@@ -64,6 +76,9 @@ class TemplateLoader{
 		$this->maintemplate->setContent( 'LANGUAGEBUTTONS', $langsel );
 	}
 
+	/**
+	 * Setup for new Task
+	 */
 	private function taskNew(){
 		$this->maintemplate->setContent( 'MAINBUTTONDEST', Utilities::generateLink('start') );
 		$this->maintemplate->setContent( 'MAINBUTTONTASK',  LanguageManager::getTranslation('MAINBUTTONTASK-start'));
@@ -85,16 +100,57 @@ class TemplateLoader{
 		$this->includetemp->setContent( 'FORMDEST', Utilities::generateLink('new') );
 	}
 
+	/**
+	 * Setup for Admin Task
+	 */
 	private function taskAdmin(){
 		$this->maintemplate->setContent( 'MAINBUTTONDEST', Utilities::generateLink('new') );
 		$this->maintemplate->setContent( 'MAINBUTTONTASK',  LanguageManager::getTranslation('MAINBUTTONTASK-new'));
+
+		$polladmins = new JSONReader( 'admincodes' );
+		$admincode = Utilities::urlParser()['admincode'];
+
+		if( Utilities::checkFileName($admincode) && $polladmins->isValue( [ $admincode ] ) ){
+			$pollid = $polladmins->getValue( [ $admincode ] );
+
+			$admin = new PollAdmin( $pollid, $this->includetemp );
+		}
+		else{
+			$alert = new Template( 'alert' );
+			$this->includetemp->includeTemplate($alert);
+			$alert->setContent( 'ALERTMESSAGE', LanguageManager::getTranslation('UnBeAdmC') );
+		}		
 	}
 
+	/**
+	 * Setup for do Poll Task
+	 */
 	private function taskPoll(){
 		$this->maintemplate->setContent( 'MAINBUTTONDEST', Utilities::generateLink('start') );
-		$this->maintemplate->setContent( 'MAINBUTTONTASK',  LanguageManager::getTranslation('MAINBUTTONTASK-start'));
+		$this->maintemplate->setContent( 'MAINBUTTONTASK', LanguageManager::getTranslation('MAINBUTTONTASK-start'));
+
+		$polls = new JSONReader( 'polls' );
+		$pollid = Utilities::urlParser()['pollid'];
+
+		if( Utilities::checkFileName($pollid) && in_array( $pollid, $polls->getArray() ) ){
+			$poll = new Poll( $pollid );
+			if( $poll->checkSend() ){ // if poll form send
+				$poll->saveSendData( $this->includetemp );
+			}
+			else{
+				$poll->showPollForm( $this->includetemp );
+			}
+		}
+		else{
+			$alert = new Template( 'alert' );
+			$this->includetemp->includeTemplate($alert);
+			$alert->setContent( 'ALERTMESSAGE', LanguageManager::getTranslation('UnBeUmfr') );
+		}		
 	}
 
+	/**
+	 * Setup for Start Task
+	 */
 	private function taskStart(){
 		$this->maintemplate->setContent( 'MAINBUTTONDEST', Utilities::generateLink('new') );
 		$this->maintemplate->setContent( 'MAINBUTTONTASK',  LanguageManager::getTranslation('MAINBUTTONTASK-new'));
@@ -104,6 +160,9 @@ class TemplateLoader{
 		$this->includetemp->setContent( 'URLADMIN', Utilities::generateLink('admin', '', '<admin>') );
 	}
 
+	/**
+	 * End, output all, if not deactivated
+	 */
 	public function __destruct(){
 		if( $this->htmloutput ){
 			$this->maintemplate->output();

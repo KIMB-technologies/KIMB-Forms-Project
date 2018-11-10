@@ -20,12 +20,12 @@ class PollCreator{
 	 * Form data storage
 	 */
 	private $data = array(
+		'code' => array(),
 		'pollname' => '',
 		'formtype' => '',
 		'description' => '',
 		'termine' => array()
 	);
-
 	private $errormsg = '';
 
 	/**
@@ -52,7 +52,26 @@ class PollCreator{
 			return false;
 		}
 
-		//create
+		$pollslist = new JSONReader( 'polls' );
+		$polladmins = new JSONReader( 'admincodes' );
+
+		//Poll ID finden
+		do{
+			$pollid = Utilities::randomCode( 10, Utilities::POLL_ID );
+		}while( in_array( $pollid, $pollslist->getArray() ) );
+		$pollslist->setValue( [null], $pollid  );
+
+		//Admin Code finden
+		do{
+			$admcode = Utilities::randomCode( 20, Utilities::ADMIN_CODE );
+		}while( $polladmins->isValue( [ $admcode ] ) );
+		$polladmins->setValue( [$admcode], $pollid  );
+
+		//save polldata
+		$poll = new JSONReader( 'poll_' . $pollid );
+		$this->data['code']['admin'] = $admcode;
+		$this->data['code']['poll'] = $pollid;
+		$poll->setArray( $this->data );
 
 		return true;
 	}
@@ -76,18 +95,18 @@ class PollCreator{
 				|| empty( $this->data['description'] )
 			){
 				$error = true;
-				$this->errormsg = 'Bitte Namen, Typ und Beschreibung angeben!';
+				$this->errormsg = LanguageManager::getTranslation( 'NameTypBeschAngeb' );
 			}
 		}
 		else{
 			$error = true;
-			$this->errormsg = 'Bitte Namen, Typ und Beschreibung angeben!';
+			$this->errormsg = LanguageManager::getTranslation( 'NameTypBeschAngeb' );
 		}
 
 		if( !$error && is_array($_POST['bezeichnungen']) && count($_POST['bezeichnungen']) > 0 ){
 			if( count($_POST['bezeichnungen']) > self::MAX_TERMINE ){
 				$error = true;
-				$this->errormsg = 'Zu viele Termine!';
+				$this->errormsg = LanguageManager::getTranslation( 'ZuVielTerm' );
 			}
 			else{
 				$counter = 0;
@@ -102,7 +121,7 @@ class PollCreator{
 					}
 					if( $this->data['formtype'] == 'person' && empty($a) ){
 						$error = true;
-						$this->errormsg = 'Termine benötigen maximale Anzahl Personen!';
+						$this->errormsg = LanguageManager::getTranslation( 'TermBenMaxAanz' );
 					}
 
 					if( !empty( $b ) ){ // dieses gefuellt?
@@ -119,15 +138,15 @@ class PollCreator{
 				}
 				if( $counter < 1 ){
 					$error = true;
-					$this->errormsg = 'Mindestens ein Termin benötigt!';
+					$this->errormsg = LanguageManager::getTranslation( 'MinEinTermNoet' );
 				}
 			}
 		}
 		else if(!$error){
 			$error = true;
-			$this->errormsg = 'Mindestens ein Termin benötigt!';
+			$this->errormsg = LanguageManager::getTranslation( 'MinEinTermNoet' );
 		}
-		return $error;
+		return !$error;
 	}
 
 	/**
@@ -136,7 +155,7 @@ class PollCreator{
 	 */
 	public function getAdminLink(){
 		//link to new poll admin page
-		return Utilities::generateLink('admin');
+		return Utilities::generateLink('admin', '', $this->data['code']['admin'] );
 	}
 	
 	/**

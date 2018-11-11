@@ -4,7 +4,7 @@
 - Make sure to lock the following folders for HTTP-Requests:
 	- `/core/*`
 	- `/data/*`
-- Make sure the server can write the follwing dirs:
+- Make sure the server can write the following dirs:
 	- `/data/*`
 - Point the errors to
 	- `/?task=error`
@@ -16,4 +16,4 @@
 ### URL Rewrite
 Will be supported in future.
 
-> Format: `/<task>/<poll>/<lang>`
+> Format: `/<task>/<poll|admin>/[<param>/<value>]`

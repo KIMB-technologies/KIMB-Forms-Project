@@ -3,5 +3,6 @@
         "hosturl": "http:\/\/localhost:8000",
         "pagename": "KIMB-Forms-Project Dev",
         "footercontent": "Development Version"
-    }
+    },
+    "captcha": true
 }

@@ -109,6 +109,9 @@ class TemplateLoader{
 			}
 		}
 		$this->includetemp->setContent( 'FORMDEST', Utilities::generateLink('new') );
+		if( $this->configjson->getValue(['captcha']) ){
+			$this->includetemp->setContent( 'CAPTCHA', Captcha::getCaptchaHTML() );
+		}
 	}
 
 	/**

@@ -17,6 +17,7 @@ class Utilities{
 
 	public const POLL_ID = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890';
 	public const ADMIN_CODE = 'abcdefghijklmnopqrstuvwxyz01234567890';
+	public const CAPTCHA = 'abcdefghjkmnpqrstuvwxyz23456789';
 
 	/**
 	 * Checks if a String is a valid file-name (file only, no dirs)
@@ -53,6 +54,22 @@ class Utilities{
 		return self::$configjson->getValue(['site', 'hosturl']) . '/?task=' . $task
 			. ( $pollid != '' ? '&poll=' . $pollid : '' )
 			. ( $admincode != '' ? '&admin=' . $admincode : '' );
+	}
+
+	/**
+	 * Generates a API Link/ URL
+	 * @param $task the task
+	 * @param $params params to append array(param => value, ...)
+	 */
+	public static function generateAPILink($task, $params = array()){
+		if( self::$configjson == null ){
+			self::$configjson = new JSONReader( 'config' );
+		}
+		$app = '';
+		foreach( $params as $par => $val ){
+			$app .= '&' . $par . '=' . $val;
+		}
+		return self::$configjson->getValue(['site', 'hosturl']) . '/api.php?task=' . $task . $app;
 	}
 
 	/**

@@ -1,4 +1,5 @@
 {
 	"%%FORMDEST%%" : "",
-	"%%INNERCONTAINER%%" : ""
+	"%%INNERCONTAINER%%" : "",
+	"%%CAPTCHA%%" : ""
 }

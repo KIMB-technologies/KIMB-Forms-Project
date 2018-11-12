@@ -13,25 +13,23 @@ defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 
 class Poll{
 
-	private $polldata;
+	private $polldata,
+		$configjson;
 
 	/**
 	 * Generate poll participate by poll id
 	 */
 	public function __construct( $pollid ){
+		$this->configjson = new JSOnReader( 'config' );
 		$this->polldata = new JSONReader( 'poll_' . $pollid );
 	}
 
 	/**
-	 * Check if poll part. form send.
+	 * Check if poll participation form send.
 	 * @return boolean send?
 	 */
 	public function checkSend(){
-
-		/*
-		 * ToDo !!!!!
-		 */
-		return false;
+		return !empty( $_POST['pollsend'] ) && $_POST['pollsend'] == 'yes';
 	}
 
 	/**
@@ -39,13 +37,24 @@ class Poll{
 	 * @param $template the poll template
 	 */
 	public function saveSendData( $template ){
+		//captcha?
+		if( ( $this->configjson->getValue(['captcha', 'poll']) && Captcha::checkImageData() ) || !$this->configjson->getValue(['captcha', 'poll']) ){ 
+			
+			/**** ToDo **********************/
+			// Participation LOG
+			
+			$template->setContent( 'INNERCONTAINER', 'Saved!' );
+			/********************************/
 
-		/*
-		 * ToDo !!!!!
-		 * 
-		 * Participation LOG
-		 */
-		$template->setContent( 'INNERCONTAINER', 'Saved!' );
+			return true;
+		}
+		else{
+			$alert = new Template( 'alert' );
+			$template->includeTemplate($alert);
+			$alert->setContent( 'ALERTMESSAGE', Captcha::getError() );
+
+			return false;
+		}
 	}
 
 	/**
@@ -54,10 +63,7 @@ class Poll{
 	 */
 	public function showPollForm( $template ){
 
-		/*
-		 * ToDo !!!!!
-		 */
-
+		/**** ToDo **********************/
 		$template->setContent( 'FORMDEST', '' );
 		$template->setContent( 'POLLNAME', 'Name Poll' );
 		$template->setContent( 'POLLDESCRIPT', '*Desc* **Ha**' );
@@ -73,6 +79,12 @@ class Poll{
 				"TERMINID" => "termin_b"
 			)
 		));
+		/********************************/
+
+		//captcha?
+		if( $this->configjson->getValue(['captcha', 'poll']) ){
+			$template->setContent( 'CAPTCHA', Captcha::getCaptchaHTML() );
+		}
 	}		
 }
 

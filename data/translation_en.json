@@ -9,5 +9,8 @@
     "TermBenMaxAanz": "Each date needs a maximum of persons.",
     "MinEinTermNoet": "You need at least one date!",
     "UnBeAdmC": "Unknown Admin-Code!",
-    "UnBeUmfr": "Unknown poll!"
+    "UnBeUmfr": "Unknown poll!",
+    "PleFillCap": "Please fill in Captcha",
+    "IncorrCap": "Incorrect Captach",
+    "CaptTitle": "Captcha; Click to change."
 }

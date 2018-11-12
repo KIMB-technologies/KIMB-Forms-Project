@@ -68,6 +68,8 @@ class TemplateLoader{
 			$this->mainSetup();
 			$this->includetemp = new Template( 'error' );
 			$this->maintemplate->includeTemplate($this->includetemp);
+			$this->maintemplate->setContent( 'MAINBUTTONDEST', Utilities::generateLink('start') );
+			$this->maintemplate->setContent( 'MAINBUTTONTASK',  LanguageManager::getTranslation('MAINBUTTONTASK-start'));
 			http_response_code(404);
 		}
 	}
@@ -95,8 +97,9 @@ class TemplateLoader{
 		$this->maintemplate->setContent( 'MAINBUTTONTASK',  LanguageManager::getTranslation('MAINBUTTONTASK-start'));
 
 		if( PollCreator::checkForPostData() ){
+			$ok = ( $this->configjson->getValue(['captcha', 'new']) && Captcha::checkImageData() ) || !$this->configjson->getValue(['captcha', 'new']);
 			$pollcreator = new PollCreator();
-			if( $pollcreator->createPollByPostData() ){ // Fehler??
+			if( $ok && $pollcreator->createPollByPostData() ){ // Fehler??
 				$this->htmloutput = false;
 				http_response_code(303);
 				header( 'Location: ' . $pollcreator->getAdminLink() );
@@ -105,11 +108,11 @@ class TemplateLoader{
 			else{
 				$alert = new Template( 'alert' );
 				$this->includetemp->includeTemplate($alert);
-				$alert->setContent( 'ALERTMESSAGE', $pollcreator->errorMessage() );
+				$alert->setContent( 'ALERTMESSAGE', $ok ? $pollcreator->errorMessage() : Captcha::getError() );
 			}
 		}
 		$this->includetemp->setContent( 'FORMDEST', Utilities::generateLink('new') );
-		if( $this->configjson->getValue(['captcha']) ){
+		if( $this->configjson->getValue(['captcha', 'new']) ){
 			$this->includetemp->setContent( 'CAPTCHA', Captcha::getCaptchaHTML() );
 		}
 	}
@@ -131,7 +134,7 @@ class TemplateLoader{
 		}
 		else{
 			$alert = new Template( 'alert' );
-			$this->includetemp->includeTemplate($alert);
+			$this->maintemplate->includeTemplate($alert);
 			$alert->setContent( 'ALERTMESSAGE', LanguageManager::getTranslation('UnBeAdmC') );
 		}		
 	}
@@ -149,7 +152,9 @@ class TemplateLoader{
 		if( Utilities::checkFileName($pollid) && in_array( $pollid, $polls->getArray() ) ){
 			$poll = new Poll( $pollid );
 			if( $poll->checkSend() ){ // if poll form send
-				$poll->saveSendData( $this->includetemp );
+				if( !$poll->saveSendData( $this->includetemp ) ){
+					$poll->showPollForm( $this->includetemp );
+				}
 			}
 			else{
 				$poll->showPollForm( $this->includetemp );
@@ -157,7 +162,7 @@ class TemplateLoader{
 		}
 		else{
 			$alert = new Template( 'alert' );
-			$this->includetemp->includeTemplate($alert);
+			$this->maintemplate->includeTemplate($alert);
 			$alert->setContent( 'ALERTMESSAGE', LanguageManager::getTranslation('UnBeUmfr') );
 		}		
 	}

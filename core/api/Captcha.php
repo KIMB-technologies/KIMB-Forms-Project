@@ -13,12 +13,35 @@ defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 
 class Captcha{
 
+	/**
+	 * Use Post param in checkImageData
+	 */
 	const USE_POST = 1;
+
+	/**
+	 * The TTF font file for the image chars
+	 */
 	const FONT = __DIR__ . '/font/CabinSketch.ttf';
+
+	/**
+	 * The name of the session and post param
+	 */
 	const SESSION_POST_NAME = 'CAPTCHA_STRING';
 
+	/**
+	 * The string, displayed in the captcha
+	 */
 	private static $string;
 
+	/**
+	 * The error message
+	 */
+	private static $error = '';
+
+	/**
+	 * Creating a Captcha Image
+	 * (direct PNG output)
+	 */
 	public static function showImage(){
 		//load image
 		$img = imagecreate(130, 30);
@@ -62,17 +85,46 @@ class Captcha{
 		die();
 	}
 
+	/**
+	 * Getting the HTML for the captcha
+	 */
 	public static function getCaptchaHTML(){
-		return '<div class="alert" role="alert"><div class="row"><div class="col"><img title="Captcha" src="'. Utilities::generateAPILink('captcha', ['time' => time()]) .'"></div>'
-			.'<div class="col"><input type="text" name="'. self::SESSION_POST_NAME .'" placeholder="Captcha" class="form-control"></div></div></div>';
+		return '<div class="alert" role="alert"><div class="row"><div class="col">'
+			.'<img title="'.LanguageManager::getTranslation('CaptTitle').'" src="'. Utilities::generateAPILink('captcha', ['time' => time()])
+			.'" onclick="this.src=\''.Utilities::generateAPILink('captcha').'&r=\'+Math.random();"></div>'
+			.'<div class="col"><input type="text" name="'. self::SESSION_POST_NAME .'" placeholder="Captcha" class="form-control">'
+			.'</div></div></div>';
 	}
 	
+	/**
+	 * Checking the captcha and post data
+	 * @param $string the string typed by the user
+	 * 	default self::USE_POST, the post param by getCaptchaHTML()
+	 */
 	public static function checkImageData( $string = self::USE_POST ){
-		/**
-		 * ToDo
-		 */
-		
-		return false;
+		if( $string === self::USE_POST ){
+			$string = $_POST[self::SESSION_POST_NAME];
+		}
+		if( !empty( $_SESSION[self::SESSION_POST_NAME] ) && !empty( $string ) ){
+			if( $_SESSION[self::SESSION_POST_NAME] == $string ){
+				return true;
+			}
+			else{
+				self::$error = LanguageManager::getTranslation( 'IncorrCap' );
+				return false;
+			}
+		}
+		else{
+			self::$error = LanguageManager::getTranslation( 'PleFillCap' );
+			return false;
+		}
+	}
+
+	/**
+	 * Getting the error Message
+	 */
+	public static function getError(){
+		return self::$error;
 	}
 }
 

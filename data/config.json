@@ -4,5 +4,8 @@
         "pagename": "KIMB-Forms-Project Dev",
         "footercontent": "Development Version"
     },
-    "captcha": true
+    "captcha": {
+        "poll": true,
+        "new": true
+    }
 }

@@ -1,6 +1,8 @@
 <h1>Umfrage</h1>
 <h2>%%POLLNAME%%</h2>
 
+%%INNERCONTAINER%%
+
 <div class="alert alert-dark" role="alert">
 	<div class="parseasmarkdown">
 		%%POLLDESCRIPT%%
@@ -8,6 +10,7 @@
 </div>
 
 <form action="%%FORMDEST%%" method="post">
+<input type="hidden" name="pollsend" value="yes">
 
 <div class="container">
 	<div class="row">
@@ -45,6 +48,7 @@
 		</div>
 <!--MULTIPLE-Termin-END-->
 	</div>
+	%%CAPTCHA%%
 	<div class="alert alert-primary" role="alert">
 		<div class="row">
 			<div class="col">

@@ -130,7 +130,7 @@ class PollCreator{
 					if($a !== false){
 						$a = intval( substr( trim(preg_replace( self::PREG_NUMBER, '' , $a)), 0, self::MAXL_NUMBER) );
 					}
-					if( $this->data['formtype'] == 'person' && empty($a) ){
+					if( $this->data['formtype'] == 'person' && empty($a) && !empty($b) ){
 						$error = true;
 						$this->errormsg = LanguageManager::getTranslation( 'TermBenMaxAanz' );
 					}

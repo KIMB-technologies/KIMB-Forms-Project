@@ -2,6 +2,8 @@
 	"%%FORMDEST%%" : "",
 	"%%POLLNAME%%" : "Test 3",
 	"%%POLLDESCRIPT%%" : "*Beschreibung* **Test**",
+	"%%CAPTCHA%%" : "",
+	"%%INNERCONTAINER%%" : "",
 	"multiples" : {
 		"Termin" : {
 			"%%NAME%%" : "Name",

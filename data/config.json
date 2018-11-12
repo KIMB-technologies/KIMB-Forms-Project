@@ -2,6 +2,6 @@
     "site": {
         "hosturl": "http:\/\/localhost:8000",
         "pagename": "KIMB-Forms-Project Dev",
-        "footercontent": "by KIMB-technologies, GPLv3"
+        "footercontent": "Development Version"
     }
 }

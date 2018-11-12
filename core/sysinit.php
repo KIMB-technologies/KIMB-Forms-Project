@@ -23,6 +23,6 @@ if( constant( 'KIMB-FORMS-PROJECT' ) === 'PAGE' ){ //load as normal HTML page
 	$loader->decideOnTask( Utilities::urlParser()['task'] );
 }
 else if( constant( 'KIMB-FORMS-PROJECT' ) === 'API'){ //load as API Request (AJAX, etc.)
-	echo 'API';
+	require_once( __DIR__ . '/api/api.php' );
 }
 ?>

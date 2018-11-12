@@ -16,8 +16,12 @@ require_once( __DIR__ . '/Utilities.php' );
 spl_autoload_register(function ($class) {
 	if( Utilities::checkFileName( $class ) ){
 		$classfile = __DIR__ . '/' . $class . '.php';
-		if( is_file($classfile) ){
+		$apiclassfile = __DIR__ . '/api/' . $class . '.php';
+		if( is_file($classfile) ){ //Page class
 			require_once( $classfile );
+		}
+		else if( is_file($apiclassfile) ){ // API class
+			require_once( $apiclassfile );
 		}
 	}
 });

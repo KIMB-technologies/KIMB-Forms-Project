@@ -95,7 +95,7 @@ function md_parser(toParse){
 			}
 			// Links:
 			else if (token[10]) {
-				out = out.replace('<a>', `<a href="${encodeAttr(token[11] || links[prev.toLowerCase()])}">`);
+				out = out.replace('<a>', `<a href="${encodeAttr(token[11] || links[prev.toLowerCase()])}" target="_blank">`);
 				chunk = flush() + '</a>';
 			}
 			else if (token[9]) {

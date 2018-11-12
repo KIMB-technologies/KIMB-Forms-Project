@@ -9,6 +9,8 @@
  * released under the terms of GNU Public License Version 3
  * https://www.gnu.org/licenses/gpl-3.0.txt
  */
+defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
+
 require_once( __DIR__ . '/Utilities.php' );
 
 spl_autoload_register(function ($class) {

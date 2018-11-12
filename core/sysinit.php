@@ -9,6 +9,7 @@
  * released under the terms of GNU Public License Version 3
  * https://www.gnu.org/licenses/gpl-3.0.txt
  */
+defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 
 error_reporting(0);
 session_name( 'KIMB-Forms-Project' );
@@ -17,6 +18,11 @@ session_start();
 JSONReader::changepath( __DIR__ . '/../data/' );
 LanguageManager::init();
 
-$loader = new TemplateLoader();
-$loader->decideOnTask( Utilities::urlParser()['task'] );
+if( constant( 'KIMB-FORMS-PROJECT' ) === 'PAGE' ){ //load as normal HTML page
+	$loader = new TemplateLoader();
+	$loader->decideOnTask( Utilities::urlParser()['task'] );
+}
+else if( constant( 'KIMB-FORMS-PROJECT' ) === 'API'){ //load as API Request (AJAX, etc.)
+	echo 'API';
+}
 ?>

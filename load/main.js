@@ -19,6 +19,9 @@ $( function (){
 		case "start":
 			template_start();
 			break;
+		case "poll":
+			template_poll();
+			break;
 		default:
 			break;
 	}
@@ -26,6 +29,9 @@ $( function (){
 
 function template_main(){
 	$(document).tooltip();
+	$("div.parseasmarkdown").each( (k,v) =>{
+		$( v ).html( md_parser( $( v ).text().trim() ) );
+	});
 
 	$( "div#languagebuttons button" ).click(function (){
 		window.location.href = $(this).attr('linkdest');
@@ -112,4 +118,8 @@ function template_start(){
 		var code = $("input#admincode").val();
 		window.location.href = template_data["admin"].replace('<admin>', code);
 	});
+}
+
+function template_poll(){
+	
 }

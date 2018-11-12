@@ -1,3 +1,13 @@
 {
-	"%%INNERCONTAINER%%" : "inner data"
+	"%%FORMDEST%%" : "",
+	"%%POLLNAME%%" : "Test 3",
+	"%%POLLDESCRIPT%%" : "*Beschreibung* **Test**",
+	"multiples" : {
+		"Termin" : {
+			"%%NAME%%" : "Name",
+			"%%ANZAHL%%" : "0/10",
+			"%%HINWEISE%%" : "**bla**",
+			"%%TERMINID%%" : "termin_a"
+		}
+	} 
 }

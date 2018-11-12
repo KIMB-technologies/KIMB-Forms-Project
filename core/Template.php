@@ -19,12 +19,18 @@ defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
  * 		%%INNERCONTAINER%%
  */
 class Template{
+	/*
+		Using this Template system, you must not allow users to insert strings like (wile xxx is some alphanum.)
+			<!--MULTIPLE-xxxx-BEGIN-->, <!--MULTIPLE-xxxx-END-->, %%xxxx%%
+	*/
 	
 	/**
 	 * Name, Placeholderdata and included Template
 	 */
 	private $filename = '';
 	private $placeholder = array();
+	private $multiples = array();
+	private $multiples_data = array();
 	private $inner = null;
 
 	private static $lang = 'de';
@@ -55,9 +61,48 @@ class Template{
 			try{
 				$this->htmldata = file_get_contents( __DIR__ . '/templates/' . $name .  '_' . self::$lang . '.html' );
 				$this->placeholder = json_decode( file_get_contents( __DIR__ . '/templates/' . $name . '.json' ) , true);
+				if( isset($this->placeholder['multiples']) ){
+					$this->multiples = $this->placeholder['multiples'];
+					unset($this->placeholder['multiples']);
+				}
 			} catch (Exception $e) {
 			    die( 'Unable to load Template data!' );
 			}			
+		}
+	}
+
+	/**
+	 * Sets the content for one type of multiple page elements
+	 * @param $name the name of the multiple page element
+	 * @param $content the content for each part as array
+	 * 	array(
+	 * 		array(
+	 * 			"key" => "val",
+	 * 			//...
+	 * 		)
+	 * 		//...
+	 * 	)
+	 */
+	public function setMultipleContent($name, $content){
+		if( isset( $this->multiples[$name] ) ){
+			$mults = array();
+			foreach( $content as $data){
+				$mul = $this->multiples[$name];
+				foreach( $data as $key => $val){
+					$key = "%%".str_replace("%%", "", $key)."%%";
+					if( isset( $mul[$key] ) ){
+						$mul[$key] = $val;
+					}
+				}
+				$mults[] = $mul;
+			}
+			if( !empty($mults) ){
+				$this->multiples_data[$name] = $mults;
+			}
+			return true;
+		}
+		else{
+			return false;
 		}
 	}
 
@@ -94,6 +139,26 @@ class Template{
 	 * Getting the output of this template (incl. included ones)
 	 */
 	public function getOutputString(){
+		foreach( $this->multiples as $name => $val ){
+			$a = explode( '<!--MULTIPLE-'.$name.'-BEGIN-->', $this->htmldata );
+			$b = explode( '<!--MULTIPLE-'.$name.'-END-->', $this->htmldata );
+
+			if( !empty($this->multiples_data[$name]) ){
+				$inner = substr( $a[1], 0, strpos($a[1], '<!--MULTIPLE-'.$name.'-END-->') );
+				$middle = '';
+				foreach( $this->multiples_data[$name] as $data){
+					$middle .= str_replace(
+							array_keys( $data ),
+							array_values( $data ),
+						$inner );
+				}
+			}
+			else{
+				$middle = '';
+			}
+			$this->htmldata = $a[0] . $middle . $b[1];
+		}
+
 		if( $this->inner !== null ){
 			$this->placeholder['%%INNERCONTAINER%%'] = $this->inner->getOutputString();
 		}

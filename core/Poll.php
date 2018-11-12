@@ -57,7 +57,22 @@ class Poll{
 		/*
 		 * ToDo !!!!!
 		 */
-		$template->setContent( 'INNERCONTAINER','<pre>'.print_r(  $this->polldata->getArray(), true).'</pre>');
+
+		$template->setContent( 'FORMDEST', '' );
+		$template->setContent( 'POLLNAME', 'Name Poll' );
+		$template->setContent( 'POLLDESCRIPT', '*Desc* **Ha**' );
+		
+		$template->setMultipleContent('Termin', array(
+			array(
+				"NAME" => "o",
+				"ANZAHL" => "i",
+				"HINWEISE" => "z",
+				"TERMINID" => "termin_a"
+			),
+			array(
+				"TERMINID" => "termin_b"
+			)
+		));
 	}		
 }
 

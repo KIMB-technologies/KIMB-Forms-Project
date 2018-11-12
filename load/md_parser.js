@@ -10,7 +10,7 @@
  * @param {*string} toParse the markdown string
  * @return the output as html
  */
-function parser(toParse){
+function md_parser(toParse){
 
 	const TAGS = {
 		'' : ['<em>','</em>'],

@@ -92,13 +92,13 @@ function template_new(){
 			"lauf" : laufindex,
 			"formtype" : $("input[name=formtype]:checked").val()
 		};
-		$("input[type=text]").each((k,v) => {
+		$("input[type=text]:not(.nolocalsave)").each((k,v) => {
 			data["inputsText"][k] = $( v ).val();
 		});
-		$("input[type=number]").each((k,v) => {
+		$("input[type=number]:not(.nolocalsave)").each((k,v) => {
 			data["inputsNum"][k] = $( v ).val();
 		});
-		$("textarea").each((k,v) => {
+		$("textarea:not(.nolocalsave)").each((k,v) => {
 			data["textAr"][k] = $( v ).val();
 		});
 		localStorage.setItem( "newPollData", JSON.stringify( data ) );
@@ -121,5 +121,21 @@ function template_start(){
 }
 
 function template_poll(){
-	
+	function loadSaved(){
+		var data = JSON.parse( localStorage.getItem( "pollPollData" ) );
+		$("input[name=name]").val( data.username );
+		$("input[name=email]").val( data.usermail );
+	}
+	if( localStorage.hasOwnProperty("pollPollData") ){
+		loadSaved();
+	}
+
+	function save(){
+		var data = {
+			"username" : $("input[name=name]").val(),
+			"usermail" : $("input[name=email]").val(),
+		};
+		localStorage.setItem( "pollPollData", JSON.stringify( data ) );
+	}
+	$("input[type=text], input[type=email]").change(save);
 }

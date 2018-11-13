@@ -28,6 +28,15 @@ class Utilities{
 	}
 
 	/**
+	 * Does some optimizing on the give string to output it for html display
+	 * 	nl2br and htmlentities
+	 * @param $cont the string to optimized
+	 */
+	public static function optimizeOutputString($cont){
+		return nl2br( htmlentities( $cont, ENT_COMPAT | ENT_HTML401, 'UTF-8' ));
+	}
+
+	/**
 	 * Generates a random code
 	 * @param $len the code lenght
 	 * @param $chars the chars to choose of (string)

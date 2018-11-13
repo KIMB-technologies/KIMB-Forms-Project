@@ -14,6 +14,7 @@ defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 class Poll{
 
 	private $polldata,
+		$pollsub,
 		$configjson;
 
 	/**
@@ -22,6 +23,7 @@ class Poll{
 	public function __construct( $pollid ){
 		$this->configjson = new JSOnReader( 'config' );
 		$this->polldata = new JSONReader( 'poll_' . $pollid );
+		$this->pollsub = new JSONReader( 'pollsub_' . $pollid );
 	}
 
 	/**
@@ -63,23 +65,42 @@ class Poll{
 	 */
 	public function showPollForm( $template ){
 
-		/**** ToDo **********************/
-		$template->setContent( 'FORMDEST', '' );
-		$template->setContent( 'POLLNAME', 'Name Poll' );
-		$template->setContent( 'POLLDESCRIPT', '*Desc* **Ha**' );
+		$template->setContent( 'FORMDEST', Utilities::currentLinkGenerator() );
+		$template->setContent( 'POLLNAME', Utilities::optimizeOutputString($this->polldata->getValue( ['pollname'] )) );
+		$template->setContent( 'POLLDESCRIPT', Utilities::optimizeOutputString($this->polldata->getValue( ['description'] )) );
+
+		$type = $this->polldata->getValue( ['formtype'] );
+		$termine = array();
+		foreach( $this->polldata->getValue( ['termine'] ) as $id => $values){
+			if( $type === 'person' ){
+				$schon = $this->pollsub->isValue( [$id] ) ? count( $this->pollsub->getValue( [$id] ) ) : 0; 
+				$anzval = $schon . '/' . $values["anz"];
+
+				$disable = $schon >= $values["anz"] ? ' disabled="disabled"' : '';
+			}
+			else{
+				if( $schon = $this->pollsub->isValue( [$id] ) ){
+					$names = array();
+					foreach( $this->pollsub->getValue( [$id] ) as $user){
+						$names[] = Utilities::optimizeOutputString( $user['name'] );
+					}
+					$anzval = '<ul class="list-group"><li class="list-group-item">' .  implode( '</li><li class="list-group-item">',  $names ). '</li></ul>';
+				}
+				else{
+					$anzval = '';
+				}
+				$disable = '';
+			}
+			$termine[] = array(
+				"NAME" => Utilities::optimizeOutputString( $values["bez"] ),
+				"ANZAHL" => $anzval,
+				"HINWEISE" => Utilities::optimizeOutputString( $values["des"] ),
+				"TERMINID" => "termin_" . $id,
+				"DISABLE" => $disable
+			);
+		}
 		
-		$template->setMultipleContent('Termin', array(
-			array(
-				"NAME" => "o",
-				"ANZAHL" => "i",
-				"HINWEISE" => "z",
-				"TERMINID" => "termin_a"
-			),
-			array(
-				"TERMINID" => "termin_b"
-			)
-		));
-		/********************************/
+		$template->setMultipleContent('Termin', $termine);
 
 		//captcha?
 		if( $this->configjson->getValue(['captcha', 'poll']) ){

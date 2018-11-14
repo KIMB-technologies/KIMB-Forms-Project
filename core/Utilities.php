@@ -106,9 +106,9 @@ class Utilities{
 		//	should be parsed here into $_GET['param'] = value
 		//	only necessary if, typical &par=val is not used
 		return array(
-			'task' => isset($_GET['task']) ? preg_replace( '[^a-z]', '', $_GET['task'] ) : 'start',
-			'pollid' => isset($_GET['poll']) ?  preg_replace( '[^a-z0-9]', '', $_GET['poll'] ) : false,
-			'admincode' => isset($_GET['admin']) ?  preg_replace( '[^a-z0-9]', '', $_GET['admin'] ) : false
+			'task' => isset($_GET['task']) && is_string($_GET['task']) ? preg_replace( '[^a-z]', '', $_GET['task'] ) : 'start',
+			'pollid' => isset($_GET['poll']) && is_string($_GET['poll']) ?  preg_replace( '[^a-z0-9]', '', $_GET['poll'] ) : false,
+			'admincode' => isset($_GET['admin']) && is_string($_GET['admin']) ?  preg_replace( '[^a-z0-9]', '', $_GET['admin'] ) : false
 		);
 	}
 

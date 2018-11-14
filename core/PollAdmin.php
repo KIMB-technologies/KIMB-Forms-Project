@@ -14,6 +14,7 @@ defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 class PollAdmin{
 
 	private $polldata,
+		$pollsub,
 		$template;
 
 	/**
@@ -21,6 +22,7 @@ class PollAdmin{
 	 */
 	public function __construct($pollid, $template){
 		$this->polldata = new JSONReader( 'poll_' . $pollid );
+		$this->pollsub = new JSONReader( 'pollsub_' . $pollid );
 		$this->template = $template;
 
 		/*
@@ -38,7 +40,7 @@ class PollAdmin{
 		 * ToDo !!!!!
 		 */
 
-		$this->template->setContent( 'INNERCONTAINER', '<pre>'.print_r($this->polldata->getArray(), true).'</pre>');
+		$this->template->setContent( 'INNERCONTAINER', '<pre>'.print_r($this->polldata->getArray(), true).print_r($this->pollsub->getArray(), true).'</pre>');
 	}
 }
 ?>

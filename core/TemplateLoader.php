@@ -44,7 +44,7 @@ class TemplateLoader{
 	 * Decide what to display on URL Task
 	 */
 	public function decideOnTask( $task ){
-		if( in_array( $task, self::$tasks ) ){
+		if( is_string($task) && in_array( $task, self::$tasks ) ){
 			$this->includetemp = new Template( $task );
 			$this->maintemplate->includeTemplate($this->includetemp);
 
@@ -162,9 +162,14 @@ class TemplateLoader{
 		if( Utilities::checkFileName($pollid) && in_array( $pollid, $polls->getArray() ) ){
 			$poll = new Poll( $pollid );
 			if( $poll->checkSend() ){ // if poll form send
-				if( !$poll->saveSendData( $this->includetemp ) ){
+				if( !$poll->saveSendData( $this->maintemplate ) ){
 					$poll->showPollForm( $this->includetemp );
+
+					$alert = new Template( 'alert' );
+					$this->includetemp->includeTemplate($alert);
+					$alert->setContent( 'ALERTMESSAGE', $poll->getError() );
 				}
+				//else { template done in saveSendData }
 			}
 			else{
 				$poll->showPollForm( $this->includetemp );

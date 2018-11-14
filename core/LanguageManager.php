@@ -46,7 +46,7 @@ class LanguageManager{
 	 * @param lang the lang to use
 	 */
 	public static function setLanguage( $lang ){
-		if( in_array( $lang, self::$allLangs ) ){
+		if( is_string($lang) && in_array( $lang, self::$allLangs ) ){
 			self::$lang = $lang;
 			$_SESSION['language'] = $lang;
 		}

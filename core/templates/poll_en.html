@@ -1,6 +1,79 @@
 <h1>Poll</h1>
+<h2>%%POLLNAME%%</h2>
 
+%%INNERCONTAINER%%
 
+<div class="alert alert-dark" role="alert">
+	<div class="parseasmarkdown">
+		%%POLLDESCRIPT%%
+	</div>
+</div>
+
+<form action="%%FORMDEST%%" method="post">
+<input type="hidden" name="pollsend" value="yes">
+
+<div class="container">
+	<div class="row">
+		<div class="col col-1">
+		</div>
+		<div class="col" title="Name of the date and number of free places/ other participants.">
+			<h3>Dates</h3>
+		</div>
+		<div class="col">
+			Notes
+		</div>
+	</div>
+	<div class="alert alert-light" role="alert">
+<!--MULTIPLE-Termin-BEGIN-->
+		<div class="row">
+			<div class="col col-1">
+				<input type="checkbox" name="%%TERMINID%%" class="terminwahl form-control"
+					title="Choose this date." %%DISABLE%%>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<p>
+						%%NAME%%
+					</p>
+					<p>
+						%%ANZAHL%%
+					</p>
+				</div>
+			</div>
+			<div class="col">
+				<div class="parseasmarkdown">
+					%%HINWEISE%%
+				</div>
+			</div>
+		</div>
+<!--MULTIPLE-Termin-END-->
+	</div>
+	%%TEXTSEINWILL%%
+	%%CAPTCHA%%
+	<div class="alert alert-primary" role="alert">
+		<div class="row">
+			<div class="col">
+				<div class="form-group">
+					<input type="text" name="name" placeholder="Name" class="username form-control"
+						title="Name of the person, which takes the shift (required).">
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<input type="email" name="email" placeholder="E-Mail-Address" class="usermail form-control"
+						title="Contact for questions (optional, visible for for admins).">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<input type="submit" class="btn btn-primary" value="Send">
+			</div>
+		</div>
+	</div>
+</div>
+
+</form>
 
 <script>
 	var template_name = 'poll';

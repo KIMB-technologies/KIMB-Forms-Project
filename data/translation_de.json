@@ -13,5 +13,6 @@
     "PleFillCap": "Bitte das Captcha ausf\u00fcllen!",
     "IncorrCap": "Fehlerhaftes Captcha!",
     "CaptTitle": "Captcha; Neues durch klicken erstellen.",
-    "EinwillErr": "Die Hinweise\/ Einwilligung wurden nicht akzeptiert!"
+    "EinwillErr": "Die Hinweise\/ Einwilligung wurden nicht akzeptiert!",
+    "FillTermName": "Es muss mindestens ein Termin gew\u00e4hlt und ein Name angegeben werden!"
 }

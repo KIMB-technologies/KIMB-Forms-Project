@@ -20,9 +20,9 @@ Edit the file `/data/config.json` as follows:
 
 {
     "site": {
-        "hosturl": "string", // The (base) URL to the system, without / at the end.
-        "pagename": "string", // The name of the website.
-        "footercontent": "string, html" // The content of the footer.
+        "hosturl": "string", // the (base) URL to the system, without / at the end
+        "pagename": "string", // the name of the website
+        "footercontent": "string, html" // the content of the footer
     },
     "captcha": {
         "poll": true|false, // enable or disable Captchas when submitting answers
@@ -31,8 +31,8 @@ Edit the file `/data/config.json` as follows:
     "texts": {
         "enablePoll": true|false, // enable a text the user has to accept before submitting answers
         "enableNew": true|false, // enable a text the user has to accept before creating polls
-        "textPoll": "Poll ok Text", // the text, submitting polls
-        "textNew": "New ok Text" // the text, creating polls
+        "textPoll": "string, html", // the text, submitting polls
+        "textNew": "string, html" // the text, creating polls
     }
 }
 

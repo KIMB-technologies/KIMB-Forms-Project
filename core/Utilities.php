@@ -15,9 +15,9 @@ class Utilities{
 
 	private static $configjson = null;
 
-	public const POLL_ID = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890';
-	public const ADMIN_CODE = 'abcdefghijklmnopqrstuvwxyz01234567890';
-	public const CAPTCHA = 'abcdefghjkmnpqrstuvwxyz23456789';
+	const POLL_ID = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890';
+	const ADMIN_CODE = 'abcdefghijklmnopqrstuvwxyz01234567890';
+	const CAPTCHA = 'abcdefghjkmnpqrstuvwxyz23456789';
 
 	/**
 	 * Checks if a String is a valid file-name (file only, no dirs)

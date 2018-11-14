@@ -97,9 +97,10 @@ class TemplateLoader{
 		$this->maintemplate->setContent( 'MAINBUTTONTASK',  LanguageManager::getTranslation('MAINBUTTONTASK-start'));
 
 		if( PollCreator::checkForPostData() ){
-			$ok = ( $this->configjson->getValue(['captcha', 'new']) && Captcha::checkImageData() ) || !$this->configjson->getValue(['captcha', 'new']);
+			$capok = ( $this->configjson->getValue(['captcha', 'new']) && Captcha::checkImageData() ) || !$this->configjson->getValue(['captcha', 'new']);
+			$einwill = ( ( $this->configjson->getValue(['texts', 'enableNew']) && !empty( $_POST['textseinwill'] )) || !$this->configjson->getValue(['texts', 'enableNew']) );
 			$pollcreator = new PollCreator();
-			if( $ok && $pollcreator->createPollByPostData() ){ // Fehler??
+			if( $capok && $einwill && $pollcreator->createPollByPostData() ){ // Fehler??
 				$this->htmloutput = false;
 				http_response_code(303);
 				header( 'Location: ' . $pollcreator->getAdminLink() );
@@ -108,12 +109,21 @@ class TemplateLoader{
 			else{
 				$alert = new Template( 'alert' );
 				$this->includetemp->includeTemplate($alert);
-				$alert->setContent( 'ALERTMESSAGE', $ok ? $pollcreator->errorMessage() : Captcha::getError() );
+				$alert->setContent( 'ALERTMESSAGE', $capok ? ( $einwill ? $pollcreator->errorMessage() : LanguageManager::getTranslation('EinwillErr') ) : Captcha::getError() );
 			}
 		}
 		$this->includetemp->setContent( 'FORMDEST', Utilities::generateLink('new') );
 		if( $this->configjson->getValue(['captcha', 'new']) ){
 			$this->includetemp->setContent( 'CAPTCHA', Captcha::getCaptchaHTML() );
+		}
+		if( $this->configjson->getValue(['texts', 'enableNew']) ){
+			$this->includetemp->setContent( 'TEXTSEINWILL',
+				Utilities::getRowHtml(
+					'<input type="checkbox" class="form-control" name="textseinwill" value="yes">',
+					$this->configjson->getValue(['texts', 'textNew']),
+					'col-sm-1'
+				)
+			);
 		}
 	}
 

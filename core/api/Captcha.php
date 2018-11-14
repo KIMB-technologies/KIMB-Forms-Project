@@ -89,11 +89,10 @@ class Captcha{
 	 * Getting the HTML for the captcha
 	 */
 	public static function getCaptchaHTML(){
-		return '<div class="alert" role="alert"><div class="row"><div class="col">'
-			.'<img title="'.LanguageManager::getTranslation('CaptTitle').'" src="'. Utilities::generateAPILink('captcha', ['time' => time()])
-			.'" onclick="this.src=\''.Utilities::generateAPILink('captcha').'&r=\'+Math.random();"></div>'
-			.'<div class="col"><input type="text" name="'. self::SESSION_POST_NAME .'" placeholder="Captcha" class="form-control nolocalsave">'
-			.'</div></div></div>';
+		return Utilities::getRowHtml(
+			'<img title="'.LanguageManager::getTranslation('CaptTitle').'" src="'. Utilities::generateAPILink('captcha', ['time' => time()]) .'" onclick="this.src=\''.Utilities::generateAPILink('captcha').'&r=\'+Math.random();">',
+			'<input type="text" name="'. self::SESSION_POST_NAME .'" placeholder="Captcha" class="form-control nolocalsave">'
+		);
 	}
 	
 	/**

@@ -111,6 +111,17 @@ class Utilities{
 			'admincode' => isset($_GET['admin']) ?  preg_replace( '[^a-z0-9]', '', $_GET['admin'] ) : false
 		);
 	}
+
+	/**
+	 * Returns a typical div colum having two rows.
+	 * @param $first the data in the first cell
+	 * @param $second the data in the second cell
+	 * @param $clF classes to add to first cell	
+	 * @param $clS classes to add to second cell
+	 */
+	public static function getRowHtml($first, $second, $clF = '', $clS = ''){
+		return '<div class="alert" role="alert"><div class="row"><div class="col '. $clF .'">' . $first .'</div><div class="col '. $clS .'">'. $second .'</div></div></div>';
+	}
 }
 
 ?>

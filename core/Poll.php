@@ -40,7 +40,9 @@ class Poll{
 	 */
 	public function saveSendData( $template ){
 		//captcha?
-		if( ( $this->configjson->getValue(['captcha', 'poll']) && Captcha::checkImageData() ) || !$this->configjson->getValue(['captcha', 'poll']) ){ 
+		$capok = ( $this->configjson->getValue(['captcha', 'poll']) && Captcha::checkImageData() ) || !$this->configjson->getValue(['captcha', 'poll']);
+		$einwill = ( ( $this->configjson->getValue(['texts', 'enablePoll']) && !empty( $_POST['textseinwill'] )) || !$this->configjson->getValue(['texts', 'enablePoll']) );
+		if( $capok && $einwill ){ 
 			
 			/**** ToDo **********************/
 			// Participation LOG
@@ -53,7 +55,7 @@ class Poll{
 		else{
 			$alert = new Template( 'alert' );
 			$template->includeTemplate($alert);
-			$alert->setContent( 'ALERTMESSAGE', Captcha::getError() );
+			$alert->setContent( 'ALERTMESSAGE', $capok ? LanguageManager::getTranslation('EinwillErr') : Captcha::getError() );
 
 			return false;
 		}
@@ -105,6 +107,16 @@ class Poll{
 		//captcha?
 		if( $this->configjson->getValue(['captcha', 'poll']) ){
 			$template->setContent( 'CAPTCHA', Captcha::getCaptchaHTML() );
+		}
+		//notes?
+		if( $this->configjson->getValue(['texts', 'enablePoll']) ){
+			$template->setContent( 'TEXTSEINWILL',
+				Utilities::getRowHtml(
+					'<input type="checkbox" class="form-control" name="textseinwill" value="yes">',
+					$this->configjson->getValue(['texts', 'textPoll']),
+					'col-sm-1'
+				)
+			);
 		}
 	}		
 }

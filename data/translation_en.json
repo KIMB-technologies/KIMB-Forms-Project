@@ -12,5 +12,6 @@
     "UnBeUmfr": "Unknown poll!",
     "PleFillCap": "Please fill in Captcha",
     "IncorrCap": "Incorrect Captach",
-    "CaptTitle": "Captcha; Click to change."
+    "CaptTitle": "Captcha; Click to change.",
+    "EinwillErr": "The notes were not accepted!"
 }

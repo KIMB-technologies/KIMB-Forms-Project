@@ -12,5 +12,6 @@
     "UnBeUmfr": "Unbekannte Umfrage!",
     "PleFillCap": "Bitte das Captcha ausf\u00fcllen!",
     "IncorrCap": "Fehlerhaftes Captcha!",
-    "CaptTitle": "Captcha; Neues durch klicken erstellen."
+    "CaptTitle": "Captcha; Neues durch klicken erstellen.",
+    "EinwillErr": "Die Hinweise\/ Einwilligung wurden nicht akzeptiert!"
 }

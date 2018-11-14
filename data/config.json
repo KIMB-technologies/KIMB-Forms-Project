@@ -5,7 +5,13 @@
         "footercontent": "Development Version"
     },
     "captcha": {
-        "poll": true,
-        "new": true
+        "poll": false,
+        "new": false
+    },
+    "texts": {
+        "enablePoll": false,
+        "enableNew": false,
+        "textPoll": "Poll ok Text",
+        "textNew": "New ok Text"
     }
 }

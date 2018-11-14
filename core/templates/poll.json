@@ -3,6 +3,7 @@
 	"%%POLLNAME%%" : "Test 3",
 	"%%POLLDESCRIPT%%" : "*Beschreibung* **Test**",
 	"%%CAPTCHA%%" : "",
+	"%%TEXTSEINWILL%%" : "",
 	"%%INNERCONTAINER%%" : "",
 	"multiples" : {
 		"Termin" : {

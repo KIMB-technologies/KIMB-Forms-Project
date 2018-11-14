@@ -118,6 +118,11 @@ function template_start(){
 		var code = $("input#admincode").val();
 		window.location.href = template_data["admin"].replace('<admin>', code);
 	});
+	$("input#pollid, input#admincode").keypress(function(e) {
+		if(e.which == 13) { // Enter
+			$( "button#" + ( $(this).attr("id") == "pollid" ? "polllos" : "adminlos" ) ).click();
+		}
+	});
 }
 
 function template_poll(){

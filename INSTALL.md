@@ -1,6 +1,10 @@
 # KIMB-Forms-Project Install
 
-## Server
+## Server Requirements
+- Webserver running PHP **7**
+- PHP-GD for Captchas
+
+## Server Setup
 - Make sure to lock the following folders for HTTP-Requests:
 	- `/core/*`
 	- `/data/*`
@@ -10,8 +14,29 @@
 	- `/?task=error`
 
 ## Configuration
-- Fill the values in:
-	- `/data/config.json`
+Edit the file `/data/config.json` as follows:
+
+```javascript
+
+{
+    "site": {
+        "hosturl": "string", // The (base) URL to the system, without / at the end.
+        "pagename": "string", // The name of the website.
+        "footercontent": "string, html" // The content of the footer.
+    },
+    "captcha": {
+        "poll": true|false, // enable or disable Captchas when submitting answers
+        "new": true|false // enable or disable Captchas when creating new polls
+    },
+    "texts": {
+        "enablePoll": true|false, // enable a text the user has to accept before submitting answers
+        "enableNew": true|false, // enable a text the user has to accept before creating polls
+        "textPoll": "Poll ok Text", // the text, submitting polls
+        "textNew": "New ok Text" // the text, creating polls
+    }
+}
+
+```
 
 ### URL Rewrite
 Will be supported in future.

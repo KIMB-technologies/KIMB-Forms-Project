@@ -1,9 +1,4 @@
-/**
- * Small Markdown Parser
- * @param {*string} toParse the markdown string
- * @return the output as html
- */
-function md_parser(toParse){
+(function (){ // load marked and style custom
 	/**
 	 * marked - a markdown parser
 	 * Copyright (c) 2011-2018, Christopher Jeffrey. (MIT Licensed)
@@ -26,6 +21,13 @@ function md_parser(toParse){
 		gfm: true,
 		tables: false,
 	});
+})();
 
+/**
+ * Markdown Parsing
+ * @param {*string} toParse the markdown string
+ * @return the output as html
+ */
+function md_parser(toParse){
 	return marked(toParse);
 }

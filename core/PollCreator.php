@@ -107,9 +107,9 @@ class PollCreator{
 			&& !empty( $_POST['formtype'] )
 			&& !empty( $_POST['description'] )
 		){
-			$this->data['pollname'] = substr( trim(preg_replace( self::PREG_TEXTINPUT, '' , $_POST['pollname'] )), 0, self::MAXL_TEXTINPUT);
+			$this->data['pollname'] = Utilities::validateInput($_POST['pollname'], self::PREG_TEXTINPUT, self::MAXL_TEXTINPUT);;
 			$this->data['formtype'] = $_POST['formtype'] == 'person' ? 'person' : 'meeting';
-			$this->data['description'] = substr( trim(preg_replace( self::PREG_TEXTAREA, '' , $_POST['description'])), 0, self::MAXL_TEXTAREA);
+			$this->data['description'] = Utilities::validateInput($_POST['description'], self::PREG_TEXTAREA, self::MAXL_TEXTAREA);
 
 			if( empty( $this->data['pollname'] )
 				|| empty( $this->data['formtype'] )
@@ -136,9 +136,9 @@ class PollCreator{
 					$a = (empty( $_POST['anzahlen'][$key]) || $this->data['formtype'] === 'meeting' ) ? false : $_POST['anzahlen'][$key];
 					$h = isset( $_POST['hinweise'][$key] ) ? $_POST['hinweise'][$key] : '';
 
-					$b = substr( trim(preg_replace( self::PREG_TEXTINPUT, '' , $b)), 0, self::MAXL_TEXTINPUT);
+					$b = Utilities::validateInput($b, self::PREG_TEXTINPUT, self::MAXL_TEXTINPUT);
 					if($a !== false){
-						$a = intval( substr( trim(preg_replace( self::PREG_NUMBER, '' , $a)), 0, self::MAXL_NUMBER) );
+						$a = Utilities::validateInput($a, self::PREG_NUMBER, self::MAXL_NUMBER);
 					}
 					if( $this->data['formtype'] == 'person' && empty($a) && !empty($b) ){
 						$error = true;
@@ -147,7 +147,7 @@ class PollCreator{
 
 					if( !empty( $b ) ){ // dieses gefuellt?
 						if( $h !== '' ){
-							$h = substr( trim(preg_replace( self::PREG_TEXTAREA, '' , $h)), 0, self::MAXL_TEXTAREA);
+							$h = Utilities::validateInput($h, self::PREG_TEXTAREA, self::MAXL_TEXTAREA);
 						}
 						$this->data['termine'][] = array(
 							'bez' => $b,

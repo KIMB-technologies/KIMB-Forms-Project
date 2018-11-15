@@ -15,6 +15,9 @@ class Utilities{
 
 	private static $configjson = null;
 
+	/**
+	 * Possible chars for:
+	 */
 	const POLL_ID = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890';
 	const ADMIN_CODE = 'abcdefghijklmnopqrstuvwxyz01234567890';
 	const CAPTCHA = 'abcdefghjkmnpqrstuvwxyz23456789';
@@ -34,6 +37,21 @@ class Utilities{
 	 */
 	public static function optimizeOutputString($cont){
 		return nl2br( htmlentities( $cont, ENT_COMPAT | ENT_HTML401, 'UTF-8' ));
+	}
+
+	/**
+	 * Validates a string by the given rex and cuts lenght
+	 * 	**no boolean return**
+	 * @param $s the string to check
+	 * @param $reg the regular expressions (/[^a-z]/ to allow only small latin letters)
+	 * @param $len the maximum lenght
+	 * @return the clean string (empty, if other input than string or only dirty characters)
+	 */
+	public static function validateInput($s, $reg, $len){
+		if( !is_string($s) ){
+			return '';
+		}
+		return substr(trim(preg_replace( $reg, '' , $s )), 0, $len);
 	}
 
 	/**

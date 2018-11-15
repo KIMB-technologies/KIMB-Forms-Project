@@ -89,7 +89,7 @@ class LanguageManager{
 			$cont .= "\t".'Lang:'.self::$lang."\r\n\r\n";
 			file_put_contents( __DIR__ . '/../data/translation.log', $cont, FILE_APPEND );
 
-			return 'no value';
+			return 'empty: ' . $key;
 		}
 		return self::$trans[$key];
 	}

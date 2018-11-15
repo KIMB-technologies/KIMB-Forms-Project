@@ -111,7 +111,7 @@ class Poll{
 			}
 			
 			if( $ok === false ){
-				this->error = LanguageManager::getTranslation('PollSaveErr');
+				$this->error = LanguageManager::getTranslation('PollSaveErr');
 				return false;
 			}
 

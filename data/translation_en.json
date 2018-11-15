@@ -15,5 +15,5 @@
     "CaptTitle": "Captcha; Click to change.",
     "EinwillErr": "The notes were not accepted!",
     "FillTermName": "You need to give a name and choose at least one date!",
-    "PollSaveErr": "Konnte die Daten nicht speichern!"
+    "PollSaveErr": "Could not save submission!"
 }

@@ -66,7 +66,7 @@ class Poll{
 			$name = substr( trim(preg_replace( self::PREG_NAME, '' , $_POST['name'] )), 0, self::MAXL_NAME);
 			$mail = empty( $_POST['email'] ) ? 'mail@mail.mail' : substr( trim(preg_replace( self::PREG_MAIL, '' , $_POST['email'] )), 0, self::MAXL_MAIL);
 			
-			if( this->pollsub === false ){
+			if( $this->pollsub === false ){
 				$this->pollsub = new JSONReader( 'pollsub_' . $this->id, true); //directly exclusive
 			}
 
@@ -145,7 +145,7 @@ class Poll{
 	 * @param $template the poll template
 	 */
 	public function showPollForm( $template ){
-		if( this->pollsub === false ){
+		if( $this->pollsub === false ){
 			$this->pollsub = new JSONReader( 'pollsub_' . $this->id ); //not exclusive
 		}
 

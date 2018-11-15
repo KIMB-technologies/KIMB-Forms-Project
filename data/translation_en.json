@@ -15,5 +15,7 @@
     "CaptTitle": "Captcha; Click to change.",
     "EinwillErr": "The notes were not accepted!",
     "FillTermName": "You need to give a name and choose at least one date!",
-    "PollSaveErr": "Could not save submission!"
+    "PollSaveErr": "Could not save submission!",
+    "TooManyPolls": "Too many polls in this system.",
+    "TooManySubmiss": "Too many submissions in this poll."
 }

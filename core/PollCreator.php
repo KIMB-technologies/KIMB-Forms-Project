@@ -28,6 +28,11 @@ class PollCreator{
 	const MAX_TERMINE = 50;
 
 	/**
+	 * Max number of polls
+	 */
+	const MAX_POLLS = 1000;
+
+	/**
 	 * Form data storage
 	 */
 	private $data = array(
@@ -65,6 +70,11 @@ class PollCreator{
 
 		$pollslist = new JSONReader( 'polls' );
 		$polladmins = new JSONReader( 'admincodes' );
+
+		if( count( $pollslist->getArray() ) > self::MAX_POLLS ){
+			$this->errormsg = LanguageManager::getTranslation( 'TooManyPolls' );
+			return false;
+		}
 
 		//Poll ID finden
 		do{

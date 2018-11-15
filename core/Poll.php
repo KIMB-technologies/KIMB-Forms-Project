@@ -25,6 +25,12 @@ class Poll{
 	const MAXL_NAME = 100;
 	const MAXL_MAIL = 100;
 
+	/**
+	 * Max number of submissions per poll
+	 */
+	const MAX_SUBMISSIONS = 1000;
+
+
 	private $polldata,
 		$pollsub,
 		$configjson,
@@ -68,6 +74,15 @@ class Poll{
 			
 			if( $this->pollsub === false ){
 				$this->pollsub = new JSONReader( 'pollsub_' . $this->id, true); //directly exclusive
+			}
+
+			if(
+				array_reduce( $this->pollsub->getArray() , function ($carry, $item){ //calc number of submissions
+					return $carry + count($item);
+					}, 0 ) > self::MAX_SUBMISSIONS
+			){
+				$this->error = LanguageManager::getTranslation('TooManySubmiss');
+				return false;
 			}
 
 			//parse termine

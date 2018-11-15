@@ -15,5 +15,7 @@
     "CaptTitle": "Captcha; Neues durch klicken erstellen.",
     "EinwillErr": "Die Hinweise\/ Einwilligung wurden nicht akzeptiert!",
     "FillTermName": "Es muss mindestens ein Termin gew\u00e4hlt und ein Name angegeben werden!",
-    "PollSaveErr": "Konnte die Daten nicht speichern!"
+    "PollSaveErr": "Konnte die Daten nicht speichern!",
+    "TooManyPolls": "Zu viele Umfragen im System.",
+    "TooManySubmiss": "Zu viele Antworten für diese Umfrage."
 }

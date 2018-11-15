@@ -14,5 +14,6 @@
     "IncorrCap": "Fehlerhaftes Captcha!",
     "CaptTitle": "Captcha; Neues durch klicken erstellen.",
     "EinwillErr": "Die Hinweise\/ Einwilligung wurden nicht akzeptiert!",
-    "FillTermName": "Es muss mindestens ein Termin gew\u00e4hlt und ein Name angegeben werden!"
+    "FillTermName": "Es muss mindestens ein Termin gew\u00e4hlt und ein Name angegeben werden!",
+    "PollSaveErr": "Konnte die Daten nicht speichern!"
 }

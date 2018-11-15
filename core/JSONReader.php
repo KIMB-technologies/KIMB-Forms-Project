@@ -50,7 +50,8 @@ class JSONReader{
 	//	Liest eine JSON Datei ein bzw. erstelle eine neue.
 	//	Order muss existieren
 	//	$filename => Dateiname (ohne .json, relativ zu self::$path)
-	public function __construct( $filename ){
+	//	$lockex => directly lock the file exclusive
+	public function __construct( $filename, $lockex = false){
 		//Dateinamen erstellen
 		$this->filepath = self::$path . $filename . '.json';
 		
@@ -58,7 +59,7 @@ class JSONReader{
 
 		// file lock
 		$this->filehandler = fopen( $this->filepath, 'c+' );
-		if( !flock( $this->filehandler, LOCK_SH ) ){
+		if( !flock( $this->filehandler, $lockex ? LOCK_EX : LOCK_SH ) ){
 			//Fehler
 			throw new Exception('Unable to lock file!');
 		}

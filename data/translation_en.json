@@ -14,5 +14,6 @@
     "IncorrCap": "Incorrect Captach",
     "CaptTitle": "Captcha; Click to change.",
     "EinwillErr": "The notes were not accepted!",
-    "FillTermName": "You need to give a name and choose at least one date!"
+    "FillTermName": "You need to give a name and choose at least one date!",
+    "PollSaveErr": "Konnte die Daten nicht speichern!"
 }

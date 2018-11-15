@@ -38,7 +38,7 @@ class Poll{
 		$this->id = $pollid;
 		$this->configjson = new JSOnReader( 'config' );
 		$this->polldata = new JSONReader( 'poll_' . $pollid );
-		$this->pollsub = new JSONReader( 'pollsub_' . $pollid );
+		$this->pollsub = false;
 	}
 
 	/**
@@ -64,7 +64,11 @@ class Poll{
 			}
 			//parse name and mail
 			$name = substr( trim(preg_replace( self::PREG_NAME, '' , $_POST['name'] )), 0, self::MAXL_NAME);
-			$mail = empty( $_POST['email'] ) ? 'mail@mail.mail' : substr( trim(preg_replace( self::PREG_MAIL, '' , $_POST['email'] )), 0, self::MAXL_MAIL);;
+			$mail = empty( $_POST['email'] ) ? 'mail@mail.mail' : substr( trim(preg_replace( self::PREG_MAIL, '' , $_POST['email'] )), 0, self::MAXL_MAIL);
+			
+			if( this->pollsub === false ){
+				$this->pollsub = new JSONReader( 'pollsub_' . $this->id, true); //directly exclusive
+			}
 
 			//parse termine
 			$type = $this->polldata->getValue( ['formtype'] );
@@ -99,11 +103,16 @@ class Poll{
 			);
 			foreach( $termine as $id ){
 				if( $this->pollsub->isValue( [$id] ) ){
-					$this->pollsub->setValue( [$id, null], $userar );
+					$ok = $this->pollsub->setValue( [$id, null], $userar );
 				}
 				else{
-					$this->pollsub->setValue( [$id], array( $userar ) );
+					$ok = $this->pollsub->setValue( [$id], array( $userar ) );
 				}
+			}
+			
+			if( $ok === false ){
+				this->error = LanguageManager::getTranslation('PollSaveErr');
+				return false;
 			}
 
 			//load other template, if ok
@@ -136,6 +145,9 @@ class Poll{
 	 * @param $template the poll template
 	 */
 	public function showPollForm( $template ){
+		if( this->pollsub === false ){
+			$this->pollsub = new JSONReader( 'pollsub_' . $this->id ); //not exclusive
+		}
 
 		$template->setContent( 'FORMDEST', Utilities::currentLinkGenerator() );
 		$template->setContent( 'POLLNAME', Utilities::optimizeOutputString($this->polldata->getValue( ['pollname'] )) );

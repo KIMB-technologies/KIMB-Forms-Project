@@ -1,6 +1,143 @@
 <h1>Admin</h1>
 
-%%INNERCONTAINER%%
+<div class="container">
+	<div class="alert alert-success" role="alert">
+		<div class="row">
+			<div class="col" title="Diese ID dient dazu, an der Umfrage teilzunehmen.">
+				Umfrage-ID
+			</div>
+			<div class="col">
+				<input type="text" class="form-control" value="%%UMFRAGEID%%" disabled="disabled">
+			</div>
+			<div class="col form-group">
+				<a href="%%UMFRAGEIDLINK%%" target="_blank">
+					<button type="button" class="btn btn-light">Link öffnen</button>
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col" title="Dieser Code erlaubt es die Umfrage zu bearbeiten und die Ergebnisse einzusehen.">
+				Admin-Code
+			</div>
+			<div class="col">
+				<input type="text" class="form-control" value="%%ADMINCODE%%" disabled="disabled">
+			</div>
+			<div class="col form-group">
+				<a href="%%ADMINCODELINK%%" target="_blank">
+					<button type="button" class="btn btn-light">Link öffnen</button>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<h2 title="Name der Umfrage">%%POLLNAME%%</h2>
+		</div>
+	</div>
+	<div class="alert alert-info" role="alert">
+		<div class="row">
+			<div class="col">
+				<div class="parseasmarkdown" title="Beschreibung der Umfrage">
+					%%POLLDESCRIPT%%
+				</div>
+			</div>
+			<div class="col">
+				<p><span class="badge badge-secondary" title="Typ der Umfrage: Termin finden oder Helfer suchen.">%%POLLTYPE%%</span></p>
+				<button type="button" class="btn btn-light" id="umfreditbutton" title="Namen und Beschreibung anpassen.">
+					Bearbeiten
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h3>Termine</h3>
+		</div>
+		<div class="col">
+			Hinweise
+		</div>
+	</div>
+	<div class="alert alert-dark" role="alert">
+<!--MULTIPLE-Termin-BEGIN-->
+		<div class="row">
+			<div class="col">
+				<div class="form-group">
+					<p>
+						%%NAME%%
+					</p>
+					<p>
+						%%ANZAHL%%
+					</p>
+				</div>
+			</div>
+			<div class="col">
+				<div class="parseasmarkdown">
+					%%HINWEISE%%
+				</div>
+				<button type="button" class="btn btn-light editbutton" id="%%TERMINID%%" title="Namen, Anzahl und Hinweise anpassen.">
+					Bearbeiten
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				Ergebnisse
+			</div>
+			<div class="col-10">
+				<ul class="list-group">
+					<li class="list-group-item">
+						%%TEILNEHMER%%
+					</li>
+				</ul>
+			</div>
+		</div>
+<!--MULTIPLE-Termin-END-->
+	</div>
+	<div class="alert alert-primary" role="alert">
+		<div class="row form-group">
+			<div class="col">
+				<a href="%%EXPORTLINK%%" target="_blank">
+					<button type="button" class="btn btn-primary" title="Export der Ergebnisse als CSV.">
+						Export
+					</button>
+				</a>
+			</div>
+			<div class="col">
+				<a href="%%PRINTLINK%%" target="_blank">
+					<button type="button" class="btn btn-primary" title="Für den Druck optimierte Ansicht.">
+						Druckansicht
+					</button>
+				</a>
+			</div>
+		</div>
+		<div class="row form-group">
+			<div class="col">
+				<button type="button" class="btn btn-danger" id="deleteerg" title="Die Ergebnisse löschen und die Umfrage erhalten.">
+					Ergebnisse löschen
+				</button>
+			</div>
+			<div class="col">
+				<button type="button" class="btn btn-danger" id="deleteall" title="Die gesamte Umfrgage mit den Ergebnissen löschen.">
+					Umfrage löschen
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="editpoll" class="d-none">
+	<div class="progress">
+		<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+	</div>
+</div>
+<div id="editdate" class="d-none">
+	<div class="progress">
+		<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+	</div>
+</div>
 
 <script>
 	localStorage.removeItem('newPollData');

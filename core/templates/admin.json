@@ -1,3 +1,20 @@
 {
-	"%%INNERCONTAINER%%" : "inner data"
+	"%%UMFRAGEID%%" : "12343je3",
+	"%%UMFRAGEIDLINK%%" : "/id/123",
+	"%%ADMINCODE%%" : "esjfnuiew",
+	"%%ADMINCODELINK%%" : "/admin/codecode",
+	"%%POLLNAME%%" : "Umfrage Bsp.",
+	"%%POLLDESCRIPT%%" : "**Umfrage** *wichtig**",
+	"%%POLLTYPE%%" : "Helfer finden",
+	"%%EXPORTLINK%%" : "/export",
+	"%%PRINTLINK%%" : "/print",
+	"multiples" : {
+		"Termin" : {
+			"%%NAME%%" : "Termin A",
+			"%%ANZAHL%%" : "20",
+			"%%HINWEISE%%" : "**Hinweise** ",
+			"%%TERMINID%%" : "termin_0",
+			"%%TEILNEHMER%%" : "Heinz (heiz@mail.mail)</li><li class=\"list-group-item\"Franz (franz@mail.mail)"
+		}
+	}
 }

@@ -13,7 +13,7 @@ defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 
 if( !function_exists( 'random_int' ) ){
 	//random int fallback for php < 7
-	require_once( __DIR__ . '/path/to/random_compat.phar' );
+	require_once( __DIR__ . '/random_compat.phar' );
 }
 
 ?>

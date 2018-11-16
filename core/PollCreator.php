@@ -107,7 +107,7 @@ class PollCreator{
 			&& !empty( $_POST['formtype'] )
 			&& !empty( $_POST['description'] )
 		){
-			$this->data['pollname'] = Utilities::validateInput($_POST['pollname'], self::PREG_TEXTINPUT, self::MAXL_TEXTINPUT);;
+			$this->data['pollname'] = Utilities::validateInput($_POST['pollname'], self::PREG_TEXTINPUT, self::MAXL_TEXTINPUT);
 			$this->data['formtype'] = $_POST['formtype'] == 'person' ? 'person' : 'meeting';
 			$this->data['description'] = Utilities::validateInput($_POST['description'], self::PREG_TEXTAREA, self::MAXL_TEXTAREA);
 

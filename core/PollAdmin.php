@@ -80,6 +80,7 @@ class PollAdmin{
 		$this->template->setContent( 'PRINTLINK', Utilities::generateAPILink('export', array( 'type' => 'print', 'admin' =>  $this->polldata->getValue(['code', 'admin']) ) ) );
 
 		$termine = array();
+		$terminmeta = array();
 		foreach( $this->polldata->getValue( ['termine'] ) as $id => $values){
 			if( $type === 'person' ){
 				$maxanz = '/' . $values["anz"];
@@ -103,13 +104,20 @@ class PollAdmin{
 				"TEILNEHMER" => implode( '</li><li class="list-group-item">',  $submiss )
 			);
 
+			$terminmeta["termin_" . $id] = array( $values["bez"], $values["anz"], $values["des"]  );
 		}
 
 		$this->template->setMultipleContent('Termin', $termine);
 
-		$this->template->setContent( 'JSONDATA', json_encode( array(
-			"delallurl" => Utilities::currentLinkGenerator( array( 'delete' => 'all' ) ),
-			"delsuburl" => Utilities::currentLinkGenerator( array( 'delete' => 'sub' ) ),
+		$this->template->setContent( 'JSONDATA', str_replace( array("\\r", "\\n"), array( "\\\\r", "\\\\n"), json_encode(
+			array(
+				"delallurl" => Utilities::currentLinkGenerator( array( 'delete' => 'all' ) ),
+				"delsuburl" => Utilities::currentLinkGenerator( array( 'delete' => 'sub' ) ),
+				"polladmin" => Utilities::generateLink('admin', '', $this->polldata->getValue(['code', 'admin'])),
+				"meta" => array(  $this->polldata->getValue(['pollname']), $this->polldata->getValue(['description']) ),
+				"terminmeta" => $terminmeta,
+				"editurl" => Utilities::generateAPILink( 'editpoll', array( 'admin' =>  $this->polldata->getValue(['code', 'admin']) ) )
+			)
 		)));
 	}
 }

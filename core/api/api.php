@@ -13,7 +13,8 @@ defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 
 $apitasks = array(
 	'captcha',
-	'export'
+	'export',
+	'editpoll'
 	// add more tasks
 );
 
@@ -23,6 +24,9 @@ if( !empty( $_GET['task'] ) && is_string( $_GET['task'] ) && in_array($_GET['tas
 	}
 	else if( $_GET['task'] == 'export' ){
 		new Export();
+	}
+	else if( $_GET['task'] == 'editpoll' ){
+		new EditPoll();
 	}
 	// add more tasks
 }

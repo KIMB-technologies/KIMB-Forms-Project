@@ -1,8 +1,167 @@
 <h1>Admin</h1>
 
-%%INNERCONTAINER%%
+<div class="container">
+	<div class="alert alert-success" role="alert">
+		<div class="row">
+			<div class="col" title="Diese ID dient dazu, an der Umfrage teilzunehmen.">
+				Poll ID
+			</div>
+			<div class="col">
+				<input type="text" class="form-control" value="%%UMFRAGEID%%" disabled="disabled">
+			</div>
+			<div class="col form-group">
+				<a href="%%UMFRAGEIDLINK%%" target="_blank">
+					<button type="button" class="btn btn-light">Open link</button>
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col" title="Dieser Code erlaubt es die Umfrage zu bearbeiten und die Ergebnisse einzusehen.">
+				Admin-Code
+			</div>
+			<div class="col">
+				<input type="text" class="form-control" value="%%ADMINCODE%%" disabled="disabled">
+			</div>
+			<div class="col form-group">
+				<a href="%%ADMINCODELINK%%" target="_blank">
+					<button type="button" class="btn btn-light">Open link</button>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<h2 title="Name der Umfrage">%%POLLNAME%%</h2>
+		</div>
+	</div>
+	<div class="alert alert-info" role="alert">
+		<div class="row">
+			<div class="col">
+				<div class="parseasmarkdown" title="Beschreibung der Umfrage">
+					%%POLLDESCRIPT%%
+				</div>
+			</div>
+			<div class="col">
+				<p><span class="badge badge-secondary" title="Typ der Umfrage: Termin finden oder Helfer suchen.">%%POLLTYPE%%</span></p>
+				<button type="button" class="btn btn-light" id="umfreditbutton" title="Namen und Beschreibung anpassen.">
+					Edit
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h3>Dates</h3>
+		</div>
+		<div class="col">
+			Notes
+		</div>
+	</div>
+	<div class="alert alert-dark" role="alert">
+<!--MULTIPLE-Termin-BEGIN-->
+		<div class="row">
+			<div class="col">
+				<div class="form-group">
+					<p>
+						<b>%%NAME%%</b>
+					</p>
+					<p title="Anzahl abgegebener Antworten und evtl. maximaler Antworten (/max).">
+						%%ANZAHL%%
+					</p>
+				</div>
+			</div>
+			<div class="col">
+				<div class="parseasmarkdown">
+					%%HINWEISE%%
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<button type="button" class="btn btn-light editbutton" id="%%TERMINID%%" title="Namen, Anzahl und Hinweise anpassen.">
+					Edit
+				</button>
+			</div>
+			<div class="col-10">
+				Submissions:
+				<ul class="list-group">
+					<li class="list-group-item">
+						%%TEILNEHMER%%
+					</li>
+				</ul>
+			</div>
+		</div>
+<!--MULTIPLE-Termin-END-->
+	</div>
+	<div class="alert alert-primary" role="alert">
+		<div class="row form-group">
+			<div class="col">
+				<a href="%%EXPORTLINK%%" target="_blank">
+					<button type="button" class="btn btn-primary" title="Export der Ergebnisse als CSV.">
+						Export
+					</button>
+				</a>
+			</div>
+			<div class="col">
+				<a href="%%PRINTLINK%%" target="_blank">
+					<button type="button" class="btn btn-primary" title="Für den Druck optimierte Ansicht.">
+						Printview
+					</button>
+				</a>
+			</div>
+		</div>
+		<div class="row form-group">
+			<div class="col">
+				<button type="button" class="btn btn-danger" id="deleteerg" title="Die Ergebnisse löschen und die Umfrage erhalten.">
+					Delete submissions.
+				</button>
+			</div>
+			<div class="col">
+				<button type="button" class="btn btn-danger" id="deleteall" title="Die gesamte Umfrgage mit den Ergebnissen löschen.">
+					Delete poll.
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="editpoll" class="d-none" title="Change global information of this poll.">
+	<div class="form-group">
+		<input type="text" class="form-control pollname" placeholder="Name of this poll"><br />
+		<textarea placeholder="Description of this poll" class="form-control description"></textarea><br/>
+		<small class="form-text text-muted">Basic Markdown supported: <b>**bold**</b>, <em>*italic*</em>, - List, ### Heading</small>
+		<div class="alert alert-danger d-none" role="alert">
+			Unable to save changes.
+		</div>
+	</div>
+</div>
+<div id="editdate" class="d-none" title="Change a date of the poll.">
+	<div class="form-group">
+		<input type="text" class="form-control datename" placeholder="Name of this date"><br />
+		<input type="number" class="form-control personlim" placeholder="Number of persons"><br />
+		<textarea placeholder="Notes for this date" class="form-control notes"></textarea><br/>
+		<small class="form-text text-muted">Basic Markdown supported: <b>**bold**</b>, <em>*italic*</em>, - List, ### Heading</small>
+		<div class="alert alert-danger d-none" role="alert">
+				Unable to save changes.
+		</div>
+	</div>
+</div>
+<div id="deletepoll" class="d-none" title="Delete polldata?">
+	<div class="pollsubm" class="d-none">
+		<span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+		Do your really want to delete all submissions?
+	</div>
+	<div class="pollentire" class="d-none">
+		<span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+		Do your really want to delete the entire poll?
+	</div>
+</div>
 
 <script>
 	localStorage.removeItem('newPollData');
+	var template_data = JSON.parse( '%%JSONDATA%%' );
 	var template_name = 'admin';
 </script>

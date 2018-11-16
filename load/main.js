@@ -180,5 +180,96 @@ function template_admin(){
 	$("button#deleteerg").click( () => deletePollSubmiss( 'subm' )  );
 	$("button#deleteall").click( () => deletePollSubmiss( 'all' )  );
 	
+	function refreshView( id ){
+		window.location.href = template_data.polladmin + ( typeof id !== "undefined" ? '#' + id : '');
+		window.location.reload();
+	}
 
+	function changeUmfrageMeta(){
+		$( "div#editpoll" ).removeClass('d-none');
+		$( "div#editpoll div.alert" ).addClass('d-none');
+		$( "div#editpoll input.pollname" ).val( template_data.meta[0] );
+		$( "div#editpoll textarea.description" ).val( template_data.meta[1] );
+		$( "div#editpoll" ).dialog({
+			resizable: true,
+			height: "auto",
+			width: 600,
+			modal: true,
+			buttons: [
+				{
+					text: "Save",
+					icon: "ui-icon-disk",
+					click: function() {
+						$( "div#editpoll input.pollname" ).prop('disabled', true)
+						$( "div#editpoll textarea.description" ).prop('disabled', true)
+						$.post( template_data.editurl,
+							{ "name" : $( "div#editpoll input.pollname" ).val(), "desc" : $( "div#editpoll textarea.description" ).val() },
+							function (data){
+								if( data == 'ok' ) {
+									$( "div#editpoll div.alert" ).addClass('d-none');
+									refreshView();
+								}
+								else{
+									$( "div#editpoll div.alert" ).removeClass('d-none');
+									$( "div#editpoll input.pollname" ).prop('disabled', false);
+									$( "div#editpoll textarea.description" ).prop('disabled', false);
+								}
+							});
+					},
+				}
+			]
+		});
+	}
+	$("button#umfreditbutton").click( changeUmfrageMeta );
+
+	function changeUmfrageTermin( terminid ){
+		$( "div#editdate" ).removeClass('d-none');
+		$( "div#editdate div.alert" ).addClass('d-none');
+		$( "div#editdate input.datename" ).val( template_data.terminmeta[terminid][0] );
+		if(  template_data.terminmeta[terminid][1] === false ){
+			$( "div#editdate input.personlim" ).addClass('d-none');
+		}
+		else{
+			$( "div#editdate input.personlim" ).val( template_data.terminmeta[terminid][1] );
+		}
+		$( "div#editdate textarea.notes" ).val( template_data.terminmeta[terminid][2] );
+		$( "div#editdate" ).dialog({
+			resizable: true,
+			height: "auto",
+			width: 600,
+			modal: true,
+			buttons: [
+				{
+					text: "Save",
+					icon: "ui-icon-disk",
+					click: function() {
+						$( "div#editdate input.datename" ).prop('disabled', true)
+						$( "div#editdate input.personlim" ).prop('disabled', true)
+						$( "div#editdate textarea.notes" ).prop('disabled', true)
+						
+						$.post( template_data.editurl,
+							{
+								"name" : $( "div#editdate input.datename" ).val(),
+								"termin" : terminid,
+								"hinw"  : $( "div#editdate textarea.notes" ).val(),
+								"anz"  : $( "div#editdate input.personlim" ).val(),
+							},
+							function (data){
+								if( data == 'ok' ) {
+									$( "div#editdate div.alert" ).addClass('d-none');
+									refreshView( terminid );
+								}
+								else{
+									$( "div#editdate div.alert" ).removeClass('d-none');
+									$( "div#editdate input.datename" ).prop('disabled', false);
+									$( "div#editdate input.personlim" ).prop('disabled', false);
+									$( "div#editdate textarea.notes" ).prop('disabled',  false);
+								}
+							});
+					},
+				}
+			]
+		});
+	}
+	$("button.editbutton").click( function (){ changeUmfrageTermin( $(this).attr( 'id' ) ) } );
 }

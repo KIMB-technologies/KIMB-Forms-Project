@@ -128,14 +128,25 @@
 	</div>
 </div>
 
-<div id="editpoll" class="d-none">
-	<div class="progress">
-		<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+<div id="editpoll" class="d-none" title="Allgemeine Informationen zur Umfrage bearbeiten.">
+	<div class="form-group">
+		<input type="text" class="form-control pollname" placeholder="Name des Formulars"><br />
+		<textarea placeholder="Beschreibung des Formulars" class="form-control description"></textarea><br/>
+		<small class="form-text text-muted">Grundlegendes Markdown unterstützt: <b>**fett**</b>, <em>*kursiv*</em>, - Liste, ### Ueberschrift</small>
+		<div class="alert alert-danger d-none" role="alert">
+			Konnte Änderungen nicht speichern!
+		</div>
 	</div>
 </div>
-<div id="editdate" class="d-none">
-	<div class="progress">
-		<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+<div id="editdate" class="d-none" title="Einen Termin der Umfrage anpassen.">
+	<div class="form-group">
+		<input type="text" class="form-control datename" placeholder="Name des Termins"><br />
+		<input type="number" class="form-control personlim" placeholder="Anzahl an Personen"><br />
+		<textarea placeholder="Hinweise zum Termin" class="form-control notes"></textarea><br/>
+		<small class="form-text text-muted">Grundlegendes Markdown unterstützt: <b>**fett**</b>, <em>*kursiv*</em>, - Liste, ### Ueberschrift</small>
+		<div class="alert alert-danger d-none" role="alert">
+			Konnte Änderungen nicht speichern!
+		</div>
 	</div>
 </div>
 <div id="deletepoll" class="d-none" title="Löschen der Umfragedaten?">

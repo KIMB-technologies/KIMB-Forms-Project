@@ -11,8 +11,13 @@
  */
 defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 
+// external libs loader
+require_once( __DIR__ . '/external/loader.php' );
+
+// Autoloader uses Utilities
 require_once( __DIR__ . '/Utilities.php' );
 
+// Autoloader
 spl_autoload_register(function ($class) {
 	if( Utilities::checkFileName( $class ) ){
 		$classfile = __DIR__ . '/' . $class . '.php';

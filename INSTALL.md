@@ -2,6 +2,7 @@
 
 ## Server Requirements
 - Webserver running PHP **7**
+    - PHP 5.6 should work as well, but is not really supported
 - PHP-GD for Captchas
 
 ## Server Setup

@@ -17,5 +17,7 @@
     "FillTermName": "Es muss mindestens ein Termin gew\u00e4hlt und ein Name angegeben werden!",
     "PollSaveErr": "Konnte die Daten nicht speichern!",
     "TooManyPolls": "Zu viele Umfragen im System.",
-    "TooManySubmiss": "Zu viele Antworten f\u00fcr diese Umfrage."
+    "TooManySubmiss": "Zu viele Antworten f\u00fcr diese Umfrage.",
+    "HelfFin": "Helfer finden",
+    "TermFin": "Termin finden"
 }

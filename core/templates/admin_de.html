@@ -66,9 +66,9 @@
 			<div class="col">
 				<div class="form-group">
 					<p>
-						%%NAME%%
+						<b>%%NAME%%</b>
 					</p>
-					<p>
+					<p title="Anzahl abgegebener Antworten und evtl. maximaler Antworten (/max).">
 						%%ANZAHL%%
 					</p>
 				</div>
@@ -77,16 +77,16 @@
 				<div class="parseasmarkdown">
 					%%HINWEISE%%
 				</div>
-				<button type="button" class="btn btn-light editbutton" id="%%TERMINID%%" title="Namen, Anzahl und Hinweise anpassen.">
-					Bearbeiten
-				</button>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col">
-				Ergebnisse
+				<button type="button" class="btn btn-light editbutton" id="%%TERMINID%%" title="Namen, Anzahl und Hinweise anpassen.">
+					Bearbeiten
+				</button>
 			</div>
 			<div class="col-10">
+				Ergebnisse:
 				<ul class="list-group">
 					<li class="list-group-item">
 						%%TEILNEHMER%%

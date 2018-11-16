@@ -163,7 +163,7 @@ class JSONReader{
 	}
 
 	//Ausgabe des Arrays
-	public function __toString(){
+	public function output(){
 		//raus
 		print_r( $this->data );
 	}

@@ -12,13 +12,17 @@
 defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 
 $apitasks = array(
-	'captcha'
+	'captcha',
+	'export'
 	// add more tasks
 );
 
 if( !empty( $_GET['task'] ) && is_string( $_GET['task'] ) && in_array($_GET['task'], $apitasks) ){
 	if( $_GET['task'] == 'captcha' ){
 		Captcha::showImage();
+	}
+	else if( $_GET['task'] == 'export' ){
+		new Export();
 	}
 	// add more tasks
 }

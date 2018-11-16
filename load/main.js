@@ -22,6 +22,9 @@ $( function (){
 		case "poll":
 			template_poll();
 			break;
+		case "admin":
+			template_admin();
+			break;
 		default:
 			break;
 	}
@@ -143,4 +146,39 @@ function template_poll(){
 		localStorage.setItem( "pollPollData", JSON.stringify( data ) );
 	}
 	$("input[type=text], input[type=email]").change(save);
+}
+
+function template_admin(){
+	function deletePollSubmiss( type ){
+		$( type == 'all' ? "div#deletepoll div.pollentire" : "div#deletepoll div.pollsubm" ).removeClass('d-none');
+		$( type == 'all' ? "div#deletepoll div.pollsubm" : "div#deletepoll div.pollentire" ).addClass('d-none');
+		$( "div#deletepoll" ).removeClass('d-none');
+		$( "div#deletepoll" ).dialog({
+			resizable: false,
+			height: "auto",
+			width: 400,
+			modal: true,
+			buttons: [
+				{
+					text: "OK",
+					icon: "ui-icon-check",
+					click: function() {
+						window.location.href = type == 'all' ? template_data.delallurl : template_data.delsuburl;
+						$( this ).dialog( "close" );
+					},
+				},
+				{
+					text: "Cancel",
+					icon: "ui-icon-close",
+					click: function() {
+						$( this ).dialog( "close" );
+					},
+				}
+			]
+		});
+	}
+	$("button#deleteerg").click( () => deletePollSubmiss( 'subm' )  );
+	$("button#deleteall").click( () => deletePollSubmiss( 'all' )  );
+	
+
 }

@@ -38,6 +38,18 @@ class JSONReader{
 		return self::$path;
 	}
 
+	/**
+	 * Deletes a JSON file. (needs exclusive rights)
+	 */
+	public static function deleteFile( $filename ){
+		$file = self::$path . $filename . '.json';
+		if( !is_file( $file ) ){
+			return false;
+		}
+		file_put_contents( $file, '', LOCK_EX );
+		return unlink( $file );
+	}
+
 	//Daten über die geöffnete JSON
 	private
 		$filehandler, // fopen handler

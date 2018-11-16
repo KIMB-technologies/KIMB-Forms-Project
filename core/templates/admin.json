@@ -8,6 +8,7 @@
 	"%%POLLTYPE%%" : "Helfer finden",
 	"%%EXPORTLINK%%" : "/export",
 	"%%PRINTLINK%%" : "/print",
+	"%%JSONDATA%%" : "[]",
 	"multiples" : {
 		"Termin" : {
 			"%%NAME%%" : "Termin A",

@@ -25,16 +25,45 @@ class PollAdmin{
 		$this->pollsub = new JSONReader( 'pollsub_' . $pollid );
 		$this->template = $template;
 
-		/*
-		 * ToDo !!!!!
-		 */
+		$this->doDelete();
 		$this->showInfo();
+	}
+
+	/**
+	 * Checks for delete all or submissions query and does it
+	 */
+	private function doDelete(){
+		if( !empty( $_GET['delete'] ) ){
+			if( $_GET['delete'] === 'all' ){
+				$code = $this->polldata->getValue(['code', 'poll']);
+				$admin = $this->polldata->getValue(['code', 'admin']);
+
+				$polls = new JSONReader( 'polls' );
+				$admins = new JSONReader( 'admincodes' );
+
+				$polls->setValue( [$code], null ); //delete poll from lists
+				$admins->setValue( [$admin], null );
+
+				unset( $this->polldata ); // unlock poll files
+				unset( $this->pollsub );
+
+				JSONReader::deleteFile( 'poll_' . $code ); // delete data
+				JSONReader::deleteFile( 'pollsub_' . $code );
+
+				http_response_code(303);
+				header( 'Location: ' . Utilities::generateLink() );
+				die();
+			}
+			else{
+				$this->pollsub->setArray(array());
+			}
+		}
 	}
 
 	/**
 	 * Show the poll template page
 	 */
-	public function showInfo(){
+	private function showInfo(){
 		$type = $this->polldata->getValue(['formtype']);
 
 		$this->template->setContent( 'UMFRAGEID', $this->polldata->getValue(['code', 'poll']));
@@ -78,7 +107,10 @@ class PollAdmin{
 
 		$this->template->setMultipleContent('Termin', $termine);
 
-		//$this->template->setContent( 'INNERCONTAINER', '<pre>'.print_r($this->polldata->getArray(), true).print_r($this->pollsub->getArray(), true).'</pre>');
+		$this->template->setContent( 'JSONDATA', json_encode( array(
+			"delallurl" => Utilities::currentLinkGenerator( array( 'delete' => 'all' ) ),
+			"delsuburl" => Utilities::currentLinkGenerator( array( 'delete' => 'sub' ) ),
+		)));
 	}
 }
 ?>

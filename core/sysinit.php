@@ -25,4 +25,7 @@ if( constant( 'KIMB-FORMS-PROJECT' ) === 'PAGE' ){ //load as normal HTML page
 else if( constant( 'KIMB-FORMS-PROJECT' ) === 'API'){ //load as API Request (AJAX, etc.)
 	require_once( __DIR__ . '/api/api.php' );
 }
+else{
+	die('Invalid Endpoint!');
+}
 ?>

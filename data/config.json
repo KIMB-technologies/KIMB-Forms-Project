@@ -6,12 +6,13 @@
     },
     "captcha": {
         "poll": false,
-        "new": false
+        "new": true
     },
     "texts": {
-        "enablePoll": false,
-        "enableNew": false,
-        "textPoll": "Poll ok Text",
-        "textNew": "New ok Text"
-    }
+        "enablePoll": true,
+        "enableNew": true,
+        "textPoll": "Ich bin mit den Datenschutzrichlinien ... einverstanden!",
+        "textNew": "Ich bin mit den AGB des Anbieters einverstanden!"
+    },
+    "version" : "1.0.0alpha"
 }

@@ -1,5 +1,7 @@
-ErrorDocument 404 /index.php?task=error404
-ErrorDocument 403 /index.php?task=error403
+#ErrorDocument 404 /index.php?task=error404
+ErrorDocument 404 /error404
+#ErrorDocument 403 /index.php?task=error403
+ErrorDocument 403 /error403
 
 Options -Indexes
 

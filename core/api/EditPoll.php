@@ -13,16 +13,15 @@ defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 
 class EditPoll{
 
-	private $pollid,
-		$pollsub,
-		$polldata;
+	private $polldata;
 
 	/**
 	 * Does the change in the polls json file
 	 */
 	public function __construct(){
 		header('Content-Type: text/plain; charset=utf-8');
-		$this->auth(); //dies, if not ok
+
+		$this->polldata = PollAdmin::authByAdmincode(); //dies, if not ok
 
 		if( !empty( $_POST['name'] ) && !empty( $_POST['termin'] ) && isset( $_POST['hinw'] ) && isset( $_POST['anz'] ) ){
 			//termin aendern
@@ -33,27 +32,6 @@ class EditPoll{
 			$this->changePoll( $_POST['name'], $_POST['desc'] );
 		}
 		die( 'nok' );
-	}
-
-	/**
-	 * Checks the admin code, and dies if not valid
-	 * 	if ok, opens polldata and pollsubmissions
-	 */
-	private function auth(){
-		$polladmins = new JSONReader( 'admincodes' );
-		$admincode = $_GET['admin'];
-
-		if( Utilities::checkFileName($admincode) && $polladmins->isValue( [ $admincode ] ) ){
-			$this->pollid = $polladmins->getValue( [ $admincode ] );
-			$this->polldata = new JSONReader( 'poll_' . $this->pollid );
-
-			//ok
-		}
-		else{
-			http_response_code(403);
-			die( 'Unknown admin code.' );
-		}
-
 	}
 
 	private function changePoll( $n, $d ){

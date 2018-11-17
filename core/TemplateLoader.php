@@ -68,7 +68,7 @@ class TemplateLoader{
 			$this->mainSetup();
 			$this->includetemp = new Template( 'error' );
 			$this->maintemplate->includeTemplate($this->includetemp);
-			$this->maintemplate->setContent( 'MAINBUTTONDEST', Utilities::generateLink('start') );
+			$this->maintemplate->setContent( 'MAINBUTTONDEST', URL::generateLink('start') );
 			$this->maintemplate->setContent( 'MAINBUTTONTASK',  LanguageManager::getTranslation('MAINBUTTONTASK-start'));
 			http_response_code(404);
 		}
@@ -84,7 +84,7 @@ class TemplateLoader{
 		$langsel = '';
 		foreach( LanguageManager::getAllLanguages() as $key => $name ){
 			$active = ($key == LanguageManager::getCurrentLanguage()) ? ' active' : '';
-			$langsel .= '<button type="button" class="btn btn-secondary'. $active .'" linkdest="'. Utilities::currentLinkGenerator(array( 'language' => $key ) ) .'">'.$name.'</button>';
+			$langsel .= '<button type="button" class="btn btn-secondary'. $active .'" linkdest="'. URL::currentLinkGenerator(array( 'language' => $key ) ) .'">'.$name.'</button>';
 		}
 		$this->maintemplate->setContent( 'LANGUAGEBUTTONS', $langsel );
 	}
@@ -93,7 +93,7 @@ class TemplateLoader{
 	 * Setup for new Task
 	 */
 	private function taskNew(){
-		$this->maintemplate->setContent( 'MAINBUTTONDEST', Utilities::generateLink('start') );
+		$this->maintemplate->setContent( 'MAINBUTTONDEST', URL::generateLink('start') );
 		$this->maintemplate->setContent( 'MAINBUTTONTASK',  LanguageManager::getTranslation('MAINBUTTONTASK-start'));
 
 		if( PollCreator::checkForPostData() ){
@@ -112,7 +112,7 @@ class TemplateLoader{
 				$alert->setContent( 'ALERTMESSAGE', $capok ? ( $einwill ? $pollcreator->errorMessage() : LanguageManager::getTranslation('EinwillErr') ) : Captcha::getError() );
 			}
 		}
-		$this->includetemp->setContent( 'FORMDEST', Utilities::generateLink('new') );
+		$this->includetemp->setContent( 'FORMDEST', URL::generateLink('new') );
 		if( $this->configjson->getValue(['captcha', 'new']) ){
 			$this->includetemp->setContent( 'CAPTCHA', Captcha::getCaptchaHTML() );
 		}
@@ -131,11 +131,11 @@ class TemplateLoader{
 	 * Setup for Admin Task
 	 */
 	private function taskAdmin(){
-		$this->maintemplate->setContent( 'MAINBUTTONDEST', Utilities::generateLink('new') );
+		$this->maintemplate->setContent( 'MAINBUTTONDEST', URL::generateLink('new') );
 		$this->maintemplate->setContent( 'MAINBUTTONTASK',  LanguageManager::getTranslation('MAINBUTTONTASK-new'));
 
 		$polladmins = new JSONReader( 'admincodes' );
-		$admincode = Utilities::urlParser()['admincode'];
+		$admincode = URL::urlParser()['admincode'];
 
 		if( Utilities::checkFileName($admincode) && $polladmins->isValue( [ $admincode ] ) ){
 			$pollid = $polladmins->getValue( [ $admincode ] );
@@ -153,11 +153,11 @@ class TemplateLoader{
 	 * Setup for do Poll Task
 	 */
 	private function taskPoll(){
-		$this->maintemplate->setContent( 'MAINBUTTONDEST', Utilities::generateLink('start') );
+		$this->maintemplate->setContent( 'MAINBUTTONDEST', URL::generateLink('start') );
 		$this->maintemplate->setContent( 'MAINBUTTONTASK', LanguageManager::getTranslation('MAINBUTTONTASK-start'));
 
 		$polls = new JSONReader( 'polls' );
-		$pollid = Utilities::urlParser()['pollid'];
+		$pollid = URL::urlParser()['pollid'];
 
 		if( Utilities::checkFileName($pollid) && in_array( $pollid, $polls->getArray() ) ){
 			$poll = new Poll( $pollid );
@@ -186,12 +186,12 @@ class TemplateLoader{
 	 * Setup for Start Task
 	 */
 	private function taskStart(){
-		$this->maintemplate->setContent( 'MAINBUTTONDEST', Utilities::generateLink('new') );
+		$this->maintemplate->setContent( 'MAINBUTTONDEST', URL::generateLink('new') );
 		$this->maintemplate->setContent( 'MAINBUTTONTASK',  LanguageManager::getTranslation('MAINBUTTONTASK-new'));
 
-		$this->includetemp->setContent( 'URLLOS', Utilities::generateLink('new') );
-		$this->includetemp->setContent( 'URLPOLL', Utilities::generateLink('poll', '<poll>') );
-		$this->includetemp->setContent( 'URLADMIN', Utilities::generateLink('admin', '', '<admin>') );
+		$this->includetemp->setContent( 'URLLOS', URL::generateLink('new') );
+		$this->includetemp->setContent( 'URLPOLL', URL::generateLink('poll', '<poll>') );
+		$this->includetemp->setContent( 'URLADMIN', URL::generateLink('admin', '', '<admin>') );
 	}
 
 	/**

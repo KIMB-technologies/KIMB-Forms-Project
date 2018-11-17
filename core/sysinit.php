@@ -20,7 +20,7 @@ LanguageManager::init();
 
 if( constant( 'KIMB-FORMS-PROJECT' ) === 'PAGE' ){ //load as normal HTML page
 	$loader = new TemplateLoader();
-	$loader->decideOnTask( Utilities::urlParser()['task'] );
+	$loader->decideOnTask( URL::urlParser()['task'] );
 }
 else if( constant( 'KIMB-FORMS-PROJECT' ) === 'API'){ //load as API Request (AJAX, etc.)
 	require_once( __DIR__ . '/api/api.php' );

@@ -139,7 +139,7 @@ class Poll{
 			$it->setContent('TERMINE', '<ul><li>' . implode( '</li><li>', $termine_text ) . '</li></ul>' );
 			$it->setContent('NAME', Utilities::optimizeOutputString( $name ));
 			$it->setContent('EMAIL', Utilities::optimizeOutputString( $mail ));
-			$it->setContent('REDOLINK', Utilities::currentLinkGenerator());
+			$it->setContent('REDOLINK', URL::currentLinkGenerator());
 
 			//logfile
 			file_put_contents( __DIR__ . '/../data/pollsubmissions.log', json_encode( array( $this->id, $name, $mail, $termine, time() ) ) . "\r\n" , FILE_APPEND | LOCK_EX );
@@ -164,7 +164,7 @@ class Poll{
 			$this->pollsub = new JSONReader( 'pollsub_' . $this->id ); //not exclusive
 		}
 
-		$template->setContent( 'FORMDEST', Utilities::currentLinkGenerator() );
+		$template->setContent( 'FORMDEST', URL::currentLinkGenerator() );
 		$template->setContent( 'POLLNAME', Utilities::optimizeOutputString($this->polldata->getValue( ['pollname'] )) );
 		$template->setContent( 'POLLDESCRIPT', Utilities::optimizeOutputString($this->polldata->getValue( ['description'] )) );
 

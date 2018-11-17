@@ -13,6 +13,30 @@ defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 
 class PollAdmin{
 
+	/**
+	 * Checks the admin code, and dies if not valid
+	 * @param $admincode the admincode to check (default 'admin' get param)
+	 * @return polldata jsonreader, if ok else dies
+	 */
+	public static function authByAdmincode( $admincode = '' ){
+		$polladmins = new JSONReader( 'admincodes' );
+
+		if( empty( $admincode ) ){
+			$admincode = $_GET['admin'];
+		}
+		
+		if( !empty( $admincode ) && Utilities::checkFileName($admincode) && $polladmins->isValue( [ $admincode ] ) ){
+			$pollid = $polladmins->getValue( [ $admincode ] );
+
+			//ok
+			return new JSONReader( 'poll_' . $pollid );
+		}
+		else{
+			http_response_code(403);
+			die( 'Unknown admin code.' );
+		}
+	}
+
 	private $polldata,
 		$pollsub,
 		$template;
@@ -51,7 +75,7 @@ class PollAdmin{
 				JSONReader::deleteFile( 'pollsub_' . $code );
 
 				http_response_code(303);
-				header( 'Location: ' . Utilities::generateLink() );
+				header( 'Location: ' . URL::generateLink() );
 				die();
 			}
 			else{
@@ -67,17 +91,17 @@ class PollAdmin{
 		$type = $this->polldata->getValue(['formtype']);
 
 		$this->template->setContent( 'UMFRAGEID', $this->polldata->getValue(['code', 'poll']));
-		$this->template->setContent( 'UMFRAGEIDLINK', Utilities::generateLink('poll', $this->polldata->getValue(['code', 'poll']), '') );
+		$this->template->setContent( 'UMFRAGEIDLINK', URL::generateLink('poll', $this->polldata->getValue(['code', 'poll']), '') );
 		$this->template->setContent( 'ADMINCODE', $this->polldata->getValue(['code', 'admin']));
-		$this->template->setContent( 'ADMINCODELINK', Utilities::generateLink('admin', '', $this->polldata->getValue(['code', 'admin'])));
+		$this->template->setContent( 'ADMINCODELINK', URL::generateLink('admin', '', $this->polldata->getValue(['code', 'admin'])));
 
 		$this->template->setContent( 'POLLNAME', $this->polldata->getValue(['pollname']) );
 		$this->template->setContent( 'POLLDESCRIPT', $this->polldata->getValue(['description']) );
 		$this->template->setContent( 'POLLTYPE',
 			$type == 'meeting' ? LanguageManager::getTranslation( 'TermFin' ) : LanguageManager::getTranslation( 'HelfFin' )
 		);
-		$this->template->setContent( 'EXPORTLINK', Utilities::generateAPILink('export', array( 'type' => 'csv', 'admin' =>  $this->polldata->getValue(['code', 'admin']) ) ) );
-		$this->template->setContent( 'PRINTLINK', Utilities::generateAPILink('export', array( 'type' => 'print', 'admin' =>  $this->polldata->getValue(['code', 'admin']) ) ) );
+		$this->template->setContent( 'EXPORTLINK', URL::generateAPILink('export', array( 'type' => 'csv', 'admin' =>  $this->polldata->getValue(['code', 'admin']) ) ) );
+		$this->template->setContent( 'PRINTLINK', URL::generateAPILink('export', array( 'type' => 'print', 'admin' =>  $this->polldata->getValue(['code', 'admin']) ) ) );
 
 		$termine = array();
 		$terminmeta = array();
@@ -111,12 +135,12 @@ class PollAdmin{
 
 		$this->template->setContent( 'JSONDATA', str_replace( array("\\r", "\\n"), array( "\\\\r", "\\\\n"), json_encode(
 			array(
-				"delallurl" => Utilities::currentLinkGenerator( array( 'delete' => 'all' ) ),
-				"delsuburl" => Utilities::currentLinkGenerator( array( 'delete' => 'sub' ) ),
-				"polladmin" => Utilities::generateLink('admin', '', $this->polldata->getValue(['code', 'admin'])),
+				"delallurl" => URL::currentLinkGenerator( array( 'delete' => 'all' ) ),
+				"delsuburl" => URL::currentLinkGenerator( array( 'delete' => 'sub' ) ),
+				"polladmin" => URL::generateLink('admin', '', $this->polldata->getValue(['code', 'admin'])),
 				"meta" => array(  $this->polldata->getValue(['pollname']), $this->polldata->getValue(['description']) ),
 				"terminmeta" => $terminmeta,
-				"editurl" => Utilities::generateAPILink( 'editpoll', array( 'admin' =>  $this->polldata->getValue(['code', 'admin']) ) )
+				"editurl" => URL::generateAPILink( 'editpoll', array( 'admin' =>  $this->polldata->getValue(['code', 'admin']) ) )
 			)
 		)));
 	}

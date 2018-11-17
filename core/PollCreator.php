@@ -176,7 +176,7 @@ class PollCreator{
 	 */
 	public function getAdminLink(){
 		//link to new poll admin page
-		return Utilities::generateLink('admin', '', $this->data['code']['admin'] );
+		return URL::generateLink('admin', '', $this->data['code']['admin'] );
 	}
 	
 	/**

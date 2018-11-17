@@ -90,7 +90,7 @@ class Captcha{
 	 */
 	public static function getCaptchaHTML(){
 		return Utilities::getRowHtml(
-			'<img title="'.LanguageManager::getTranslation('CaptTitle').'" src="'. Utilities::generateAPILink('captcha', ['time' => time()]) .'" onclick="this.src=\''.Utilities::generateAPILink('captcha').'&r=\'+Math.random();">',
+			'<img title="'.LanguageManager::getTranslation('CaptTitle').'" src="'. URL::generateAPILink('captcha', ['time' => time()]) .'" onclick="this.src=\''.URL::generateAPILink('captcha').'&r=\'+Math.random();">',
 			'<input type="text" name="'. self::SESSION_POST_NAME .'" placeholder="Captcha" class="form-control nolocalsave">'
 		);
 	}

@@ -22,7 +22,6 @@ class Export{
 	);
 
 	private $type,
-		$pollid,
 		$pollsub,
 		$polldata;
 
@@ -34,7 +33,8 @@ class Export{
 		$this->type = $_GET['type'];
 		if( !empty( $this->type ) && is_string( $this->type ) && in_array( $this->type, self::$types) ){
 			
-			$this->auth(); //dies, if not ok
+			$this->polldata = PollAdmin::authByAdmincode(); //dies, if not ok
+			$this->pollsub = new JSONReader( 'pollsub_' . $this->polldata->getValue( ['code', 'poll'] ) );
 
 			switch( $this->type ){
 				case 'csv':
@@ -50,29 +50,6 @@ class Export{
 			http_response_code(404);
 			die( 'Unknown export option.' );
 		}
-	}
-
-	/**
-	 * Checks the admin code, and dies if not valid
-	 * 	if ok, opens polldata and pollsubmissions
-	 */
-	private function auth(){
-		$polladmins = new JSONReader( 'admincodes' );
-		$admincode = $_GET['admin'];
-
-		if( Utilities::checkFileName($admincode) && $polladmins->isValue( [ $admincode ] ) ){
-			$this->pollid = $polladmins->getValue( [ $admincode ] );
-			$this->polldata = new JSONReader( 'poll_' . $this->pollid );
-			$this->pollsub = new JSONReader( 'pollsub_' . $this->pollid );
-
-			//ok
-		}
-		else{
-			header('Content-Type: text/plain; charset=utf-8');
-			http_response_code(403);
-			die( 'Unknown admin code.' );
-		}
-
 	}
 
 	private function csv(){

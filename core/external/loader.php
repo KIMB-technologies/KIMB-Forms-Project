@@ -16,4 +16,14 @@ if( !function_exists( 'random_int' ) ){
 	require_once( __DIR__ . '/random_compat.phar' );
 }
 
+// Autoloader external
+spl_autoload_register(function ($class) {
+	if( Utilities::checkFileName( $class ) ){
+		$classfile = __DIR__ . '/' . $class . '.php';
+		if( is_file($classfile) ){ //External class
+			require_once( $classfile );
+		}
+	}
+});
+
 ?>

@@ -86,22 +86,25 @@ class Export{
 	 * 	simple html
 	 */
 	private function printview(){
+		$mdp = new Parsedown(); // Markdown Parser
+		$mdp->setSafeMode(true);
+		
 		$h = '<html><head><title>'. $this->polldata->getValue(['pollname']) .'</title><meta charset="utf-8">';
 		$h .= '<style>@page{size: auto; margin: 0; } body{ -webkit-print-color-adjust: exact; margin: 30px; font-family: sans-serif; } table, tr, td, th{ border: 1px solid black; border-collapse: collapse;} div { background-color: #ccc; margin: 5px 0; padding: 5px; }</style>';
 		$h .= '</head><body onload="window.print()">';
 		$h.= '<h1>Export <span style="font-size:12px;">'. date( 'H:i:s d.m.Y' ) .'</small></h1>';
-		$h.= '<h2>' . $this->polldata->getValue(['pollname']) . '</h2>';
-		$h .= '<div>' . Utilities::optimizeOutputString($this->polldata->getValue( ['description'] )) . '</div>';
+		$h.= '<h2>' . Utilities::optimizeOutputString( $this->polldata->getValue(['pollname']) ) . '</h2>';
+		$h .= '<div>' . $mdp->text($this->polldata->getValue( ['description'] )) . '</div>';
 
 		$termine = array();
 		foreach( $this->polldata->getValue( ['termine'] ) as $id => $values){
-			$h .= '<hr /><h3>'. $values['bez'] .'</h3>';
-			$h .= empty( $values['des'] ) ? '' : '<div>'. $values['des'] .'</div>';
+			$h .= '<hr /><h3>'. Utilities::optimizeOutputString( $values['bez'] ) .'</h3>';
+			$h .= empty( $values['des'] ) ? '' : '<div>'. $mdp->text($values['des']) .'</div>';
 			$h .= '<table style="width: 100%;"><tr><th>ID</th><th>Name</th><th>E-Mail</th><th style="width:30%;">Time</th></tr>';
 
 			$i = 1;
 			foreach( $this->pollsub->getValue( [$id] ) as $sub){
-				$h .= '<tr><td>'. $i++ .'</td><td>'. $sub['name'] .'</td><td>'. $sub['mail'] .'</td><td>'. date( 'H:i:s d.m.Y', $sub['time'] ) .'</td></tr>';
+				$h .= '<tr><td>'. $i++ .'</td><td>'. Utilities::optimizeOutputString( $sub['name'] ) .'</td><td>'. Utilities::optimizeOutputString( $sub['mail'] ) .'</td><td>'. date( 'H:i:s d.m.Y', $sub['time'] ) .'</td></tr>';
 			}
 			$h .= '</table>';
 			$h .= $values['anz'] === false ? '' : '<p>'. ($i-1) . '/' . $values['anz'] .'</p>';

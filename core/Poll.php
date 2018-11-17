@@ -147,10 +147,7 @@ class Poll{
 			return true;
 		}
 		else{
-			$alert = new Template( 'alert' );
-			$template->includeTemplate($alert);
-			$alert->setContent( 'ALERTMESSAGE', $capok ? LanguageManager::getTranslation('EinwillErr') : Captcha::getError() );
-
+			$this->error = $capok ? LanguageManager::getTranslation('EinwillErr') : Captcha::getError();
 			return false;
 		}
 	}

@@ -73,13 +73,13 @@ function template_new(){
 		$("input[name=formtype][value="+ data.formtype +"]").prop('checked', true)
 		personMeetingUpdate();
 
-		$("input[type=text]").each((k,v) => {
+		$("input[type=text]:not(.nolocalsave)").each((k,v) => {
 			$( v ).val( data["inputsText"][k] );
 		});
-		$("input[type=number]").each((k,v) => {
+		$("input[type=number]:not(.nolocalsave)").each((k,v) => {
 			$( v ).val( data["inputsNum"][k] );
 		});
-		$("textarea").each((k,v) => {
+		$("textarea:not(.nolocalsave)").each((k,v) => {
 			$( v ).val( data["textAr"][k] );
 		});
 	}

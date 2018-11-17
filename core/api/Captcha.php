@@ -29,6 +29,23 @@ class Captcha{
 	const SESSION_POST_NAME = 'CAPTCHA_STRING';
 
 	/**
+	 * The name of the session for already checked users
+	 */
+	const SESSION_OK_NAME = 'CAPTCHA_LAST_OK';
+
+	/**
+	 * How long does a solved captcha live?
+	 * (seconds) 
+	 */
+	const LAST_SOLVED_TIMEOUT = 600;
+
+	/**
+	 * When show a new one?
+	 * (should be smaller than LAST_SOLVED_TIMEOUT, seconds)
+	 */
+	const LAST_SOLVED_NEW = 90;
+
+	/**
 	 * The string, displayed in the captcha
 	 */
 	private static $string;
@@ -89,6 +106,10 @@ class Captcha{
 	 * Getting the HTML for the captcha
 	 */
 	public static function getCaptchaHTML(){
+		if( !empty( $_SESSION[self::SESSION_OK_NAME] ) && $_SESSION[self::SESSION_OK_NAME] - self::LAST_SOLVED_NEW >= time() ){
+			//user has already solved a captcha, no new one
+			return '';
+		}
 		return Utilities::getRowHtml(
 			'<img title="'.LanguageManager::getTranslation('CaptTitle').'" src="'. URL::generateAPILink('captcha', ['time' => time()]) .'" onclick="this.src=\''.URL::generateAPILink('captcha').'&r=\'+Math.random();">',
 			'<input type="text" name="'. self::SESSION_POST_NAME .'" placeholder="Captcha" class="form-control nolocalsave">'
@@ -101,11 +122,17 @@ class Captcha{
 	 * 	default self::USE_POST, the post param by getCaptchaHTML()
 	 */
 	public static function checkImageData( $string = self::USE_POST ){
+		if( !empty( $_SESSION[self::SESSION_OK_NAME] ) && $_SESSION[self::SESSION_OK_NAME] >= time() ){
+			//user has already solved a captcha, no new one
+			return true;
+		}
 		if( $string === self::USE_POST ){
 			$string = $_POST[self::SESSION_POST_NAME];
 		}
 		if( !empty( $_SESSION[self::SESSION_POST_NAME] ) && !empty( $string ) ){
 			if( $_SESSION[self::SESSION_POST_NAME] == $string ){
+				//now user has solved one, set valid until:
+				$_SESSION[self::SESSION_OK_NAME] = time() + self::LAST_SOLVED_TIMEOUT; 
 				return true;
 			}
 			else{

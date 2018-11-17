@@ -12,7 +12,8 @@
 - Make sure the server can write the following dirs:
 	- `/data/*`
 - Point the errors to
-	- `/?task=error`
+	- `/?task=error404` for HTTP 404 and other
+    - `/?task=error403` for HTTP 403
 
 ## Configuration
 Edit the file `/data/config.json` as follows:

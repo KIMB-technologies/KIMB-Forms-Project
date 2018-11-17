@@ -156,7 +156,7 @@ function template_admin(){
 		$( "div#deletepoll" ).dialog({
 			resizable: false,
 			height: "auto",
-			width: 400,
+			width: Math.min($(window).width(), 400),
 			modal: true,
 			buttons: [
 				{
@@ -193,7 +193,7 @@ function template_admin(){
 		$( "div#editpoll" ).dialog({
 			resizable: true,
 			height: "auto",
-			width: 600,
+			width:  Math.min($(window).width(), 600),
 			modal: true,
 			buttons: [
 				{
@@ -236,7 +236,7 @@ function template_admin(){
 		$( "div#editdate" ).dialog({
 			resizable: true,
 			height: "auto",
-			width: 600,
+			width: Math.min($(window).width(), 600),
 			modal: true,
 			buttons: [
 				{

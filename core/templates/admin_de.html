@@ -3,10 +3,10 @@
 <div class="container">
 	<div class="alert alert-success" role="alert">
 		<div class="row">
-			<div class="col" title="Diese ID dient dazu, an der Umfrage teilzunehmen.">
+			<div class="col-sm" title="Diese ID dient dazu, an der Umfrage teilzunehmen.">
 				Umfrage-ID
 			</div>
-			<div class="col">
+			<div class="col-sm">
 				<input type="text" class="form-control" value="%%UMFRAGEID%%" disabled="disabled">
 			</div>
 			<div class="col form-group">
@@ -16,10 +16,10 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col" title="Dieser Code erlaubt es die Umfrage zu bearbeiten und die Ergebnisse einzusehen.">
+			<div class="col-sm" title="Dieser Code erlaubt es die Umfrage zu bearbeiten und die Ergebnisse einzusehen.">
 				Admin-Code
 			</div>
-			<div class="col">
+			<div class="col-sm">
 				<input type="text" class="form-control" value="%%ADMINCODE%%" disabled="disabled">
 			</div>
 			<div class="col form-group">
@@ -30,18 +30,18 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col">
+		<div class="col-sm">
 			<h2 title="Name der Umfrage">%%POLLNAME%%</h2>
 		</div>
 	</div>
 	<div class="alert alert-info" role="alert">
 		<div class="row">
-			<div class="col">
+			<div class="col-sm">
 				<div class="parseasmarkdown" title="Beschreibung der Umfrage">
 					%%POLLDESCRIPT%%
 				</div>
 			</div>
-			<div class="col">
+			<div class="col-sm">
 				<p><span class="badge badge-secondary" title="Typ der Umfrage: Termin finden oder Helfer suchen.">%%POLLTYPE%%</span></p>
 				<button type="button" class="btn btn-light" id="umfreditbutton" title="Namen und Beschreibung anpassen.">
 					Bearbeiten
@@ -53,17 +53,17 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col">
+		<div class="col-sm">
 			<h3>Termine</h3>
 		</div>
-		<div class="col">
+		<div class="col-sm">
 			Hinweise
 		</div>
 	</div>
 	<div class="alert alert-dark" role="alert">
 <!--MULTIPLE-Termin-BEGIN-->
 		<div class="row">
-			<div class="col">
+			<div class="col-sm">
 				<div class="form-group">
 					<p>
 						<b>%%NAME%%</b>
@@ -73,19 +73,19 @@
 					</p>
 				</div>
 			</div>
-			<div class="col">
+			<div class="col-sm">
 				<div class="parseasmarkdown">
 					%%HINWEISE%%
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col">
+			<div class="col-sm">
 				<button type="button" class="btn btn-light editbutton" id="%%TERMINID%%" title="Namen, Anzahl und Hinweise anpassen.">
 					Bearbeiten
 				</button>
 			</div>
-			<div class="col-10">
+			<div class="col-sm col-sm-10">
 				Ergebnisse:
 				<ul class="list-group">
 					<li class="list-group-item">
@@ -98,14 +98,14 @@
 	</div>
 	<div class="alert alert-primary" role="alert">
 		<div class="row form-group">
-			<div class="col">
+			<div class="col-sm">
 				<a href="%%EXPORTLINK%%" target="_blank">
 					<button type="button" class="btn btn-primary" title="Export der Ergebnisse als CSV.">
 						Export
 					</button>
 				</a>
 			</div>
-			<div class="col">
+			<div class="col-sm">
 				<a href="%%PRINTLINK%%" target="_blank">
 					<button type="button" class="btn btn-primary" title="Für den Druck optimierte Ansicht.">
 						Druckansicht
@@ -114,12 +114,12 @@
 			</div>
 		</div>
 		<div class="row form-group">
-			<div class="col">
+			<div class="col-sm">
 				<button type="button" class="btn btn-danger" id="deleteerg" title="Die Ergebnisse löschen und die Umfrage erhalten.">
 					Ergebnisse löschen
 				</button>
 			</div>
-			<div class="col">
+			<div class="col-sm">
 				<button type="button" class="btn btn-danger" id="deleteall" title="Die gesamte Umfrgage mit den Ergebnissen löschen.">
 					Umfrage löschen
 				</button>

@@ -14,33 +14,31 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col col-1">
+		<div class="col-sm col-sm-1">
 		</div>
-		<div class="col" title="Name des Termins und Anzahl der verfügbaren Plätze/ Teilnehmer.">
+		<div class="col-sm" title="Name des Termins und Anzahl der verfügbaren Plätze/ Teilnehmer.">
 			<h3>Termine</h3>
 		</div>
-		<div class="col">
+		<div class="col-sm">
 			Hinweise
 		</div>
 	</div>
 	<div class="alert alert-light" role="alert">
 <!--MULTIPLE-Termin-BEGIN-->
 		<div class="row">
-			<div class="col col-1">
-				<input type="checkbox" name="%%TERMINID%%" class="terminwahl form-control"
-					title="Diesen Termin auswählen." %%DISABLE%%>
+			<div class="col-sm col-sm-1">
+				<input type="checkbox" name="%%TERMINID%%" class="terminwahl form-check-input"
+					title="Diesen Termin auswählen." value="yes" %%DISABLE%%>
 			</div>
-			<div class="col">
-				<div class="form-group">
-					<p>
-						%%NAME%%
-					</p>
-					<p>
-						%%ANZAHL%%
-					</p>
-				</div>
+			<div class="col-sm col-sm-sm">
+				<p>
+					%%NAME%%
+				</p>
+				<p>
+					%%ANZAHL%%
+				</p>
 			</div>
-			<div class="col">
+			<div class="col-sm">
 				<div class="parseasmarkdown">
 					%%HINWEISE%%
 				</div>
@@ -52,13 +50,13 @@
 	%%CAPTCHA%%
 	<div class="alert alert-primary" role="alert">
 		<div class="row">
-			<div class="col">
+			<div class="col-sm">
 				<div class="form-group">
 					<input type="text" name="name" placeholder="Name" class="username form-control"
 						title="Name der Person, die die Schicht übernimmt (Pflichtfeld).">
 				</div>
 			</div>
-			<div class="col">
+			<div class="col-sm">
 				<div class="form-group">
 					<input type="email" name="email" placeholder="E-Mail-Adresse" class="usermail form-control"
 						title="Kontakadresse für Nachfragen (optional, nur für Admins sichrbar).">
@@ -66,7 +64,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col">
+			<div class="col-sm">
 				<input type="submit" class="btn btn-primary" value="Absenden">
 			</div>
 		</div>

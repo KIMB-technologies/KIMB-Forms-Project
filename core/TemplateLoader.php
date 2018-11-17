@@ -68,9 +68,10 @@ class TemplateLoader{
 			$this->mainSetup();
 			$this->includetemp = new Template( 'error' );
 			$this->maintemplate->includeTemplate($this->includetemp);
+			$this->includetemp->setContent( 'CODE', $task === 'error403' ? '403' : '404' );
 			$this->maintemplate->setContent( 'MAINBUTTONDEST', URL::generateLink('start') );
 			$this->maintemplate->setContent( 'MAINBUTTONTASK',  LanguageManager::getTranslation('MAINBUTTONTASK-start'));
-			http_response_code(404);
+			http_response_code($task === 'error403' ? 403 : 404);
 		}
 	}
 
@@ -119,7 +120,7 @@ class TemplateLoader{
 		if( $this->configjson->getValue(['texts', 'enableNew']) ){
 			$this->includetemp->setContent( 'TEXTSEINWILL',
 				Utilities::getRowHtml(
-					'<input type="checkbox" class="form-control" name="textseinwill" value="yes">',
+					'<input type="checkbox" class="form-check-input" name="textseinwill" value="yes">',
 					$this->configjson->getValue(['texts', 'textNew']),
 					'col-sm-1'
 				)

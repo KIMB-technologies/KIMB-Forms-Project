@@ -14,23 +14,23 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col col-1">
+		<div class="col-sm col-sm-1">
 		</div>
-		<div class="col" title="Name of the date and number of free places/ other participants.">
+		<div class="col-sm" title="Name of the date and number of free places/ other participants.">
 			<h3>Dates</h3>
 		</div>
-		<div class="col">
+		<div class="col-sm">
 			Notes
 		</div>
 	</div>
 	<div class="alert alert-light" role="alert">
 <!--MULTIPLE-Termin-BEGIN-->
 		<div class="row">
-			<div class="col col-1">
-				<input type="checkbox" name="%%TERMINID%%" class="terminwahl form-control"
+			<div class="col-sm col-sm-1">
+				<input type="checkbox" name="%%TERMINID%%" class="terminwahl form-check-input"
 					title="Choose this date." %%DISABLE%%>
 			</div>
-			<div class="col">
+			<div class="col-sm">
 				<div class="form-group">
 					<p>
 						%%NAME%%
@@ -40,7 +40,7 @@
 					</p>
 				</div>
 			</div>
-			<div class="col">
+			<div class="col-sm">
 				<div class="parseasmarkdown">
 					%%HINWEISE%%
 				</div>
@@ -52,13 +52,13 @@
 	%%CAPTCHA%%
 	<div class="alert alert-primary" role="alert">
 		<div class="row">
-			<div class="col">
+			<div class="col-sm">
 				<div class="form-group">
 					<input type="text" name="name" placeholder="Name" class="username form-control"
 						title="Name of the person, which takes the shift (required).">
 				</div>
 			</div>
-			<div class="col">
+			<div class="col-sm">
 				<div class="form-group">
 					<input type="email" name="email" placeholder="E-Mail-Address" class="usermail form-control"
 						title="Contact for questions (optional, visible for for admins).">
@@ -66,7 +66,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col">
+			<div class="col-sm">
 				<input type="submit" class="btn btn-primary" value="Send">
 			</div>
 		</div>

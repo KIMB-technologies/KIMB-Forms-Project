@@ -75,7 +75,7 @@ class Utilities{
 	 * @param $clS classes to add to second cell
 	 */
 	public static function getRowHtml($first, $second, $clF = '', $clS = ''){
-		return '<div class="alert" role="alert"><div class="row"><div class="col '. $clF .'">' . $first .'</div><div class="col '. $clS .'">'. $second .'</div></div></div>';
+		return '<div class="alert" role="alert"><div class="row"><div class="col-sm '. $clF .'">' . $first .'</div><div class="col-sm '. $clS .'">'. $second .'</div></div></div>';
 	}
 }
 

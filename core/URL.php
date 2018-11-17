@@ -13,15 +13,76 @@ defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 
 class URL{
 
+	/**
+	 * Config
+	 */
 	private static $configjson = null;
+
+	/**
+	 * Parsed URL data array
+	 */
 	private static $parsedurl = null;
+
+	/**
+	 * URL Rewrite status and data store
+	 */
+	private static $urlrew = false;
+	private static $querydata;
 
 	/**
 	 * Setting up the class, in a static context
 	 */
-	private static function setup(){
-		if( self::$configjson == null ){
+	public static function setup(){
+		if( self::$configjson === null ){
 			self::$configjson = new JSONReader( 'config' );
+
+			//check for url rewrite
+			if( isset($_SERVER['REQUEST_URI']) || isset( $_GET['uri'] ) ){
+				//activated
+				if( self::$configjson->getValue( ['urlrewrite'] ) ){
+					if( isset( $_GET['uri'] ) ){ // use uri get (via server conf)
+						$qstring = $_GET['uri'];
+					}
+					else{ // else uses server var
+						$qstring = $_SERVER['REQUEST_URI'];
+					}
+					//only allowed chars
+					$qstring = Utilities::validateInput($qstring, '/[^a-z0-9A-Z\/\-\.\%]/', 500);
+					//to array and remove empty ones
+					$qd = array_values(array_filter(explode('/', $qstring)));
+
+					//init array
+					self::$querydata = array();
+					self::$querydata['task'] = !empty($qd[0]) ? $qd[0] : 'start'; // task
+					
+					if( self::$querydata['task'] === 'poll' ){ // poll id and adminid
+						self::$querydata['pollid'] = $qd[1];
+						self::$querydata['admincode'] = false;
+						$i = 2;
+					} 
+					else if( self::$querydata['task'] === 'admin' ){
+						self::$querydata['pollid'] = false;
+						self::$querydata['admincode'] = $qd[1];
+						$i = 2;
+					}
+					else{
+						self::$querydata['pollid'] = false;
+						self::$querydata['admincode'] = false;
+						$i = 1;
+					}
+					self::$querydata['other'] = array(); //other values .../par/value/par/value/...
+					while( isset( $qd[$i] ) ){
+						self::$querydata['other'][$qd[$i]] = isset( $qd[$i+1] ) ? $qd[$i+1] : '';
+						$i += 2; 
+					}
+					//parse them into GET
+					foreach( self::$querydata['other'] as $p => $v){
+						$_GET[$p] = $v;
+					}
+
+					self::$urlrew = true;
+				}
+			}
 		}
 	}
 
@@ -33,9 +94,17 @@ class URL{
 	 */
 	public static function generateLink($task = 'start', $pollid = '', $admincode = ''){
 		self::setup();
-		return self::$configjson->getValue(['site', 'hosturl']) . '/?task=' . $task
-			. ( $pollid != '' ? '&poll=' . $pollid : '' )
-			. ( $admincode != '' ? '&admin=' . $admincode : '' );
+		if( self::$urlrew ){
+			return self::$configjson->getValue(['site', 'hosturl']) . '/'
+				. ( $task != 'poll' && $task != 'admin' ? $task . '/'  : '' )
+				. ( $pollid != '' && $task == 'poll' ? 'poll/' . $pollid . '/' : '' )
+				. ( $admincode != '' && $task == 'admin' ? 'admin/' . $admincode . '/' : '' );
+		}
+		else{
+			return self::$configjson->getValue(['site', 'hosturl']) . '/?task=' . $task
+				. ( $pollid != '' ? '&poll=' . $pollid : '' )
+				. ( $admincode != '' ? '&admin=' . $admincode : '' );
+		}
 	}
 
 	/**
@@ -46,6 +115,7 @@ class URL{
 	 */
 	public static function generateAPILink($task, $params = array()){
 		self::setup();
+		//here no url rew!
 		$app = '';
 		foreach( $params as $par => $val ){
 			$app .= '&' . $par . '=' . urlencode( $val );
@@ -60,9 +130,17 @@ class URL{
 	 * @return the url as string
 	 */
 	public static function currentLinkGenerator($params = array()){
+		self::setup();
 		$append = '';
-		foreach( $params as $par => $val ){
-			$append .= '&' . $par . '=' . urlencode( $val ); 
+		if( self::$urlrew ){
+			foreach( $params as $par => $val ){
+				$append .= $par . '/' . urlencode( $val ) . '/'; 
+			}		
+		}
+		else{
+			foreach( $params as $par => $val ){
+				$append .= '&' . $par . '=' . urlencode( $val ); 
+			}
 		}
 		$a = self::urlParser();
 		$a['pollid'] = ( $a['pollid'] === false) ? '' : $a['pollid'];
@@ -75,16 +153,23 @@ class URL{
 	 * @return ['task' => task, 'pollid' => pollid or false, 'admincode' => admincode or false]
 	 */
 	public static function urlParser(){
+		self::setup();
 		// addition params from currentLinkGenerator( $params )
 		//	should be parsed here into $_GET['param'] = value
 		//	only necessary if, typical &par=val is not used
 
 		if( self::$parsedurl === null ){ //cache parsed
-			self::$parsedurl = array(
-				'task' => isset($_GET['task']) && is_string($_GET['task']) ? preg_replace( '[^a-z]', '', $_GET['task'] ) : 'start',
-				'pollid' => isset($_GET['poll']) && is_string($_GET['poll']) ?  preg_replace( '[^a-z0-9]', '', $_GET['poll'] ) : false,
-				'admincode' => isset($_GET['admin']) && is_string($_GET['admin']) ?  preg_replace( '[^a-z0-9]', '', $_GET['admin'] ) : false
-			);
+			if( self::$urlrew ){
+				self::$parsedurl = self::$querydata;
+				unset( self::$parsedurl['other'] );
+			}
+			else{
+				self::$parsedurl = array(
+					'task' => isset($_GET['task']) && is_string($_GET['task']) ? preg_replace( '[^a-z]', '', $_GET['task'] ) : 'start',
+					'pollid' => isset($_GET['poll']) && is_string($_GET['poll']) ?  preg_replace( '[^a-z0-9]', '', $_GET['poll'] ) : false,
+					'admincode' => isset($_GET['admin']) && is_string($_GET['admin']) ?  preg_replace( '[^a-z0-9]', '', $_GET['admin'] ) : false
+				);
+			}
 		}
 
 		return self::$parsedurl;

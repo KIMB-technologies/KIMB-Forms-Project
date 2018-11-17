@@ -14,6 +14,11 @@ defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 class Utilities{
 
 	/**
+	 * The system's Version
+	 */
+	const SYS_VERSION = 'v1.0.5alpha';
+
+	/**
 	 * Possible chars for:
 	 */
 	const POLL_ID = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890';

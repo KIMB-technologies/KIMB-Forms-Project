@@ -35,12 +35,8 @@ Edit the file `/data/config.json` as follows:
         "enableNew": true|false, // enable a text the user has to accept before creating polls
         "textPoll": "string, html", // the text, submitting polls
         "textNew": "string, html" // the text, creating polls
-    }
+    },
+    "urlrewrite": true|false // enable or disable speaking urls, server has to query index.php and set uri to get uri param
 }
 
 ```
-
-### URL Rewrite
-Will be supported in future.
-
-> Format: `/<task>/<poll|admin>/[<param>/<value>]`

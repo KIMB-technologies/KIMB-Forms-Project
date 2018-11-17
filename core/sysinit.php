@@ -11,13 +11,17 @@
  */
 defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 
+//global settings
 error_reporting(0);
 session_name( 'KIMB-Forms-Project' );
 session_start();
 
+// static env setups
 JSONReader::changepath( __DIR__ . '/../data/' );
+URL::setup();
 LanguageManager::init();
 
+//load
 if( constant( 'KIMB-FORMS-PROJECT' ) === 'PAGE' ){ //load as normal HTML page
 	$loader = new TemplateLoader();
 	$loader->decideOnTask( URL::urlParser()['task'] );

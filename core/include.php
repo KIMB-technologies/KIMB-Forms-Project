@@ -11,11 +11,11 @@
  */
 defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 
-// external libs loader
-require_once( __DIR__ . '/external/loader.php' );
-
 // Autoloader uses Utilities
 require_once( __DIR__ . '/Utilities.php' );
+
+// external libs loader
+require_once( __DIR__ . '/external/loader.php' );
 
 // Autoloader
 spl_autoload_register(function ($class) {

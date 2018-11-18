@@ -82,6 +82,7 @@ class TemplateLoader{
 		$this->maintemplate->setContent( 'TITLE', $this->configjson->getValue( ['site', 'pagename'] ) );
 		$this->maintemplate->setContent( 'SUBTITLE', LanguageManager::getTranslation( 'SUBTITLE' ) );
 		$this->maintemplate->setContent( 'CANONICAL', URL::currentLinkGenerator( array( 'language' => LanguageManager::getCurrentLanguage() ) ) );
+		$this->maintemplate->setContent( 'VERSION', Utilities::SYS_VERSION );
 
 		$langsel = '';
 		foreach( LanguageManager::getAllLanguages() as $key => $name ){

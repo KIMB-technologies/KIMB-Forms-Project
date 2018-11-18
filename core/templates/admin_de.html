@@ -95,6 +95,22 @@
 			</div>
 		</div>
 <!--MULTIPLE-Termin-END-->
+		<div class="row" style="margin-top: 1rem;">
+			<div class="col-sm">
+				<div class="form-group">
+					<button type="button" class="btn btn-secondary editbutton" id="addadate" title="Hinzufügen eines weiteren Termins am Ende.">
+						Termin hinzufügen
+					</button>
+				</div>
+			</div>
+			<div class="col-sm">
+				<div class="form-group" title="Zwei Termine tauschen (nur möglich, wenn keine Ergebnisse vorhanden).">
+					<button type="button" class="btn btn-secondary" id="swapbutton">
+						Termine tauschen
+					</button>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="alert alert-primary" role="alert">
 		<div class="row form-group">
@@ -157,6 +173,18 @@
 	<div class="pollentire" class="d-none">
 		<span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
 		Wollen Sie wirklich die gesamte Umfrage inklusive allen Ergebnissen löschen?
+	</div>
+</div>
+<div id="swapdate" class="d-none" title="Tauschen von Terminen.">
+	<div class="form-group">
+		<select class="form-control" id="swapA">
+		</select>
+		<span class="ui-icon ui-icon-arrowthick-2-e-w"></span>
+		<select class="form-control" id="swapB">
+		</select>
+	</div>
+	<div class="alert alert-danger d-none" role="alert">
+		Konnte Änderungen nicht übernehmen!
 	</div>
 </div>
 

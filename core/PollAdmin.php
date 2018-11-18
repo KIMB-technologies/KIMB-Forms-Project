@@ -105,6 +105,7 @@ class PollAdmin{
 
 		$termine = array();
 		$terminmeta = array();
+		$submissempty = true;
 		foreach( $this->polldata->getValue( ['termine'] ) as $id => $values){
 			if( $type === 'person' ){
 				$maxanz = '/' . $values["anz"];
@@ -118,6 +119,7 @@ class PollAdmin{
 			foreach( $this->pollsub->getValue( [$id] ) as $sub){
 				$i++;
 				$submiss[] = Utilities::optimizeOutputString( $sub['name'] . ' (' . $sub['mail'] . ') ' );
+				$submissempty = false;
 			}
 
 			$termine[] = array(
@@ -140,7 +142,9 @@ class PollAdmin{
 				"polladmin" => URL::generateLink('admin', '', $this->polldata->getValue(['code', 'admin'])),
 				"meta" => array(  $this->polldata->getValue(['pollname']), $this->polldata->getValue(['description']) ),
 				"terminmeta" => $terminmeta,
-				"editurl" => URL::generateAPILink( 'editpoll', array( 'admin' =>  $this->polldata->getValue(['code', 'admin']) ) )
+				"editurl" => URL::generateAPILink( 'editpoll', array( 'admin' =>  $this->polldata->getValue(['code', 'admin']) ) ),
+				"polltype" => $type,
+				"submissempty" => $submissempty
 			)
 		)));
 	}

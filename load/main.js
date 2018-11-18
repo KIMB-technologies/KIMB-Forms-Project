@@ -223,6 +223,9 @@ function template_admin(){
 	$("button#umfreditbutton").click( changeUmfrageMeta );
 
 	function changeUmfrageTermin( terminid ){
+		if( terminid == 'addadate'){
+			template_data.terminmeta['addadate'] = ['', template_data.polltype == 'person' ? '' : false ,''];
+		}
 		$( "div#editdate" ).removeClass('d-none');
 		$( "div#editdate div.alert" ).addClass('d-none');
 		$( "div#editdate input.datename" ).val( template_data.terminmeta[terminid][0] );
@@ -272,4 +275,71 @@ function template_admin(){
 		});
 	}
 	$("button.editbutton").click( function (){ changeUmfrageTermin( $(this).attr( 'id' ) ) } );
+
+	function swapTermine(){
+		$( "div#swapdate" ).removeClass('d-none');
+		$( "div#swapdate div.alert" ).addClass('d-none');
+		var opts = '';
+		$.each( template_data.terminmeta, (k,v) =>{
+			opts += '<option value="' + k + '">' + v[0] + '</option>';
+		});
+		$( "div#swapdate #swapA" ).html(opts);
+		$( "div#swapdate #swapB" ).html(opts);
+		$( "div#swapdate" ).dialog({
+			resizable: true,
+			height: "auto",
+			width: Math.min($(window).width(), 600),
+			modal: true,
+			buttons: [
+				{
+					text: "Go",
+					icon: "ui-icon-arrowthick-2-e-w",
+					click: function() {
+						$( "div#swapdate #swapA" ).prop('disabled', true);
+						$( "div#swapdate #swapB" ).prop('disabled', true);
+						var swapA = $( "div#swapdate #swapA" ).val();
+						var swapB = $( "div#swapdate #swapB" ).val();
+						$.post( template_data.editurl,
+							{
+								"name" : template_data.terminmeta[swapA][0],
+								"termin" : swapB,
+								"hinw"  : template_data.terminmeta[swapA][2],
+								"anz"  : template_data.terminmeta[swapA][1],
+							},
+							function (data){
+								if( data == 'ok' ) {
+									$.post( template_data.editurl,
+										{
+											"name" : template_data.terminmeta[swapB][0],
+											"termin" : swapA,
+											"hinw"  : template_data.terminmeta[swapB][2],
+											"anz"  : template_data.terminmeta[swapB][1],
+										},
+										function (data){
+											if( data == 'ok' ) {
+												$( "div#swapdate div.alert" ).addClass('d-none');
+												refreshView('swapbutton');
+											}
+											else{
+												$( "div#swapdate div.alert" ).removeClass('d-none');
+												$( "div#swapdate #swapA" ).prop('disabled', false)
+												$( "div#swapdate #swapB" ).prop('disabled', false)
+											}
+										});
+								}
+								else{
+									$( "div#swapdate div.alert" ).removeClass('d-none');
+									$( "div#swapdate #swapA" ).prop('disabled', false)
+									$( "div#swapdate #swapB" ).prop('disabled', false)
+								}
+							});
+					},
+				}
+			]
+		});
+	}
+	$("button#swapbutton").click( swapTermine );
+	if( !template_data.submissempty ){
+		$("button#swapbutton").prop('disabled', true);
+	}
 }

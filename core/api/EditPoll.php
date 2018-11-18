@@ -55,9 +55,16 @@ class EditPoll{
 		}
 
 		if( !empty( $n ) && is_string( $t )){
-			$id = intval( preg_replace( '/[^0-9]/', '', $t ) );
+			if( $t === 'addadate' ){
+				$id = null; // means append
+				$searcharr = ['termine'];
+			}
+			else{
+				$id = intval( preg_replace( '/[^0-9]/', '', $t ) );
+				$searcharr = ['termine', $id];
+			}
 
-			if( $this->polldata->isValue(['termine', $id] ) ){
+			if( $this->polldata->isValue($searcharr) ){
 				$this->polldata->setValue(['termine', $id],
 					array(
 						'bez' => $n,

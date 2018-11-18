@@ -164,6 +164,7 @@ class Poll{
 		$template->setContent( 'FORMDEST', URL::currentLinkGenerator() );
 		$template->setContent( 'POLLNAME', Utilities::optimizeOutputString($this->polldata->getValue( ['pollname'] )) );
 		$template->setContent( 'POLLDESCRIPT', Utilities::optimizeOutputString($this->polldata->getValue( ['description'] )) );
+		$template->setContent( 'POLLID', $this->id );
 
 		$type = $this->polldata->getValue( ['formtype'] );
 		$termine = array();

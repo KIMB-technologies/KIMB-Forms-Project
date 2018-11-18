@@ -135,6 +135,15 @@ function template_poll(){
 		var data = JSON.parse( localStorage.getItem( "pollPollData" ) );
 		$("input[name=name]").val( data.username );
 		$("input[name=email]").val( data.usermail );
+
+		if( localStorage.hasOwnProperty("pollPollDateData") ){
+			var wahl = JSON.parse( localStorage.getItem( "pollPollDateData" ) );
+			if( wahl.hasOwnProperty( pollid ) ){
+				$( "input.terminwahl" ).each( (k, v) => {
+					$(v).prop('checked', wahl[pollid][k]);
+				});
+			}
+		}
 	}
 	if( localStorage.hasOwnProperty("pollPollData") ){
 		loadSaved();
@@ -146,8 +155,15 @@ function template_poll(){
 			"usermail" : $("input[name=email]").val(),
 		};
 		localStorage.setItem( "pollPollData", JSON.stringify( data ) );
+
+		var wahl = localStorage.hasOwnProperty("pollPollDateData") ? JSON.parse( localStorage.getItem( "pollPollDateData" ) ) : {};
+		wahl[pollid] = [];
+		$( "input.terminwahl" ).each( (k, v) => {
+			wahl[pollid][k] = $(v).prop('checked');
+		});
+		localStorage.setItem( "pollPollDateData", JSON.stringify( wahl ) );
 	}
-	$("input[type=text], input[type=email]").change(save);
+	$("input[type=text], input[type=email], input.terminwahl").change(save);
 }
 
 function template_admin(){

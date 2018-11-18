@@ -5,6 +5,7 @@
 	"%%CAPTCHA%%" : "",
 	"%%TEXTSEINWILL%%" : "",
 	"%%INNERCONTAINER%%" : "",
+	"%%POLLID%%" : "poll",
 	"multiples" : {
 		"Termin" : {
 			"%%NAME%%" : "Name",

@@ -7,5 +7,6 @@
 	"%%MAINBUTTONTASK%%" : "mainbutton label",
 	"%%INNERCONTAINER%%" : "inner data",
 	"%%MOREFOOTER%%" : "more footer",
+	"%%CANONICAL%%" : "",
 	"%%LANGUAGEBUTTONS%%" : "<button type='button' class='btn btn-secondary active' linkdest='http://example.com/?lang=de'>Deutsch</button>"
 }

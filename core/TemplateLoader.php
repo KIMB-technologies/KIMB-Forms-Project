@@ -81,6 +81,7 @@ class TemplateLoader{
 	private function mainSetup(){
 		$this->maintemplate->setContent( 'TITLE', $this->configjson->getValue( ['site', 'pagename'] ) );
 		$this->maintemplate->setContent( 'SUBTITLE', LanguageManager::getTranslation( 'SUBTITLE' ) );
+		$this->maintemplate->setContent( 'CANONICAL', URL::currentLinkGenerator( array( 'language' => LanguageManager::getCurrentLanguage() ) ) );
 
 		$langsel = '';
 		foreach( LanguageManager::getAllLanguages() as $key => $name ){
@@ -147,6 +148,7 @@ class TemplateLoader{
 			$alert = new Template( 'alert' );
 			$this->maintemplate->includeTemplate($alert);
 			$alert->setContent( 'ALERTMESSAGE', LanguageManager::getTranslation('UnBeAdmC') );
+			http_response_code(404);
 		}		
 	}
 
@@ -180,6 +182,7 @@ class TemplateLoader{
 			$alert = new Template( 'alert' );
 			$this->maintemplate->includeTemplate($alert);
 			$alert->setContent( 'ALERTMESSAGE', LanguageManager::getTranslation('UnBeUmfr') );
+			http_response_code(404);
 		}		
 	}
 

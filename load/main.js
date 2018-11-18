@@ -11,22 +11,24 @@
 
 $( function (){
 	template_main();
-
-	switch(template_name){
-		case "new":
-			template_new();
-			break;
-		case "start":
-			template_start();
-			break;
-		case "poll":
-			template_poll();
-			break;
-		case "admin":
-			template_admin();
-			break;
-		default:
-			break;
+	
+	if(typeof template_name !== "undefined"){
+		switch(template_name){
+			case "new":
+				template_new();
+				break;
+			case "start":
+				template_start();
+				break;
+			case "poll":
+				template_poll();
+				break;
+			case "admin":
+				template_admin();
+				break;
+			default:
+				break;
+		}
 	}
 });
 

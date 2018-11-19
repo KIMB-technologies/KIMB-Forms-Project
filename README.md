@@ -7,7 +7,7 @@
 This tools allows users to create polls, each poll can be used to find
 a date for an appointment (like Doodle an other).
 Or one can create a poll to coordinate helping hands, e.g. one needs 10 persons 
-for 5 shifts, this tool provides the interface.
+for 5 shifts, this tool provides the interface (e.g. to replace Google Forms).
 
 The idea was created after the EU introduced the DSGVO, cause the tools used before where hosted 
 in the US and now this tools shall replace them.

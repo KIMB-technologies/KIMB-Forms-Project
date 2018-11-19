@@ -22,6 +22,7 @@ in the US and now this tools shall replace them.
 - [Installation Instructions](https://github.com/KIMB-technologies/KIMB-Forms-Project/blob/master/INSTALL.md)
 - [Issues and Planned Features](https://github.com/KIMB-technologies/KIMB-Forms-Project/issues)
 - [Code Documentation](https://kimb-technologies.github.io/KIMB-Forms-Project/)
+- [Contribute](https://github.com/KIMB-technologies/KIMB-Forms-Project/blob/master/CONTRIBUTING.md)
 - [Libraries used](https://github.com/KIMB-technologies/KIMB-Forms-Project/blob/master/NOTICE.md)
 
 ## Try out & develop

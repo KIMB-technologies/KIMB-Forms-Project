@@ -44,7 +44,7 @@ defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 - list libraries in `NOTICE.md`
     - add license there and license file near library
     
-## 
+## Remember
 - lightweight
     - no don't add a library if you can write your own (not huge) function
     - uses PHP 7, if a function does not exist in older versions, us it nevertheless

@@ -61,7 +61,7 @@ class Captcha{
 	 */
 	public static function showImage(){
 		//load image
-		$img = imagecreate(130, 30);
+		$img = imagecreate(130, 40);
 		imagecolorallocate($img, 255, 255, 255);
 
 		//generate string

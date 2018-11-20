@@ -37,7 +37,7 @@
 		- or set the `$_SERVER['REQUEST_URI']` of PHP
 	- files in `/load/*` and the `api.php` have to stay accessible
 	- if using Apache done by the `/.htaccess` provided
-6. Set us the Error Documents (HTTP `404` and `403`)
+6. Set up the Error Documents (HTTP `404` and `403`)
 	- point the errors to
 		- `/?task=error404` (`/error404` if using URL-Rewriting) 
 		- `/?task=error403` (`/error403` if using URL-Rewriting)
@@ -47,7 +47,7 @@
 	- normally one has to edit
 		- `site.hosturl`, the url where the system can be reached (without `/` at the end)
 		- `site.pagename`, the name of this page
-		- `site.footercontent` some additional text in the foort (Imprint, Terms of Service, etc.)
+		- `site.footercontent` some additional text in the footer (Imprint, Terms of Service, etc.)
 		- `urlrewrite`, enable URL-Rewriting if set up
 		- `texts.*`, change the texts a user has to check before he can participate
 			- or disable them
@@ -84,10 +84,10 @@
 	- can also be done by deleting all files and unpacking the new release
 4. Remove the files `translation_de.json` and `translation_en.json` in your *backup* of `/data/`
 5. Move your backup back to `/data/`
-	- overwrite existsing files 
+	- overwrite existsing files, typically
 		- `config.json`, `polls.json` and `admincodes.json`
 6. Normally there are no changes necessary in the configuration and other `json` files
-	- if necessary the releas will contain a description what todo
+	- if necessary the release will contain a description what todo
 		- e.g. provide an update script
 
 

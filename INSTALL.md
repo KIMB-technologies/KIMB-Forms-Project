@@ -1,25 +1,58 @@
-# KIMB-Forms-Project Install
+# Installation
+> KIMB-Forms-Project 
 
-## Server Requirements
+- [Install Guide](#install)
+- [Update Guide](#update)
+
+## Notes
+
+### Server Requirements
 - Webserver running PHP **7**
-    - PHP 5.6 should work as well, but is not really supported
-- PHP-GD for Captchas
+    - PHP 5.6 should work as also, but is not recommended
+- PHP-GD for captchas
+- Filesystem which supports filelocking `flock()`
 
-## Server Setup
-- Make sure to lock the following folders for HTTP-Requests:
+### Server Recommendation
+- Webserver which allows URL-Rewriting, for speaking urls
+	- Apache
+	- NGINX Webserver
+- SSL-Certificate
+	
+## Install
+
+1. Download the latest release [here](https://github.com/KIMB-technologies/KIMB-Forms-Project/releases/latest)
+2. Unpack the archive on the webserver
+	- one may remove the folder `/.github/*`
+	- one may remove all in Markdown files `/*.md`
+	- if not using Apache, the `.htaccess` can be removed
+3. Make sure the follwing directories can not be accessed 
+	- if using Apache done by the `/core/.htaccess`, `/data/.htaccess` provided
 	- `/core/*`
 	- `/data/*`
-- Make sure the server can write the following dirs:
+4. Make sure the server can create and write files in
 	- `/data/*`
-- Point the errors to
-	- `/?task=error404` (`/error404`, URL Rew.) for HTTP 404 and other
-	- `/?task=error403` (`/error403`, URL Rew.) for HTTP 403
-
-## Configuration
-Edit the file `/data/config.json` as follows:
-
+5. Set up URL-Rewriting, if desired
+	- all Requests have to go to `index.php`
+		- route to `/index.php?uri=$`, where `$` ist the query path
+		- or set the `$_SERVER['REQUEST_URI']` of PHP
+	- files in `/load/*` and the `api.php` have to stay accessible
+	- if using Apache done by the `/.htaccess` provided
+6. Set us the Error Documents (HTTP `404` and `403`)
+	- point the errors to
+		- `/?task=error404` (`/error404` if using URL-Rewriting) 
+		- `/?task=error403` (`/error403` if using URL-Rewriting)
+	- if using Apache see the `/.htaccess` provided
+7. Edit the system configuration
+	- JSON file at `/data/config.json`
+	- normally one has to edit
+		- `site.hosturl`, the url where the system can be reached (without `/` at the end)
+		- `site.pagename`, the name of this page
+		- `site.footercontent` some additional text in the foort (Imprint, Terms of Service, etc.)
+		- `urlrewrite`, enable URL-Rewriting if set up
+		- `texts.*`, change the texts a user has to check before he can participate
+			- or disable them
+	- the file:
 ```javascript
-
 {
     "site": {
         "hosturl": "string", // the (base) URL to the system, without / at the end
@@ -36,7 +69,26 @@ Edit the file `/data/config.json` as follows:
         "textPoll": "string, html", // the text, submitting polls
         "textNew": "string, html" // the text, creating polls
     },
-    "urlrewrite": true|false // enable or disable speaking urls, server has to query index.php and set uri to get uri param
+    "urlrewrite": true|false // enable or disable speaking urls
 }
 
 ```
+8. Setup done
+	- visit the page and try it out
+
+## Update
+1. Download the latest release [here](https://github.com/KIMB-technologies/KIMB-Forms-Project/releases/latest)
+2. Backup the `/data/` directory
+	- also backup custom `.htaccess` etc.
+3. Unpack the new release into the folder
+	- can also be done by deleting all files and unpacking the new release
+4. Remove the files `translation_de.json` and `translation_en.json` in your *backup* of `/data/`
+5. Move your backup back to `/data/`
+	- overwrite existsing files 
+		- `config.json`, `polls.json` and `admincodes.json`
+6. Normally there are no changes necessary in the configuration and other `json` files
+	- if necessary the releas will contain a description what todo
+		- e.g. provide an update script
+
+
+

@@ -113,6 +113,7 @@ class TemplateLoader{
 				$alert = new Template( 'alert' );
 				$this->includetemp->includeTemplate($alert);
 				$alert->setContent( 'ALERTMESSAGE', $capok ? ( $einwill ? $pollcreator->errorMessage() : LanguageManager::getTranslation('EinwillErr') ) : Captcha::getError() );
+				http_response_code(400);
 			}
 		}
 		$this->includetemp->setContent( 'FORMDEST', URL::generateLink('new') );
@@ -172,6 +173,7 @@ class TemplateLoader{
 					$alert = new Template( 'alert' );
 					$this->includetemp->includeTemplate($alert);
 					$alert->setContent( 'ALERTMESSAGE', $poll->getError() );
+					http_response_code(400);
 				}
 				//else { template done in saveSendData }
 			}

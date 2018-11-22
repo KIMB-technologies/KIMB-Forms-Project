@@ -70,7 +70,7 @@ class JSONReader{
 		$isfile = is_file( $this->filepath );
 
 		// file lock
-		$this->filehandler = fopen( $this->filepath, 'c+' );
+		$this->filehandler = fopen( $this->filepath . '.lock', 'c+' );
 		if( !flock( $this->filehandler, $lockex ? LOCK_EX : LOCK_SH ) ){
 			//Fehler
 			throw new Exception('Unable to lock file!');
@@ -136,13 +136,15 @@ class JSONReader{
 					//schreiben
 					$re = file_put_contents( $this->filepath, $json );
 					//Hash anpassen?
-					if( $re ){
+					if( $re !== false ){
 						$this->datahash = $nowhash;
 					}
 					//Rückgabe
 					return $re;
 				}
+				return false;
 			}
+			return true;
 		}
 		return false;
 	}

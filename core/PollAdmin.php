@@ -65,7 +65,7 @@ class PollAdmin{
 				$polls = new JSONReader( 'polls' );
 				$admins = new JSONReader( 'admincodes' );
 
-				$polls->setValue( [$code], null ); //delete poll from lists
+				$polls->setValue( [$polls->searchValue( [], $code)], null ); //delete poll from lists
 				$admins->setValue( [$admin], null );
 
 				unset( $this->polldata ); // unlock poll files

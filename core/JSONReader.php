@@ -43,11 +43,11 @@ class JSONReader{
 	 */
 	public static function deleteFile( $filename ){
 		$file = self::$path . $filename . '.json';
-		if( !is_file( $file ) ){
-			return false;
+		if( !is_file( $file ) && !is_file( $file . '.lock' ) ){
+			return true;
 		}
-		file_put_contents( $file, '', LOCK_EX );
-		return unlink( $file );
+		file_put_contents( $file . '.lock', '', LOCK_EX );
+		return (!is_file( $file ) || unlink( $file )) && (!is_file( $file . '.lock' ) || unlink( $file . '.lock' ));
 	}
 
 	//Daten über die geöffnete JSON

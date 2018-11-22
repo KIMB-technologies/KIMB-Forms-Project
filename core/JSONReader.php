@@ -86,6 +86,7 @@ class JSONReader{
 		elseif( is_dir( dirname( $this->filepath ) ) ){
 			//leeres Array
 			$this->data = '[]';
+			file_put_contents( $this->filepath, $this->data );
 		}
 		else{
 			//Fehler

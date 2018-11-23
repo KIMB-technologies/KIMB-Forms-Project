@@ -3,8 +3,8 @@
 <div class="container">
 	<div class="alert alert-success" role="alert">
 		<div class="row">
-			<div class="col-sm" title="Diese ID dient dazu, an der Umfrage teilzunehmen.">
-				Poll ID
+			<div class="col-sm" title="This ID can be used to submit the poll.">
+				Poll-ID
 			</div>
 			<div class="col-sm">
 				<input type="text" class="form-control" value="%%UMFRAGEID%%" disabled="disabled">
@@ -16,7 +16,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm" title="Dieser Code erlaubt es die Umfrage zu bearbeiten und die Ergebnisse einzusehen.">
+			<div class="col-sm" title="This code is used to edit the settings of this poll and to view the submissions.">
 				Admin-Code
 			</div>
 			<div class="col-sm">
@@ -31,19 +31,19 @@
 	</div>
 	<div class="row">
 		<div class="col-sm">
-			<h2 title="Name der Umfrage">%%POLLNAME%%</h2>
+			<h2 title="The name of this poll.">%%POLLNAME%%</h2>
 		</div>
 	</div>
 	<div class="alert alert-info" role="alert">
 		<div class="row">
 			<div class="col-sm">
-				<div class="parseasmarkdown" title="Beschreibung der Umfrage">
+				<div class="parseasmarkdown" title="The description of this poll.">
 					%%POLLDESCRIPT%%
 				</div>
 			</div>
 			<div class="col-sm">
-				<p><span class="badge badge-secondary" title="Typ der Umfrage: Termin finden oder Helfer suchen.">%%POLLTYPE%%</span></p>
-				<button type="button" class="btn btn-light" id="umfreditbutton" title="Namen und Beschreibung anpassen.">
+				<p><span class="badge badge-secondary" title="Type of this poll: schedule meetings (no limit per option and public list) or coordinate volunteers (limit per option and private list).">%%POLLTYPE%%</span></p>
+				<button type="button" class="btn btn-light" id="umfreditbutton" title="Edit the name and the description of this poll.">
 					Edit
 				</button>
 			</div>
@@ -54,10 +54,10 @@
 <div class="container">
 	<div class="row">
 		<div class="col-sm">
-			<h3>Dates</h3>
+			<h3>Options</h3>
 		</div>
 		<div class="col-sm">
-			Notes
+			Notes for each option
 		</div>
 	</div>
 	<div class="alert alert-dark" role="alert">
@@ -68,7 +68,7 @@
 					<p>
 						<b>%%NAME%%</b>
 					</p>
-					<p title="Anzahl abgegebener Antworten und evtl. maximaler Antworten (/max).">
+					<p title="Number of submissions for this option and if available the limit of submissions.">
 						%%ANZAHL%%
 					</p>
 				</div>
@@ -81,12 +81,12 @@
 		</div>
 		<div class="row">
 			<div class="col-sm">
-				<button type="button" class="btn btn-light editbutton" id="%%TERMINID%%" title="Namen, Anzahl und Hinweise anpassen.">
+				<button type="button" class="btn btn-light editbutton" id="%%TERMINID%%" title="Edit the namen, limit and notes for this option.">
 					Edit
 				</button>
 			</div>
 			<div class="col-sm col-sm-10">
-				Submissions:
+				Submissions for this option:
 				<ul class="list-group">
 					<li class="list-group-item">
 						%%TEILNEHMER%%
@@ -98,15 +98,15 @@
 		<div class="row" style="margin-top: 1rem;">
 			<div class="col-sm">
 				<div class="form-group">
-					<button type="button" class="btn btn-secondary editbutton" id="addadate" title="Hinzufügen eines weiteren Termins am Ende.">
-						Add date
+					<button type="button" class="btn btn-secondary editbutton" id="addadate" title="Adding an option at the end of this poll.">
+						Add option
 					</button>
 				</div>
 			</div>
 			<div class="col-sm">
-				<div class="form-group" title="Zwei Termine tauschen (nur möglich, wenn keine Ergebnisse vorhanden).">
+				<div class="form-group" title="Swapping two options in this poll, only possible if no submissions available.">
 					<button type="button" class="btn btn-secondary" id="swapbutton">
-						Swap date
+						Swap options
 					</button>
 				</div>
 			</div>
@@ -116,14 +116,14 @@
 		<div class="row form-group">
 			<div class="col-sm">
 				<a href="%%EXPORTLINK%%" target="_blank">
-					<button type="button" class="btn btn-primary" title="Export der Ergebnisse als CSV.">
+					<button type="button" class="btn btn-primary" title="Generate a CSV export of all options and submissions.">
 						Export
 					</button>
 				</a>
 			</div>
 			<div class="col-sm">
 				<a href="%%PRINTLINK%%" target="_blank">
-					<button type="button" class="btn btn-primary" title="Für den Druck optimierte Ansicht.">
+					<button type="button" class="btn btn-primary" title="Open a printable view of the submissions.">
 						Printview
 					</button>
 				</a>
@@ -131,13 +131,13 @@
 		</div>
 		<div class="row form-group">
 			<div class="col-sm">
-				<button type="button" class="btn btn-danger" id="deleteerg" title="Die Ergebnisse löschen und die Umfrage erhalten.">
-					Delete submissions.
+				<button type="button" class="btn btn-danger" id="deleteerg" title="Delete all submissions without deleting the poll.">
+					Delete submissions
 				</button>
 			</div>
 			<div class="col-sm">
-				<button type="button" class="btn btn-danger" id="deleteall" title="Die gesamte Umfrgage mit den Ergebnissen löschen.">
-					Delete poll.
+				<button type="button" class="btn btn-danger" id="deleteall" title="Delete the poll and all the submissions.">
+					Delete poll
 				</button>
 			</div>
 		</div>
@@ -154,28 +154,30 @@
 		</div>
 	</div>
 </div>
-<div id="editdate" class="d-none" title="Change a date of the poll.">
+<div id="editdate" class="d-none" title="Change or add a option of the poll.">
 	<div class="form-group">
-		<input type="text" class="form-control datename" placeholder="Name of this date"><br />
+		<input type="text" class="form-control datename" placeholder="Name of this option"><br />
 		<input type="number" class="form-control personlim" placeholder="Number of persons"><br />
-		<textarea placeholder="Notes for this date" class="form-control notes"></textarea><br/>
+		<textarea placeholder="Notes regarding this option" class="form-control notes"></textarea><br/>
 		<small class="form-text text-muted">Basic Markdown supported: <b>**bold**</b>, <em>*italic*</em>, - List, ### Heading</small>
 		<div class="alert alert-danger d-none" role="alert">
 			Unable to save changes.
 		</div>
 	</div>
 </div>
-<div id="deletepoll" class="d-none" title="Delete polldata?">
+<div id="deletepoll" class="d-none" title="Delete?">
 	<div class="pollsubm" class="d-none">
 		<span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
-		Do your really want to delete all submissions?
+		Do your really want to delete all submissions?<br />
+		This can't be undone!
 	</div>
 	<div class="pollentire" class="d-none">
 		<span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
-		Do your really want to delete the entire poll?
+		Do your really want to delete the entire poll?<br />
+		This can't be undone!
 	</div>
 </div>
-<div id="swapdate" class="d-none" title="Swap dates.">
+<div id="swapdate" class="d-none" title="Swap two dates.">
 		<div class="form-group">
 			<select class="form-control" id="swapA">
 			</select>

@@ -1,4 +1,4 @@
-<h2>New Form</h2>
+<h2>Create new poll</h2>
 
 <form action="%%FORMDEST%%" method="POST">
 
@@ -11,22 +11,22 @@
 		</div>
 		<div class="row">
 			<div class="col-sm">
-				<input name="pollname" type="text" class="form-control" placeholder="Name"><br />
+				<input name="pollname" type="text" class="form-control" placeholder="Name of the poll"><br />
 			</div>
 			<div class="col-sm">
-				<div title="Personen für eine Menge von Terminen suchen, jede Person kann einen oder mehrere Termine wählen,
-				solange dort noch Plätze frei sind. Die Ergebnisse sind nicht öffentlich.">
+				<div title="Spread volunteers over some options. Each option has a maximum number of persons and each person can choose one
+					or more option as long as the maxmimum is not reached. Only the admin can see the submissions.">
 					<input type="radio" name="formtype" class="form-check-input" value="person" checked> Coordinate volunteers
 				</div>
-				<div title="Termine für eine Menge von Personen suchen, jede Person kann sich für eine oder mehrere der
-				Möglichkeiten eintragen, die Ergebnisse sind für alle sichtbar.">
-					<input type="radio" name="formtype" class="form-check-input" value="meeting"> Schedule meeting
+				<div title="Schedule a meeting with many persons. There are multiple options and each person
+					can choose out of them. All can see the submissions.">
+					<input type="radio" name="formtype" class="form-check-input" value="meeting"> Schedule meetings
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm">
-				<textarea placeholder="Description" class="form-control" name="description"></textarea>
+				<textarea placeholder="Description of the poll" class="form-control" name="description"></textarea>
 				<small class="form-text text-muted">Basic Markdown supported: <b>**bold**</b>, <em>*italic*</em>, - List, ### Heading</small>
 			</div>			
 		</div>
@@ -35,7 +35,7 @@
 	<div class="alert alert-light" role="alert">
 		<div class="row">
 			<div class="col-sm">
-				<h4>Dates</h4>
+				<h4>Options</h4>
 			</div>
 		</div>
 		<div class="row" id="examplecontainer">
@@ -44,14 +44,14 @@
 			</div>
 			<div class="col-sm">
 				<div class="form-group">
-					<input type="text" placeholder="Description" name="bezeichnungen[]" class="form-control">
-					<input type="number" placeholder="Number" name="anzahlen[]" class="persononly form-control"
-						title="Anzahl der maximal gesuchten Personen.">
+					<input type="text" placeholder="Name of this option" name="bezeichnungen[]" class="form-control">
+					<input type="number" placeholder="Limit" name="anzahlen[]" class="persononly form-control"
+						title="Maximum number of persons for this option.">
 				</div>
 			</div>
 			<div class="col-sm">
 				<div class="form-group">
-					<textarea placeholder="Notes" name="hinweise[]" class="hinweise form-control"></textarea>
+					<textarea placeholder="Notes regarding this option" name="hinweise[]" class="hinweise form-control"></textarea>
 					<small class="form-text text-muted">Basic Markdown supported: <b>**bold**</b>, <em>*italic*</em>, - List, ### Heading</small>
 				</div>
 			</div>
@@ -62,14 +62,14 @@
 			</div>
 			<div class="col-sm">
 				<div class="form-group">
-					<input type="text" placeholder="Description" name="bezeichnungen[]" class="form-control">
-					<input type="number" placeholder="Number" name="anzahlen[]" class="persononly form-control"
-						title="Anzahl der maximal gesuchten Personen.">
+					<input type="text" placeholder="Name of this option" name="bezeichnungen[]" class="form-control">
+					<input type="number" placeholder="Limit" name="anzahlen[]" class="persononly form-control"
+						title="Maximum number of persons for this option.">
 				</div>
 			</div>
 			<div class="col-sm">
 				<div class="form-group">
-					<textarea placeholder="Notes" name="hinweise[]" class="hinweise form-control"></textarea>
+					<textarea placeholder="Notes regarding this option" name="hinweise[]" class="hinweise form-control"></textarea>
 					<small class="form-text text-muted">Basic Markdown supported: <b>**bold**</b>, <em>*italic*</em>, - List, ### Heading</small>
 				</div>
 			</div>
@@ -79,7 +79,7 @@
 		<div class="row">
 			<div class="col-sm">
 				<div class="form-group">
-					<button id="new-weiterer" class="btn btn-secondary" type="button">Add more</button>
+					<button id="new-weiterer" class="btn btn-secondary" type="button">Add more options</button>
 				</div>
 			</div>
 		</div>
@@ -89,7 +89,7 @@
 	<div class="alert alert-primary" role="alert">
 		<div class="row">
 			<div class="col-sm">
-				<input type="submit" class="btn btn-primary" value="Create">
+				<input type="submit" class="btn btn-primary" value="Create poll">
 			</div>
 		</div>
 	</div>

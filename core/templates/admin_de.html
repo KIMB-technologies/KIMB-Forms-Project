@@ -1,9 +1,9 @@
-<h1>Admin</h1>
+<h1>Administration</h1>
 
 <div class="container">
 	<div class="alert alert-success" role="alert">
 		<div class="row">
-			<div class="col-sm" title="Diese ID dient dazu, an der Umfrage teilzunehmen.">
+			<div class="col-sm" title="Diese ID dient dazu, an dieser Umfrage teilzunehmen.">
 				Umfrage-ID
 			</div>
 			<div class="col-sm">
@@ -16,7 +16,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm" title="Dieser Code erlaubt es die Umfrage zu bearbeiten und die Ergebnisse einzusehen.">
+			<div class="col-sm" title="Dieser Code erlaubt es die Einstellungen dieser Umfrage zu bearbeiten und die Ergebnisse einzusehen.">
 				Admin-Code
 			</div>
 			<div class="col-sm">
@@ -31,19 +31,19 @@
 	</div>
 	<div class="row">
 		<div class="col-sm">
-			<h2 title="Name der Umfrage">%%POLLNAME%%</h2>
+			<h2 title="Name dieser Umfrage.">%%POLLNAME%%</h2>
 		</div>
 	</div>
 	<div class="alert alert-info" role="alert">
 		<div class="row">
 			<div class="col-sm">
-				<div class="parseasmarkdown" title="Beschreibung der Umfrage">
+				<div class="parseasmarkdown" title="Beschreibung dieser Umfrage.">
 					%%POLLDESCRIPT%%
 				</div>
 			</div>
 			<div class="col-sm">
-				<p><span class="badge badge-secondary" title="Typ der Umfrage: Termin finden oder Helfer suchen.">%%POLLTYPE%%</span></p>
-				<button type="button" class="btn btn-light" id="umfreditbutton" title="Namen und Beschreibung anpassen.">
+				<p><span class="badge badge-secondary" title="Typ dieser Umfrage: Termin (keine maximale Anzahl pro Termin und öffentliche Teilnehmerliste) oder Helfer (maximale Anzahl und Teilnehmerliste nur für Admins sichtbar) finden.">%%POLLTYPE%%</span></p>
+				<button type="button" class="btn btn-light" id="umfreditbutton" title="Namen und Beschreibung dieser Umfrage anpassen.">
 					Bearbeiten
 				</button>
 			</div>
@@ -57,7 +57,7 @@
 			<h3>Termine</h3>
 		</div>
 		<div class="col-sm">
-			Hinweise
+			Hinweise zu den Terminen
 		</div>
 	</div>
 	<div class="alert alert-dark" role="alert">
@@ -68,7 +68,7 @@
 					<p>
 						<b>%%NAME%%</b>
 					</p>
-					<p title="Anzahl abgegebener Antworten und evtl. maximaler Antworten (/max).">
+					<p title="Anzahl abgegebener Antworten und falls vorhanden Anzahl maximaler Antworten.">
 						%%ANZAHL%%
 					</p>
 				</div>
@@ -81,12 +81,12 @@
 		</div>
 		<div class="row">
 			<div class="col-sm">
-				<button type="button" class="btn btn-light editbutton" id="%%TERMINID%%" title="Namen, Anzahl und Hinweise anpassen.">
+				<button type="button" class="btn btn-light editbutton" id="%%TERMINID%%" title="Anpassen des Names, der Anzahl sowie des Hinweises zu diesem Termin.">
 					Bearbeiten
 				</button>
 			</div>
 			<div class="col-sm col-sm-10">
-				Ergebnisse:
+				Ergebnisse für diesen Termin:
 				<ul class="list-group">
 					<li class="list-group-item">
 						%%TEILNEHMER%%
@@ -98,13 +98,13 @@
 		<div class="row" style="margin-top: 1rem;">
 			<div class="col-sm">
 				<div class="form-group">
-					<button type="button" class="btn btn-secondary editbutton" id="addadate" title="Hinzufügen eines weiteren Termins am Ende.">
+					<button type="button" class="btn btn-secondary editbutton" id="addadate" title="Hinzufügen eines weiteren Termins am Ende der Umfrage.">
 						Termin hinzufügen
 					</button>
 				</div>
 			</div>
 			<div class="col-sm">
-				<div class="form-group" title="Zwei Termine tauschen (nur möglich, wenn keine Ergebnisse vorhanden).">
+				<div class="form-group" title="Die Position von zwei Terminen tauschen (nur möglich solange noch keine Ergebnisse vorhanden).">
 					<button type="button" class="btn btn-secondary" id="swapbutton">
 						Termine tauschen
 					</button>
@@ -116,14 +116,14 @@
 		<div class="row form-group">
 			<div class="col-sm">
 				<a href="%%EXPORTLINK%%" target="_blank">
-					<button type="button" class="btn btn-primary" title="Export der Ergebnisse als CSV.">
+					<button type="button" class="btn btn-primary" title="Export aller Ergebnisse der Umfrage als CSV.">
 						Export
 					</button>
 				</a>
 			</div>
 			<div class="col-sm">
 				<a href="%%PRINTLINK%%" target="_blank">
-					<button type="button" class="btn btn-primary" title="Für den Druck optimierte Ansicht.">
+					<button type="button" class="btn btn-primary" title="Anzeigen einer für den Druck optimierten Ansicht mit allen Ergebnissen.">
 						Druckansicht
 					</button>
 				</a>
@@ -131,12 +131,12 @@
 		</div>
 		<div class="row form-group">
 			<div class="col-sm">
-				<button type="button" class="btn btn-danger" id="deleteerg" title="Die Ergebnisse löschen und die Umfrage erhalten.">
+				<button type="button" class="btn btn-danger" id="deleteerg" title="Alle Ergebnisse der Umfrage löschen, ohne die Umfrage selbst zu löschen.">
 					Ergebnisse löschen
 				</button>
 			</div>
 			<div class="col-sm">
-				<button type="button" class="btn btn-danger" id="deleteall" title="Die gesamte Umfrgage mit den Ergebnissen löschen.">
+				<button type="button" class="btn btn-danger" id="deleteall" title="Die gesamte Umfrage und die Ergebnisse löschen.">
 					Umfrage löschen
 				</button>
 			</div>
@@ -146,36 +146,38 @@
 
 <div id="editpoll" class="d-none" title="Allgemeine Informationen zur Umfrage bearbeiten.">
 	<div class="form-group">
-		<input type="text" class="form-control pollname" placeholder="Name des Formulars"><br />
-		<textarea placeholder="Beschreibung des Formulars" class="form-control description"></textarea><br/>
+		<input type="text" class="form-control pollname" placeholder="Name der Umfrage"><br />
+		<textarea placeholder="Beschreibung der Umfrage" class="form-control description"></textarea><br/>
 		<small class="form-text text-muted">Grundlegendes Markdown unterstützt: <b>**fett**</b>, <em>*kursiv*</em>, - Liste, ### Ueberschrift</small>
 		<div class="alert alert-danger d-none" role="alert">
-			Konnte Änderungen nicht speichern!
+			Konnte die Änderungen nicht speichern!
 		</div>
 	</div>
 </div>
-<div id="editdate" class="d-none" title="Einen Termin der Umfrage anpassen.">
+<div id="editdate" class="d-none" title="Einen Termin der Umfrage anpassen oder hinzufügen.">
 	<div class="form-group">
 		<input type="text" class="form-control datename" placeholder="Name des Termins"><br />
 		<input type="number" class="form-control personlim" placeholder="Anzahl an Personen"><br />
 		<textarea placeholder="Hinweise zum Termin" class="form-control notes"></textarea><br/>
 		<small class="form-text text-muted">Grundlegendes Markdown unterstützt: <b>**fett**</b>, <em>*kursiv*</em>, - Liste, ### Ueberschrift</small>
 		<div class="alert alert-danger d-none" role="alert">
-			Konnte Änderungen nicht speichern!
+			Konnte die Änderungen nicht speichern!
 		</div>
 	</div>
 </div>
-<div id="deletepoll" class="d-none" title="Löschen der Umfragedaten?">
+<div id="deletepoll" class="d-none" title="Löschen?">
 	<div class="pollsubm" class="d-none">
 		<span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
-		Wollen Sie wirklich alle Ergebnisse der Umfrage löschen?
+		Wollen Sie wirklich alle Ergebnisse der Umfrage löschen?<br />
+		Dies lässt sich nicht rückgängig machen!
 	</div>
 	<div class="pollentire" class="d-none">
 		<span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
-		Wollen Sie wirklich die gesamte Umfrage inklusive allen Ergebnissen löschen?
+		Wollen Sie wirklich die gesamte Umfrage inklusive allen Ergebnissen löschen?<br />
+		Dies lässt sich nicht rückgängig machen!
 	</div>
 </div>
-<div id="swapdate" class="d-none" title="Tauschen von Terminen.">
+<div id="swapdate" class="d-none" title="Tausch der Position von zwei Terminen.">
 	<div class="form-group">
 		<select class="form-control" id="swapA">
 		</select>
@@ -184,7 +186,7 @@
 		</select>
 	</div>
 	<div class="alert alert-danger d-none" role="alert">
-		Konnte Änderungen nicht übernehmen!
+		Konnte den Tausch nicht durchführen!
 	</div>
 </div>
 

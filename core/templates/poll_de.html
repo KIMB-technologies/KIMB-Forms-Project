@@ -1,4 +1,4 @@
-<h1>Umfrage</h1>
+<h1>Umfrage ausfüllen</h1>
 <h2>%%POLLNAME%%</h2>
 
 %%INNERCONTAINER%%
@@ -16,19 +16,18 @@
 	<div class="row">
 		<div class="col-sm col-sm-1">
 		</div>
-		<div class="col-sm" title="Name des Termins und Anzahl der verfügbaren Plätze/ Teilnehmer.">
+		<div class="col-sm" title="Name des Termins sowie Anzahl bisherigen Teilnehmer und evtl. maximalen Anzahl Teilnehmer.">
 			<h3>Termine</h3>
 		</div>
 		<div class="col-sm">
-			Hinweise
+			Hinweise zum Termin
 		</div>
 	</div>
 	<div class="alert alert-light" role="alert">
 <!--MULTIPLE-Termin-BEGIN-->
 		<div class="row">
 			<div class="col-sm col-sm-1">
-				<input type="checkbox" name="%%TERMINID%%" class="terminwahl form-check-input"
-					title="Diesen Termin auswählen." value="yes" %%DISABLE%%>
+				<input type="checkbox" name="%%TERMINID%%" class="terminwahl form-check-input" value="yes" %%DISABLE%%>
 			</div>
 			<div class="col-sm col-sm-sm">
 				<p>
@@ -53,19 +52,19 @@
 			<div class="col-sm">
 				<div class="form-group">
 					<input type="text" name="name" placeholder="Name" class="username form-control"
-						title="Name der Person, die die Schicht übernimmt (Pflichtfeld).">
+						title="Name der Person, die den Termin wahrnimmt. &ndash; Pflichtfeld">
 				</div>
 			</div>
 			<div class="col-sm">
 				<div class="form-group">
 					<input type="email" name="email" placeholder="E-Mail-Adresse" class="usermail form-control"
-						title="Kontakadresse für Nachfragen (optional, nur für Admins sichrbar).">
+						title="E-Mail Adresse der Person für Nachfragen. &ndash; optional und nur für Admins sichtbar">
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm">
-				<input type="submit" class="btn btn-primary" value="Absenden">
+				<input type="submit" class="btn btn-primary" value="Umfrage absenden">
 			</div>
 		</div>
 	</div>

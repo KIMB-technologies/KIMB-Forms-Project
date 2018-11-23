@@ -1,4 +1,4 @@
-<h1>Poll</h1>
+<h1>Submit a poll</h1>
 <h2>%%POLLNAME%%</h2>
 
 %%INNERCONTAINER%%
@@ -16,19 +16,18 @@
 	<div class="row">
 		<div class="col-sm col-sm-1">
 		</div>
-		<div class="col-sm" title="Name of the date and number of free places/ other participants.">
-			<h3>Dates</h3>
+		<div class="col-sm" title="Name of the option, the number of previous participants and if available the maxmimum number of participants.">
+			<h3>Options</h3>
 		</div>
 		<div class="col-sm">
-			Notes
+			Notes regarding the option
 		</div>
 	</div>
 	<div class="alert alert-light" role="alert">
 <!--MULTIPLE-Termin-BEGIN-->
 		<div class="row">
 			<div class="col-sm col-sm-1">
-				<input type="checkbox" name="%%TERMINID%%" class="terminwahl form-check-input"
-					title="Choose this date." %%DISABLE%%>
+				<input type="checkbox" name="%%TERMINID%%" class="terminwahl form-check-input" value="yes" %%DISABLE%%>
 			</div>
 			<div class="col-sm">
 				<div class="form-group">
@@ -55,19 +54,19 @@
 			<div class="col-sm">
 				<div class="form-group">
 					<input type="text" name="name" placeholder="Name" class="username form-control"
-						title="Name of the person, which takes the shift (required).">
+						title="Name of the participant. &ndash; required">
 				</div>
 			</div>
 			<div class="col-sm">
 				<div class="form-group">
 					<input type="email" name="email" placeholder="E-Mail-Address" class="usermail form-control"
-						title="Contact for questions (optional, visible for for admins).">
+						title="E-Mail-Address corresponding to the participant. &ndash; optional, only visible for admins">
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm">
-				<input type="submit" class="btn btn-primary" value="Send">
+				<input type="submit" class="btn btn-primary" value="Submit poll">
 			</div>
 		</div>
 	</div>

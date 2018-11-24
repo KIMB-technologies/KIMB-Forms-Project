@@ -69,7 +69,8 @@
         "textPoll": "string, html", // the text, submitting polls
         "textNew": "string, html" // the text, creating polls
     },
-    "urlrewrite": true|false // enable or disable speaking urls
+    "urlrewrite": true|false // enable or disable speaking urls,
+    "cookiebanner": true|false // display a custom cookie banner, /core/external/CookieBanner.php has to be edited!
 }
 
 ```

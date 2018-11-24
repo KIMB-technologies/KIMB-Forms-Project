@@ -14,5 +14,6 @@
         "textPoll": "Ich bin mit den Datenschutzrichlinien ... einverstanden!",
         "textNew": "Ich bin mit den AGB des Anbieters einverstanden!"
     },
-    "urlrewrite": false
+    "urlrewrite": false,
+    "cookiebanner": false
 }

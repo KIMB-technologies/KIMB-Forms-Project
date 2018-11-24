@@ -90,6 +90,10 @@ class TemplateLoader{
 			$langsel .= '<button type="button" class="btn btn-secondary'. $active .'" linkdest="'. URL::currentLinkGenerator(array( 'language' => $key ) ) .'">'.$name.'</button>';
 		}
 		$this->maintemplate->setContent( 'LANGUAGEBUTTONS', $langsel );
+
+		if( $this->configjson->getValue(['cookiebanner']) ){
+			$this->maintemplate->setContent( 'COOKIEBANNER', new CookieBanner() );
+		}
 	}
 
 	/**

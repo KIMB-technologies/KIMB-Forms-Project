@@ -1,6 +1,6 @@
 # Contributing Guidelines
 
-Please create an issues for feature requests and found bugs.  
+Please create an issue for feature requests and found bugs.  
 Also if you are going to fix it directly, create an issue and a pull request,
 rearding this issue.
 
@@ -46,7 +46,7 @@ defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
     
 ## Remember
 - lightweight
-    - no don't add a library if you can write your own (not huge) function
+    - don't add a library if you can write your own (not huge) function
     - uses PHP 7, if a function does not exist in older versions, us it nevertheless
         - and add a userland/ fallback implementation in `/core/external/`
 - poll submissions have to be possible without javascript

@@ -81,6 +81,7 @@
 1. Download the latest release [here](https://github.com/KIMB-technologies/KIMB-Forms-Project/releases/latest)
 2. Backup the `/data/` directory
 	- also backup custom `.htaccess` etc.
+	- backup your custom `/core/external/CookieBanner.php` if you have one
 3. Unpack the new release into the folder
 	- can also be done by deleting all files and unpacking the new release
 4. Remove the files `translation_de.json` and `translation_en.json` in your *backup* of `/data/`

@@ -21,7 +21,7 @@ class CSSManager{
 		'light',
 		'dark'
 	);
-	private static $css;
+	private static $css = 'light';
 
 	/**
 	 * Load css theme type.

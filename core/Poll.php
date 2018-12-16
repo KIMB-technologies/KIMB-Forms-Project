@@ -209,7 +209,7 @@ class Poll{
 				Utilities::getRowHtml(
 					'<input type="checkbox" name="textseinwill" class="form-check-input" value="yes">',
 					$this->configjson->getValue(['texts', 'textPoll']),
-					'col-sm-1'
+					'col-sm-1 text-center'
 				)
 			);
 		}

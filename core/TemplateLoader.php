@@ -131,7 +131,7 @@ class TemplateLoader{
 				Utilities::getRowHtml(
 					'<input type="checkbox" class="form-check-input" name="textseinwill" value="yes">',
 					$this->configjson->getValue(['texts', 'textNew']),
-					'col-sm-1'
+					'col-sm-1 text-center'
 				)
 			);
 		}

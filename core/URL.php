@@ -51,6 +51,20 @@ class URL{
 					//to array and remove empty ones
 					$qd = array_values(array_filter(explode('/', $qstring)));
 
+					//remove paths to system folder
+					//	(example.com/forms/start, only /start ist needed)
+					//		split host url by / (e.g. [http:, example.com, forms])
+					$hosts = array_values(array_filter(explode('/', self::$configjson->getValue(['site', 'hosturl']))));
+					if( strcasecmp( $hosts[2], $qd[0] ) == 0 ){ // means there is at least one path folder
+						$newqd = array();
+						foreach( $qd as $i => $value ){
+							if( !isset( $hosts[$i+2] ) && strcasecmp( $hosts[$i+2], $value ) != 0 ){
+								$newqd[] = $value;
+							}
+						}
+						$qd = $newqd;
+					}
+
 					//init array
 					self::$querydata = array();
 					self::$querydata['task'] = !empty($qd[0]) ? $qd[0] : 'start'; // task

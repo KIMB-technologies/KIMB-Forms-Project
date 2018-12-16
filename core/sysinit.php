@@ -20,6 +20,7 @@ session_start();
 JSONReader::changepath( __DIR__ . '/../data/' );
 URL::setup();
 LanguageManager::init();
+CSSManager::init();
 
 //load
 if( constant( 'KIMB-FORMS-PROJECT' ) === 'PAGE' ){ //load as normal HTML page

@@ -10,5 +10,7 @@
 	"%%CANONICAL%%" : "",
 	"%%VERSION%%" : "",
 	"%%LANGUAGEBUTTONS%%" : "<button type='button' class='btn btn-secondary active' linkdest='http://example.com/?lang=de'>Deutsch</button>",
-	"%%COOKIEBANNER%%" : ""
+	"%%COOKIEBANNER%%" : "",
+	"%%THEMETYPE%%" : "light",
+	"%%CHANGETHEME%%" : ""
 }

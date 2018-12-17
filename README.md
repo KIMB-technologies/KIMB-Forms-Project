@@ -7,15 +7,20 @@
 This tools allows users to create polls, each poll can be used to find
 a date for an appointment (like Doodle an other).
 Or one can create a poll to coordinate helping hands, e.g. one needs 10 persons 
-for 5 shifts, this tool provides the interface (e.g. to replace Google Forms).
+for 5 shifts, this tool provides the interface (e.g. as alternative to Google Forms).
 
 The idea was created after the EU introduced the DSGVO, cause the tools used before where hosted 
 in the US and now this tools shall replace them.
 
-- Self-hosted
-- Lightweight, no Database setup
+- Self-hosted and open source
+- Lightweight, no database setup
 - Easy to use and responsive
+    - Dark and light theme
+    - English and german user interface
+    - Submissions without javascript are possible
 - PHP 7 (or 5.6)
+    - fully object oriented
+- possible to add captcha, cookie banner and notices
 
 ## Links
 

@@ -19,8 +19,8 @@ in the US and now this tools shall replace them.
     - English and german user interface
     - Submissions without javascript are possible
 - PHP 7 (or 5.6)
-    - fully object oriented
-- possible to add captcha, cookie banner and notices
+    - Fully object oriented
+- Possible to add captcha, cookie banner and notices
 
 ## Links
 

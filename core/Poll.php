@@ -207,9 +207,9 @@ class Poll{
 		if( $this->configjson->getValue(['texts', 'enablePoll']) ){
 			$template->setContent( 'TEXTSEINWILL',
 				Utilities::getRowHtml(
-					'<input type="checkbox" name="textseinwill" class="form-check-input" value="yes">',
+					'<div class="form-group text-center"><input type="checkbox" name="textseinwill" class="form-check-input" value="yes"></div>',
 					$this->configjson->getValue(['texts', 'textPoll']),
-					'col-sm-1 text-center'
+					'col-sm-1'
 				)
 			);
 		}

@@ -129,9 +129,9 @@ class TemplateLoader{
 		if( $this->configjson->getValue(['texts', 'enableNew']) ){
 			$this->includetemp->setContent( 'TEXTSEINWILL',
 				Utilities::getRowHtml(
-					'<input type="checkbox" class="form-check-input" name="textseinwill" value="yes">',
+					'<div class="form-group text-center"><input type="checkbox" class="form-check-input" name="textseinwill" value="yes"></div>',
 					$this->configjson->getValue(['texts', 'textNew']),
-					'col-sm-1 text-center'
+					'col-sm-1'
 				)
 			);
 		}

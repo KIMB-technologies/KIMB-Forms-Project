@@ -115,8 +115,8 @@ server {
 	index index.php index.html;
 
 	# url rewriting error pages
-	error_page 404 /err404;
-	error_page 403 /err403;
+	error_page 404 /index.php?uri=err404;
+	error_page 403 /index.php?uri=err403;
 
 	# protect private directories
 	location ~ ^/(data|core){

@@ -27,6 +27,7 @@
 	- if not using Apache, the `.htaccess` can be removed
 3. Make sure the follwing directories can not be accessed 
 	- if using Apache done by the `/core/.htaccess`, `/data/.htaccess` provided
+	- if using NGINX, see the configuation below [&darr; NGINX Configuration](#nginx-configuration)
 	- `/core/*`
 	- `/data/*`
 4. Make sure the server can create and write files in
@@ -93,4 +94,52 @@
 		- e.g. provide an update script
 
 
+### NGINX Configuration
 
+Example for an NGINX Configuration enabling URL-Rewriting and protecting system directories. (Does what the `.htaccess` do for Apache.)
+
+```nginx
+
+server {
+	# listen on port 80 for http
+	listen [::]:80;
+	listen 80;  
+	# add https support if possible!
+
+	# set the url/ server name here
+	server_name forms.<<mydomain.tld>>;
+
+	# folder where kimb-forms is located
+	root /var/www/kimb-forms/;
+
+	index index.php index.html;
+
+	# url rewriting error pages
+	error_page 404 /err404;
+	error_page 403 /err403;
+
+	# protect private directories
+	location ~ ^/(data|core){
+		deny all;
+		return 403;
+	}
+
+	# first try to serve as file or folder, if no file, pass to php
+	location / {
+		try_files $uri $uri/ @nofile;
+	}
+
+	# pass to php incl. request string
+	location @nofile {
+		rewrite ^(.*)$ /index.php?uri=$1 last;
+	}
+
+	# normal php handling
+	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+	}
+}
+
+
+```

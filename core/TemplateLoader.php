@@ -149,6 +149,8 @@ class TemplateLoader{
 
 		if( Utilities::checkFileName($admincode) && $polladmins->isValue( [ $admincode ] ) ){
 			$pollid = $polladmins->getValue( [ $admincode ] );
+			// unlock the id file, so we can delete ids
+			unset($polladmins);
 
 			$admin = new PollAdmin( $pollid, $this->includetemp );
 		}

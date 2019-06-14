@@ -62,11 +62,16 @@ class PollAdmin{
 				$code = $this->polldata->getValue(['code', 'poll']);
 				$admin = $this->polldata->getValue(['code', 'admin']);
 
-				$polls = new JSONReader( 'polls' );
-				$admins = new JSONReader( 'admincodes' );
+				// open id files exclusive
+				$polls = new JSONReader( 'polls', true ); 
+				$admins = new JSONReader( 'admincodes', true );
 
 				$polls->setValue( [$polls->searchValue( [], $code)], null ); //delete poll from lists
 				$admins->setValue( [$admin], null );
+
+				// force system to write deleted poll ids
+				unset($polls);
+				unset($admins);
 
 				unset( $this->polldata ); // unlock poll files
 				unset( $this->pollsub );

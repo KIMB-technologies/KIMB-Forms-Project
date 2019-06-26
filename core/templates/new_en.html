@@ -37,6 +37,11 @@
 			<div class="col-sm">
 				<h4>Options</h4>
 			</div>
+			<div class="col-sm">
+				<div class="form-group">
+					<button id="easyinput" class="btn btn-light float-sm-right btn-sm" type="button">Quick input</button>
+				</div>
+			</div>
 		</div>
 		<div class="row" id="examplecontainer">
 			<div class="col-sm col-sm-1 laufindex">
@@ -101,3 +106,18 @@
 	var laufindex = 2;
 	var template_name = 'new';
 </script>
+
+<div id="easyinputdialog" class="d-none" title="Quick input">
+	<div class="form-group">
+		<select class="form-control" id="valuetype">
+			<option value="bezeichnungen">Name of this option</option>
+			<option value="anzahlen">Maximum number of persons for this option</option>
+			<option value="hinweise">Notes regarding this option</option>
+		</select><br />
+		<textarea placeholder="One value per line" class="form-control" id="value"></textarea>
+	</div>
+	<div class="alert alert-info" role="alert">
+		Please choose the destination for the values.
+		Also give a list of all values, each value in a new line.
+	</div>
+</div>

@@ -109,6 +109,38 @@ function template_new(){
 		localStorage.setItem( "newPollData", JSON.stringify( data ) );
 	}
 	$("input[type=text], input[type=number], textarea").change(save);
+
+	function easyInput(){
+		$("div#easyinputdialog").removeClass('d-none');
+		$( "div#easyinputdialog" ).dialog({
+			resizable: true,
+			height: "auto",
+			width:  Math.min($(window).width(), 600),
+			modal: true,
+			buttons: [
+				{
+					text: "OK",
+					icon: "ui-icon-check",
+					click: function() {
+						//load form input and 
+						var type = $("select#valuetype").val();
+						var values = $("textarea#value").val();
+						values = values.split( /\r|\n/ );
+						while( values.length > laufindex ){
+							weitererTermin();
+						}
+						$("input[name='" + type + "[]'], textarea[name='" + type + "[]']").each( (k,v) => {
+							$(v).val( values[k] );
+						});
+						// close dialog
+						$("div#easyinputdialog").addClass('d-none');
+						$( this ).dialog( "close" );
+					}
+				}
+			]
+		});
+	}
+	$("button#easyinput").click(easyInput);
 }
 
 function template_start(){

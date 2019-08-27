@@ -1,0 +1,23 @@
+# This docker-compose file is for development
+# Please see the other without .dev.
+
+version: "2"
+
+services:
+  forms:
+    container_name: forms
+    build:
+      context: .
+    ports:
+      - "8080:80"
+    environment:
+      - CONF_site_hosturl=http://localhost:8080
+      - CONF_site_pagename=KIMB-Forms-Project Dev
+      - CONF_site_footercontent=Development Version
+      - CONF_captcha_poll=false
+      - CONF_captcha_new=true
+      - CONF_texts_enablePoll=true
+      - CONF_texts_enableNew=true
+      - CONF_texts_textPoll=Ich bin mit den Datenschutzrichlinien ... einverstanden!
+      - CONF_texts_textNew=Ich bin mit den AGB des Anbieters einverstanden!
+      - CONF_cookiebanner=false

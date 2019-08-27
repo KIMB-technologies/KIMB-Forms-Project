@@ -34,7 +34,7 @@ class URL{
 	 */
 	public static function setup(){
 		if( self::$configjson === null ){
-			self::$configjson = new JSONReader( 'config' );
+			self::$configjson = new Config();
 
 			//check for url rewrite
 			if( isset($_SERVER['REQUEST_URI']) || isset( $_GET['uri'] ) ){

@@ -1,0 +1,23 @@
+version: "2"
+
+services:
+  forms:
+    image: kimbtechnologies/kimb_forms_project:latest
+    container_name: forms
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./data/:/php-code/data/ # save polls and submissions on host
+      # - ./CookieBanner.php:/php-code/core/external/CookieBanner.php:ro # link external CookieBanner.php
+    environment:
+      - CONF_site_hosturl=http://localhost:8080
+      - CONF_site_pagename=KIMB-Forms-Project Docker
+      - CONF_site_footercontent=Docker Image
+      - CONF_captcha_poll=false
+      - CONF_captcha_new=true
+      - CONF_texts_enablePoll=true
+      - CONF_texts_enableNew=true
+      - CONF_texts_textPoll=Ich bin mit den Datenschutzrichlinien ... einverstanden!
+      - CONF_texts_textNew=Ich bin mit den AGB des Anbieters einverstanden!
+      - CONF_cookiebanner=false

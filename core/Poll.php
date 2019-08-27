@@ -42,7 +42,7 @@ class Poll{
 	 */
 	public function __construct( $pollid ){
 		$this->id = $pollid;
-		$this->configjson = new JSOnReader( 'config' );
+		$this->configjson = new Config();
 		$this->polldata = new JSONReader( 'poll_' . $pollid );
 		$this->pollsub = false;
 	}

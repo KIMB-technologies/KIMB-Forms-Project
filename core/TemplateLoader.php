@@ -33,7 +33,7 @@ class TemplateLoader{
 	 */
 	public function __construct(){
 		$this->maintemplate = new Template( 'main' );
-		$this->configjson = new JSONReader( 'config' );
+		$this->configjson = new Config();
 
 		$this->maintemplate->setContent( 'HOST', $this->configjson->getValue( ['site', 'hosturl'] ) );
 		$this->maintemplate->setContent( 'PAGENAME', $this->configjson->getValue( ['site', 'pagename'] ) );

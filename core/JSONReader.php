@@ -63,9 +63,10 @@ class JSONReader{
 	//	Order muss existieren
 	//	$filename => Dateiname (ohne .json, relativ zu self::$path)
 	//	$lockex => directly lock the file exclusive
-	public function __construct( $filename, $lockex = false){
+	//	$otherpath => use other path than self::$path
+	public function __construct( $filename, $lockex = false, $otherpath = ''){
 		//Dateinamen erstellen
-		$this->filepath = self::$path . $filename . '.json';
+		$this->filepath = (empty($otherpath) ? self::$path : $otherpath . '/' ). $filename . '.json';
 		
 		$isfile = is_file( $this->filepath );
 

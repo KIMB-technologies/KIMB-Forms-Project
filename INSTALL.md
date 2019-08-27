@@ -1,8 +1,9 @@
 # Installation
 > KIMB-Forms-Project 
 
-- [Install Guide](#install)
-- [Update Guide](#update)
+- [Docker Install Guide](#docker)
+- [Classic Install Guide](#install)
+- [Classic Update Guide](#update)
 
 ## Notes
 
@@ -17,7 +18,20 @@
 	- Apache
 	- NGINX Webserver
 - SSL-Certificate
-	
+
+## Docker
+1. Get the [docker-compose.yml](https://github.com/KIMB-technologies/KIMB-Forms-Project/blob/master/docker-compose.yml).
+2. Change the configuation parameter, done via `environment`.  
+	In most cases these values need to be changed:
+	- `CONF_site_hosturl`, the url where the system can be reached (without `/` at the end)
+	- `CONF_site_pagename`, the name of this page
+	- `CONF_site_footercontent` some additional text in the footer (Imprint, Terms of Service, etc.)
+	- `CONF_texts_*`, change the texts a user has to check before he can participate or disable them
+3. *If you need one: Create a `CookieBanner.php` and link it into the container.*  
+	*Use `/core/external/CookieBanner.php` as template.*
+4. KIMB-Forms-Project should be reachable at the published port. 
+5. Update to **new versions** can be done by pulling a the new image.
+
 ## Install
 
 1. Download the latest release [here](https://github.com/KIMB-technologies/KIMB-Forms-Project/releases/latest)

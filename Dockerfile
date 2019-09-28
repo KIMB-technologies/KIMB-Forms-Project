@@ -36,7 +36,8 @@ RUN mkdir /sysdata/ \
 	location @nofile { \n\
 		rewrite ^(.*)$ /index.php?uri=$1 last; \n\
 	} \n\
-	' > /etc/nginx/more-server-conf.conf 
+	' > /etc/nginx/more-server-conf.conf \
+	&& rm -rf /php-code/Dockerfile /php-code/.travis.yml /php-code/dockerpublish.sh
 
 # tell the system that it runs in docker container
 ENV DOCKERMODE=true \

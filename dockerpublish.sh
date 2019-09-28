@@ -14,5 +14,3 @@ cat VERSION | while read TAG; do
       	docker push "kimbtechnologies/$IMAGE_NAME:$TAG"
 	fi
 done
-
-rm ./.travis.yml ./dockerpublish.sh

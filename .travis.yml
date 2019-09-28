@@ -7,11 +7,4 @@ before_script:
 jobs:
   include:
     - stage: build docker image
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build -t kimb_forms_project .
-      - docker images
-      - docker tag kimb_forms_project kimbtechnologies/kimb_forms_project:$TRAVIS_COMMIT
-      - docker tag kimb_forms_project kimbtechnologies/kimb_forms_project:latest
-      - docker push kimbtechnologies/kimb_forms_project:$TRAVIS_COMMIT
-      - docker push kimbtechnologies/kimb_forms_project:latest
+      script: bash ./dockerpublish.sh

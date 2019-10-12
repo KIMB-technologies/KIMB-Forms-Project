@@ -8,6 +8,8 @@ services:
     container_name: forms
     build:
       context: .
+    volumes:
+      - ./:/php-code/
     ports:
       - "8080:80"
     environment:

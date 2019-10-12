@@ -111,10 +111,13 @@ class Poll{
 			}
 
 			//save
+			$editcode = sha1($name . $mail) . Utilities::randomCode(10,Utilities::POLL_ID);
+			$addedids = array();
 			$userar = array(
 				"name" => $name,
 				"mail" => $mail,
-				"time" => time()
+				"time" => time(),
+				"editcode" => $editcode
 			);
 			foreach( $termine as $id ){
 				if( $this->pollsub->isValue( [$id] ) ){
@@ -123,6 +126,7 @@ class Poll{
 				else{
 					$ok = $this->pollsub->setValue( [$id], array( $userar ) );
 				}
+				$addedids[] = $id;
 			}
 			
 			if( $ok === false ){
@@ -140,6 +144,10 @@ class Poll{
 			$it->setContent('NAME', Utilities::optimizeOutputString( $name ));
 			$it->setContent('EMAIL', Utilities::optimizeOutputString( $mail ));
 			$it->setContent('REDOLINK', URL::currentLinkGenerator());
+
+			$it->setContent('POLLID', $this->id); 
+			$it->setContent('VALUES', json_encode($addedids)); 
+			$it->setContent('CODE', $editcode); 
 
 			//logfile
 			file_put_contents( __DIR__ . '/../data/pollsubmissions.log', json_encode( array( $this->id, $name, $mail, $termine, time() ) ) . "\r\n" , FILE_APPEND | LOCK_EX );
@@ -165,6 +173,9 @@ class Poll{
 		$template->setContent( 'POLLNAME', Utilities::optimizeOutputString($this->polldata->getValue( ['pollname'] )) );
 		$template->setContent( 'POLLDESCRIPT', Utilities::optimizeOutputString($this->polldata->getValue( ['description'] )) );
 		$template->setContent( 'POLLID', $this->id );
+		$template->setContent( 'DELSUBAPI', URL::generateAPILink( 'delsubmission', array( 'poll' =>  $this->id ) ) );
+
+		
 
 		$type = $this->polldata->getValue( ['formtype'] );
 		$termine = array();

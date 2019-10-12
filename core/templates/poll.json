@@ -14,5 +14,6 @@
 			"%%TERMINID%%" : "termin_a",
 			"%%DISABLE%%" : ""
 		}
-	} 
+	},
+	"%%DELSUBAPI%%": ""
 }

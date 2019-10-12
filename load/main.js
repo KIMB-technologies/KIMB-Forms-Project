@@ -9,6 +9,9 @@
  * https://www.gnu.org/licenses/gpl-3.0.txt
  */
 
+/**
+ * Switch on Template
+ */
 $( function (){
 	template_main();
 	
@@ -30,8 +33,15 @@ $( function (){
 				break;
 		}
 	}
+
+	if( typeof on_site_loaded === "function" ){ // after init callback?
+		on_site_loaded();
+	}
 });
 
+/**
+ * Do for each Template
+ */
 function template_main(){
 	$(document).tooltip();
 	$("div.parseasmarkdown").each( (k,v) =>{
@@ -179,6 +189,32 @@ function template_poll(){
 	}
 	if( localStorage.hasOwnProperty("pollPollData") ){
 		loadSaved();
+	}
+
+	function loadSubmittedPolls(){
+		var json = JSON.parse(localStorage.getItem('pollsubmissons'));
+		json = json[pollid] || null;
+		if( json !== null ){
+			$( "input.terminwahl" ).each( (k,e) => {
+				var id = parseInt($(e).attr('name').replace(/[^0-9]/g,''));
+				if(json.hasOwnProperty(id)) {
+					$('button.deletemy[termid="' + $(e).attr('name') + '"]').parent().removeClass('d-none');	
+				}
+			});
+
+			$('button.deletemy').click(function () {
+				var id = parseInt($(this).attr('termid').replace(/[^0-9]/g,''));
+				$.post( deletesubmissonapi, { terminid : id, code : json[id] }, (data) => {
+					if( data == 'ok' ){
+						poll_submissions_delete_code_used(pollid, id);
+						window.location.reload();
+					}
+				});
+			});
+		}
+	}
+	if( localStorage.hasOwnProperty("pollsubmissons") ){
+		loadSubmittedPolls();
 	}
 
 	function save(){
@@ -392,4 +428,29 @@ function template_admin(){
 	if( !template_data.submissempty ){
 		$("button#swapbutton").prop('disabled', true);
 	}
+}
+
+/**
+ * Global functions
+ */
+function poll_submissions_delete_code(pollid, values, code){
+	if( !values.length > 0 ){
+		return; // nothing to add
+	}
+	var json = JSON.parse(localStorage.getItem('pollsubmissons')) || {};
+	if( !json.hasOwnProperty(pollid) ){
+		json[pollid] = {};
+	}
+	values.forEach( (v) => {
+		json[pollid][v] = code;
+	});
+	localStorage.setItem('pollsubmissons', JSON.stringify(json));
+}
+function poll_submissions_delete_code_used(pollid, value){
+	var json = JSON.parse(localStorage.getItem('pollsubmissons')) || {};
+	if( !json.hasOwnProperty(pollid) ){
+		return; // nothing remove
+	}
+	delete json[pollid][value];
+	localStorage.setItem('pollsubmissons', JSON.stringify(json));
 }

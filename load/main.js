@@ -207,7 +207,15 @@ function template_poll(){
 				$.post( deletesubmissonapi, { terminid : id, code : json[id] }, (data) => {
 					if( data == 'ok' ){
 						poll_submissions_delete_code_used(pollid, id);
+						$(this).removeClass('btn-light');
+						$(this).addClass('btn-success');
+						$(this).prepend('&#x2714; ');
 						window.location.reload();
+					}
+					else{
+						$(this).removeClass('btn-light');
+						$(this).addClass('btn-danger');
+						$(this).prepend('&#x2718; ');
 					}
 				});
 			});

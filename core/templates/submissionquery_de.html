@@ -1,0 +1,19 @@
+<h1>Umfrage ausfüllen</h1>
+<h2>%%POLLNAME%%</h2>
+
+%%INNERCONTAINER%%
+
+<div class="alert alert-dark" role="alert">
+	<div class="parseasmarkdown">
+		%%POLLDESCRIPT%%
+	</div>
+</div>
+
+<form action="%%FORMDEST%%" method="post">
+	%%TEXTSEINWILL%%
+	%%CAPTCHA%%
+</form>
+
+<script>
+	var template_name = 'submissionquery';
+</script>

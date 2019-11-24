@@ -15,5 +15,11 @@
         "textNew": "Ich bin mit den AGB des Anbieters einverstanden!"
     },
     "urlrewrite": false,
-    "cookiebanner": false
+    "cookiebanner": false,
+    "submissions": {
+        "enabled": true,
+        "mailfrom": "mail@server.com",
+        "captcha": true,
+        "mailValidate": "^\\S+@\\S+.\\S+$"
+    }
 }

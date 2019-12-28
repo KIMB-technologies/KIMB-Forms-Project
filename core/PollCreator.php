@@ -16,7 +16,7 @@ class PollCreator{
 	/**
 	 * Input check constants
 	 */
-	const PREG_TEXTINPUT = '/[^A-Za-z0-9 \.\-_ÄÜÖäüöß]/';
+	const PREG_TEXTINPUT = '/[^A-Za-z0-9 :\.\-_ÄÜÖäüöß]/';
 	const PREG_TEXTAREA = '/[^A-Za-z0-9 :\/\*\#\.\-_ÄÜÖäüöß\r\n]/';
 	const PREG_NUMBER = '/[^0-9]/';
 	/**

@@ -192,7 +192,10 @@ class Poll{
 					foreach( $this->pollsub->getValue( [$id] ) as $user){
 						$names[] = Utilities::optimizeOutputString( $user['name'] );
 					}
-					$anzval = '<ul class="list-group"><li class="list-group-item">' .  implode( '</li><li class="list-group-item">',  $names ). '</li></ul>';
+					$anzval = Utilities::getCollapseHtml(
+						LanguageManager::getTranslation("Teilnehm"),
+						'<ul class="list-group"><li class="list-group-item">' .  implode( '</li><li class="list-group-item">',  $names ). '</li></ul>'
+					);
 				}
 				else{
 					$anzval = '';

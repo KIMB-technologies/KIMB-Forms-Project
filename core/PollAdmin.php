@@ -132,7 +132,10 @@ class PollAdmin{
 				"ANZAHL" => ($i-1) . $maxanz,
 				"HINWEISE" => Utilities::optimizeOutputString( $values["des"] ),
 				"TERMINID" => "termin_" . $id,
-				"TEILNEHMER" => implode( '</li><li class="list-group-item">',  $submiss )
+				"TEILNEHMER" => Utilities::getCollapseHtml(
+					LanguageManager::getTranslation("Teilnehm"),
+					'<ul class="list-group"><li class="list-group-item">' . implode( '</li><li class="list-group-item">',  $submiss ) . '</li></ul>'
+				)
 			);
 
 			$terminmeta["termin_" . $id] = array( $values["bez"], $values["anz"], $values["des"]  );

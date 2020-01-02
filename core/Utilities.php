@@ -16,7 +16,7 @@ class Utilities{
 	/**
 	 * The system's Version
 	 */
-	const SYS_VERSION = 'v1.1.2';
+	const SYS_VERSION = 'v1.1.3';
 
 	/**
 	 * Possible chars for:
@@ -81,6 +81,15 @@ class Utilities{
 	 */
 	public static function getRowHtml($first, $second, $clF = '', $clS = ''){
 		return '<div class="alert" role="alert"><div class="row"><div class="col-sm '. $clF .'">' . $first .'</div><div class="col-sm '. $clS .'">'. $second .'</div></div></div>';
+	}
+
+	public static function getCollapseHtml($name, $content){
+		$id = uniqid();
+		$html = '<div class="card collapseContent">';
+		$html .= '<div class="card-header">&#x25bc; ' . $name . '</div>';		
+		$html .= '<div class="card-text">'. $content .'</div>';
+		$html .= '</div>';
+		return $html;
 	}
 }
 

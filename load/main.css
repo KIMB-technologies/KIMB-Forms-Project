@@ -1,0 +1,20 @@
+.termin-container .termin-row {
+	margin-bottom: 5px;
+	border: 1px solid var(--secondary);
+	border-radius: .25rem;
+	padding: 2px;
+}
+.termin-container .termin-row .form-check-input {
+	margin-left: initial;
+}
+.termin-container .termin-row .terminwahl {
+	box-shadow: 5px 5px 2px var(--danger);
+}
+.termin-container .termin-row .terminwahl:checked {
+	box-shadow: 5px 5px 2px var(--success);
+}
+.container .admin-row {
+	margin-top: 5px;
+	border-top: 1px solid var(--secondary);
+}
+

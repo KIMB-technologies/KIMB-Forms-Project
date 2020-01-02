@@ -44,6 +44,18 @@ $( function (){
  */
 function template_main(){
 	$(document).tooltip();
+	if( $( ".collapseContent" ).length > 0 ){
+		$( ".collapseContent .card-header" ).click( function() {
+			var el = $(this).parent().find(".card-text");
+			if( el.css('display') == 'none' ){
+				el.show("blind", 250);
+			}
+			else{
+				el.hide("blind", 250);
+			}
+		});
+		$( ".collapseContent .card-text" ).hide("blind", 1);
+	}
 	$("div.parseasmarkdown").each( (k,v) =>{
 		$( v ).html( md_parser( $( v ).text().trim() ) );
 	});

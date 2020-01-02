@@ -19,5 +19,6 @@
     "TooManyPolls": "This instance of KIMB-Forms has reached the limit of polls.",
     "TooManySubmiss": "This poll has reached the limit of submissions.",
     "HelfFin": "Coordinate volunteers",
-    "TermFin": "Schedule meetings"
+    "TermFin": "Schedule meetings",
+    "Teilnehm" : "attendees"
 }

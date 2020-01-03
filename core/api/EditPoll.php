@@ -31,6 +31,10 @@ class EditPoll{
 			//poll meta aendern
 			$this->changePoll( $_POST['name'], $_POST['desc'] );
 		}
+		else if( isset( $_POST['maillist'] ) ) {
+			//set poll notifications mails 
+			$this->setMailList( $_POST['maillist'] );
+		}
 		die( 'nok' );
 	}
 
@@ -75,6 +79,25 @@ class EditPoll{
 				die('ok');
 			}
 		}
+	}
+
+	private function setMailList( string $list ){
+		$mails = Utilities::validateInput($list, Poll::PREG_MAIL, 500);
+		$mails = explode( ',', $list );
+		$mails = array_map(
+				function ($m) {
+					return  trim( $m );
+				},
+				$mails
+			);
+		$savemails = array();
+		foreach( $mails as $m ){
+			if( filter_var( $m, FILTER_VALIDATE_EMAIL ) !== false ){
+				$savemails[] = $m;
+			}
+		}
+		$this->polldata->setValue(['notifymails'], $savemails);
+		die('ok');
 	}
 }
 

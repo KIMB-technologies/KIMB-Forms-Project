@@ -9,6 +9,7 @@
 	"%%EXPORTLINK%%" : "/export",
 	"%%PRINTLINK%%" : "/print",
 	"%%JSONDATA%%" : "[]",
+	"%%NOTIFMAILS%%" : "",
 	"multiples" : {
 		"Termin" : {
 			"%%NAME%%" : "Termin A",

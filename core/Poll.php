@@ -152,6 +152,23 @@ class Poll{
 			//logfile
 			file_put_contents( __DIR__ . '/../data/pollsubmissions.log', json_encode( array( $this->id, $name, $mail, $termine, time() ) ) . "\r\n" , FILE_APPEND | LOCK_EX );
 
+			if( $this->polldata->isValue(['notifymails']) ){
+				$tos = $this->polldata->getValue(['notifymails']);
+				if( !empty($tos)){
+					$m = new Mail( 'AdminNotif' );
+
+					$m->setContent('POLLNAME', Utilities::optimizeOutputString($this->polldata->getValue( ['pollname'] )));
+					$m->setContent('TERMINE', '<ul><li>' . implode( '</li><li>', $termine_text ) . '</li></ul>');
+					$m->setContent('NAME', Utilities::optimizeOutputString( $name ));
+					$m->setContent('EMAIL', Utilities::optimizeOutputString( $mail ));
+					$m->setContent('ADMINLINK', URL::generateLink('admin', '', $this->polldata->getValue(['code', 'admin'])));
+					
+					foreach( $tos as $to ){
+						$m->sendMail( $to );
+					}
+				}
+			}
+
 			return true;
 		}
 		else{

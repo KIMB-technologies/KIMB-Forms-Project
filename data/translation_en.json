@@ -20,5 +20,6 @@
     "TooManySubmiss": "This poll has reached the limit of submissions.",
     "HelfFin": "Coordinate volunteers",
     "TermFin": "Schedule meetings",
-    "Teilnehm" : "attendees"
+    "Teilnehm": "Attendees",
+    "mailAdminNotif": "New Submission"
 }

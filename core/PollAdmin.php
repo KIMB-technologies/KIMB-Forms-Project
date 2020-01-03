@@ -108,6 +108,10 @@ class PollAdmin{
 		$this->template->setContent( 'EXPORTLINK', URL::generateAPILink('export', array( 'type' => 'csv', 'admin' =>  $this->polldata->getValue(['code', 'admin']) ) ) );
 		$this->template->setContent( 'PRINTLINK', URL::generateAPILink('export', array( 'type' => 'print', 'admin' =>  $this->polldata->getValue(['code', 'admin']) ) ) );
 
+		if( $this->polldata->isValue(['notifymails']) ){
+			$this->template->setContent( 'NOTIFMAILS', implode( ',', $this->polldata->getValue(['notifymails']) ) );
+		}
+
 		$termine = array();
 		$terminmeta = array();
 		$submissempty = true;

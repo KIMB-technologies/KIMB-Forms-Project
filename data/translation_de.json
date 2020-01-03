@@ -20,5 +20,6 @@
     "TooManySubmiss": "Diese Umfrage hat die maximale Anzahl an Antworten erreicht.",
     "HelfFin": "Helfer finden",
     "TermFin": "Termin finden",
-    "Teilnehm": "Teilnehmende"
+    "Teilnehm": "Teilnehmende",
+    "mailAdminNotif": "Neue Teilnahme"
 }

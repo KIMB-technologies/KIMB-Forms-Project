@@ -16,7 +16,7 @@ class Utilities{
 	/**
 	 * The system's Version
 	 */
-	const SYS_VERSION = 'v1.1.3';
+	const SYS_VERSION = 'v1.1.4';
 
 	/**
 	 * Possible chars for:
@@ -47,7 +47,7 @@ class Utilities{
 	 * 	**no boolean return**
 	 * @param $s the string to check
 	 * @param $reg the regular expressions (/[^a-z]/ to allow only small latin letters)
-	 * @param $len the maximum lenght
+	 * @param $len the maximum length
 	 * @return the clean string (empty, if other input than string or only dirty characters)
 	 */
 	public static function validateInput($s, $reg, $len){

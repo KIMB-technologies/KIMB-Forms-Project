@@ -1,4 +1,4 @@
-FROM kimbtechnologies/php_nginx:latest
+FROM kimbtechnologies/php_smtp_nginx:latest
 
 # add gd for captcha
 RUN apk add --update --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \

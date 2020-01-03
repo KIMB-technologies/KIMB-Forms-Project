@@ -448,6 +448,30 @@ function template_admin(){
 	if( !template_data.submissempty ){
 		$("button#swapbutton").prop('disabled', true);
 	}
+
+	function saveEMailList(){
+		$( "button#notifmailsSave" ).prop('disabled', true);
+		$.post( template_data.editurl,
+			{
+				"maillist" : $("input#notifmailsList").val()
+			},
+			function (data){
+				if( data == 'ok' ){
+					$("button#notifmailsSave").removeClass('btn-light');
+					$("button#notifmailsSave").addClass('btn-success');
+					$("button#notifmailsSave").prepend('&#x2714; ');
+					refreshView('notifmailsList');
+				}
+				else{
+					$("button#notifmailsSave").removeClass('btn-light');
+					$("button#notifmailsSave").addClass('btn-danger');
+					$("button#notifmailsSave").prepend('&#x2718; ');
+					$( "button#notifmailsSave" ).prop('false', true)
+				}
+			}
+		);
+	}
+	$("button#notifmailsSave").click( saveEMailList );
 }
 
 /**

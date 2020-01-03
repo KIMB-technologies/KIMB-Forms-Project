@@ -40,6 +40,7 @@ class PollCreator{
 		'pollname' => '',
 		'formtype' => '',
 		'description' => '',
+		'notifymails' => array(),
 		'termine' => array()
 	);
 	private $errormsg = '';

@@ -121,10 +121,12 @@ class PollAdmin{
 			
 			$i = 1;
 			$submiss = array();
-			foreach( $this->pollsub->getValue( [$id] ) as $sub){
-				$i++;
-				$submiss[] = Utilities::optimizeOutputString( $sub['name'] . ' (' . $sub['mail'] . ') ' );
-				$submissempty = false;
+			if( $this->pollsub->isValue( [$id] ) ){
+				foreach( $this->pollsub->getValue( [$id] ) as $sub){
+					$i++;
+					$submiss[] = Utilities::optimizeOutputString( $sub['name'] . ' (' . $sub['mail'] . ') ' );
+					$submissempty = false;
+				}
 			}
 
 			$termine[] = array(

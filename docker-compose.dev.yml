@@ -13,6 +13,7 @@ services:
     ports:
       - "8080:80"
     environment:
+      - DEVMODE=true
       - CONF_site_hosturl=http://localhost:8080
       - CONF_site_pagename=KIMB-Forms-Project Dev
       - CONF_site_footercontent=Development Version

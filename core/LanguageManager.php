@@ -34,7 +34,7 @@ class LanguageManager{
 			self::setLanguage( $_SESSION['language'] );
 		}
 		else{
-			self::setLanguage( $lang );
+			self::setLanguage( self::$lang );
 		}	
 		// load different if in docker
 		$json = new JSONReader( 'translation_' . self::$lang, false, isset( $_ENV['DOCKERMODE'] ) && $_ENV['DOCKERMODE'] == 'true' ? '/sysdata' : '' );

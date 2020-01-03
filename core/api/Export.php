@@ -64,9 +64,11 @@ class Export{
 			$data[] = array();
 			$data[] = array( $values['bez'] );
 
-			$i = 1;
-			foreach( $this->pollsub->getValue( [$id] ) as $sub){
-				$data[] = array( '', $i++, $sub['name'], $sub['mail'], date( 'H:i:s d.m.Y', $sub['time'] ) );
+			if( $this->pollsub->isValue( [$id] ) ){
+				$i = 1;
+				foreach( $this->pollsub->getValue( [$id] ) as $sub){
+					$data[] = array( '', $i++, $sub['name'], $sub['mail'], date( 'H:i:s d.m.Y', $sub['time'] ) );
+				}
 			}
 			if( $values['anz'] !== false ){
 				$data[] = array('', ($i-1) . '/' . $values['anz']);
@@ -101,10 +103,11 @@ class Export{
 			$h .= '<hr /><h3>'. Utilities::optimizeOutputString( $values['bez'] ) .'</h3>';
 			$h .= empty( $values['des'] ) ? '' : '<div>'. $mdp->text($values['des']) .'</div>';
 			$h .= '<table style="width: 100%;"><tr><th>ID</th><th>Name</th><th>E-Mail</th><th style="width:30%;">Time</th></tr>';
-
-			$i = 1;
-			foreach( $this->pollsub->getValue( [$id] ) as $sub){
-				$h .= '<tr><td>'. $i++ .'</td><td>'. Utilities::optimizeOutputString( $sub['name'] ) .'</td><td>'. Utilities::optimizeOutputString( $sub['mail'] ) .'</td><td>'. date( 'H:i:s d.m.Y', $sub['time'] ) .'</td></tr>';
+			if( $this->pollsub->isValue( [$id] ) ){
+				$i = 1;
+				foreach( $this->pollsub->getValue( [$id] ) as $sub){
+					$h .= '<tr><td>'. $i++ .'</td><td>'. Utilities::optimizeOutputString( $sub['name'] ) .'</td><td>'. Utilities::optimizeOutputString( $sub['mail'] ) .'</td><td>'. date( 'H:i:s d.m.Y', $sub['time'] ) .'</td></tr>';
+				}
 			}
 			$h .= '</table>';
 			$h .= $values['anz'] === false ? '' : '<p>'. ($i-1) . '/' . $values['anz'] .'</p>';

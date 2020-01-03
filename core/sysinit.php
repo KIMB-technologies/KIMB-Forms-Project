@@ -12,12 +12,12 @@
 defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 
 //global settings
-error_reporting(0);
+error_reporting( !empty( $_ENV['DEVMODE'] ) && $_ENV['DEVMODE'] == 'true' ? E_ALL : 0 );
 session_name( 'KIMB-Forms-Project' );
 session_start();
 
 // static env setups
-JSONReader::changepath( __DIR__ . '/../data/' );
+Reader::changepath( __DIR__ . '/../data/' );
 URL::setup();
 LanguageManager::init();
 CSSManager::init();

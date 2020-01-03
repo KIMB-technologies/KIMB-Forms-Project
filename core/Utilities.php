@@ -67,7 +67,7 @@ class Utilities{
 		$r = '';
 		$charAnz = strlen( $chars );
 		for($i = 0; $i < $len; $i++){
-			$r .= $chars{random_int(0, $charAnz-1)};
+			$r .= $chars[random_int(0, $charAnz-1)];
 		}
 		return $r;
 	}
@@ -83,8 +83,13 @@ class Utilities{
 		return '<div class="alert" role="alert"><div class="row"><div class="col-sm '. $clF .'">' . $first .'</div><div class="col-sm '. $clS .'">'. $second .'</div></div></div>';
 	}
 
-	public static function getCollapseHtml($name, $content){
-		$id = uniqid();
+	/**
+	 * Generates a collapsable HTML-Element
+	 * @param $name the name of the element (click on this to open)
+	 * @param $content The content to collapse
+	 * @return HTML String
+	 */
+	public static function getCollapseHtml(string $name, string $content) : string {
 		$html = '<div class="card collapseContent">';
 		$html .= '<div class="card-header">&#x25bc; ' . $name . '</div>';		
 		$html .= '<div class="card-text">'. $content .'</div>';

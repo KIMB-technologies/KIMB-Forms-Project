@@ -75,13 +75,13 @@ class Captcha{
 				$img, 30, random_int(-10, 10),
 				$l + (($i+1 != 1?15:5) * ($i+1)), 25,
 				imagecolorallocate($img, 200, 200, 200),
-				self::FONT, self::$string{$i}
+				self::FONT, self::$string[$i]
 			);
 			imagettftext(
 				$img, 24, random_int(-15, 15),
 				$l + (($i+1 != 1?15:5) * ($i+1)), 25,
 				imagecolorallocate($img, 69, 103, 137),
-				self::FONT, self::$string{$i}
+				self::FONT, self::$string[$i]
 			);
 		}
 

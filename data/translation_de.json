@@ -21,5 +21,6 @@
     "HelfFin": "Helfer finden",
     "TermFin": "Termin finden",
     "Teilnehm": "Teilnehmende",
-    "mailAdminNotif": "Neue Teilnahme"
+    "mailAdminNotif": "Neue Teilnahme",
+    "mailNewPollNotif": "Neue Umfrage erstellt"
 }

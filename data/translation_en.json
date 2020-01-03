@@ -21,5 +21,6 @@
     "HelfFin": "Coordinate volunteers",
     "TermFin": "Schedule meetings",
     "Teilnehm": "Attendees",
-    "mailAdminNotif": "New Submission"
+    "mailAdminNotif": "New Submission",
+    "mailNewPollNotif": "A new Poll was created"
 }

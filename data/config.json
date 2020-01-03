@@ -15,5 +15,6 @@
         "textNew": "Ich bin mit den AGB des Anbieters einverstanden!"
     },
     "urlrewrite": false,
-    "cookiebanner": false
+    "cookiebanner": false,
+    "newpollmailto" : "test@example.com"
 }

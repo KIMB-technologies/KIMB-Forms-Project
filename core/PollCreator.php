@@ -95,6 +95,8 @@ class PollCreator{
 		$this->data['code']['poll'] = $pollid;
 		$poll->setArray( $this->data );
 
+		$this->sendNewPollMail();
+
 		return true;
 	}
 
@@ -185,6 +187,28 @@ class PollCreator{
 	 */
 	public function errorMessage(){
 		return $this->errormsg;
+	}
+
+	/**
+	 * Checks if a mail should be send, when a new poll was created
+	 * And sends the mail.
+	 */
+	private function sendNewPollMail() {
+		$c = new Config();
+		$to = $c->getValue(['newpollmailto']);
+		if( empty( $to ) || $to == 'test@example.com' ){
+			return;
+		}
+	
+		$m = new Mail( 'NewPollNotif' );
+
+		$m->setContent('POLLNAME', Utilities::optimizeOutputString( $this->data['pollname'] ));
+		$m->setContent('POLLDESCRIP', Utilities::optimizeOutputString( $this->data['description'] ));
+		$m->setContent('ADMINLINK', $this->getAdminLink() );
+		$m->setContent('POLLLINK', URL::generateLink('poll', '', $this->data['code']['poll'] ));
+		$m->setContent('POLLID', $this->data['code']['poll'] );
+	
+		$m->sendMail( $to );
 	}
 }
 

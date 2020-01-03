@@ -27,6 +27,7 @@
 	- `CONF_site_pagename`, the name of this page
 	- `CONF_site_footercontent` some additional text in the footer (Imprint, Terms of Service, etc.)
 	- `CONF_texts_*`, change the texts a user has to check before he can participate or disable them
+	- `CONF_newpollmailto`, give your admin email adress, you will be informed when a poll is created
 3. *If you need one: Create a `CookieBanner.php` and link it into the container.*  
 	*Use `/core/external/CookieBanner.php` as template.*
 4. KIMB-Forms-Project should be reachable at the published port. 
@@ -66,6 +67,7 @@
 		- `urlrewrite`, enable URL-Rewriting if set up
 		- `texts.*`, change the texts a user has to check before he can participate
 			- or disable them
+		- `newpollmailto`, give your admin email adress, you will be informed when a poll is created
 	- the file:
 ```javascript
 {
@@ -86,6 +88,7 @@
     },
     "urlrewrite": true|false // enable or disable speaking urls,
     "cookiebanner": true|false // display a custom cookie banner, /core/external/CookieBanner.php has to be edited!
+    "newpollmailto": "string, mail address| empty" // notification when new poll is created
 }
 
 ```

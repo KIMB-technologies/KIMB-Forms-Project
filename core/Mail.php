@@ -18,7 +18,8 @@ defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 class Mail {
 
 	private static $templates = array(
-		'mailAdminNotif'
+		'mailAdminNotif',
+		'mailNewPollNotif'
 	);
 
 	private $type, $template, $mailHeader;

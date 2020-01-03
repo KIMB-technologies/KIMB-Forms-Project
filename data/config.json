@@ -16,5 +16,5 @@
     },
     "urlrewrite": false,
     "cookiebanner": false,
-    "newpollmailto" : "test@example.com"
+    "newpollmailto": "test@example.com"
 }

@@ -205,7 +205,7 @@ class PollCreator{
 		$m->setContent('POLLNAME', Utilities::optimizeOutputString( $this->data['pollname'] ));
 		$m->setContent('POLLDESCRIP', Utilities::optimizeOutputString( $this->data['description'] ));
 		$m->setContent('ADMINLINK', $this->getAdminLink() );
-		$m->setContent('POLLLINK', URL::generateLink('poll', '', $this->data['code']['poll'] ));
+		$m->setContent('POLLLINK', URL::generateLink('poll', $this->data['code']['poll'], '' ));
 		$m->setContent('POLLID', $this->data['code']['poll'] );
 	
 		$m->sendMail( $to );

@@ -18,7 +18,7 @@ services:
       - CONF_site_pagename=KIMB-Forms-Project Dev
       - CONF_site_footercontent=Development Version
       - CONF_captcha_poll=false
-      - CONF_captcha_new=true
+      - CONF_captcha_new=false
       - CONF_texts_enablePoll=true
       - CONF_texts_enableNew=true
       - CONF_texts_textPoll=Ich bin mit den Datenschutzrichlinien ... einverstanden!

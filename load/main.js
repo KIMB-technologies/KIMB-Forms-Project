@@ -466,12 +466,77 @@ function template_admin(){
 					$("button#notifmailsSave").removeClass('btn-light');
 					$("button#notifmailsSave").addClass('btn-danger');
 					$("button#notifmailsSave").prepend('&#x2718; ');
-					$( "button#notifmailsSave" ).prop('false', true)
+					$( "button#notifmailsSave" ).prop('disabled', false)
 				}
 			}
 		);
 	}
 	$("button#notifmailsSave").click( saveEMailList );
+
+	function saveAdditionalInputs(){
+		var f = [];
+		$("ul#listofadditionals li.additionals-element").each( (k,v) => {
+			var data = $(v).attr('additionals-data');
+			data = data.split(',');
+			f.push({
+				'type' : data[0],
+				'require' : data[1] == 'true',
+				'text' : $(v).find("span.additionals-name").text()
+			});
+		});
+		
+		$( "button#saveadditionalinputs" ).prop('disabled', true);
+		$.post( template_data.editurl,
+			{
+				"additionals" : {
+					"empty" : f.length == 0,
+					"data" : f
+				}
+			},
+			function (data){
+				if( data == 'ok' ){
+					$("button#saveadditionalinputs").removeClass('btn-light');
+					$("button#saveadditionalinputs").addClass('btn-success');
+					$("button#saveadditionalinputs").prepend('&#x2714; ');
+					refreshView('saveadditionalinputs');
+				}
+				else{
+					$("button#saveadditionalinputs").removeClass('btn-light');
+					$("button#saveadditionalinputs").addClass('btn-danger');
+					$("button#saveadditionalinputs").prepend('&#x2718; ');
+					$( "button#saveadditionalinputs" ).prop('disabled', false)
+				}
+			}
+		);
+	}
+	function addAdditionalInput(){
+		var type = $("select#additionals-type").val();
+		var require = $("select#additionals-req").val() == "req";
+		var text = $("input#additionals-text").val();
+
+		if( text == "" ){
+			return;
+		}
+
+		$("ul#listofadditionals").append('<li class="list-group-item additionals-element" additionals-data="'
+			+ type +','+ (require ? 'true' : 'false') +'"><span class="ui-icon ui-icon-'
+			+ (type == 'text' ? 'pencil' : 'check') + '"></span> <span class="additionals-name">'
+			+ text + '</span>' + (require ? ' *' : ' (optional)') 
+			+ '<span class="ui-icon ui-icon-trash additionals-delete"></span></li>'
+		);
+
+		$("ul#listofadditionals li span.additionals-delete").unbind('click').click(removeAdditionalInput);
+	}
+	function removeAdditionalInput(){
+		$(this).parent().remove();
+	}
+	$("ul#listofadditionals li span.additionals-delete").click(removeAdditionalInput)
+	$("button#saveadditionalinputs").click(saveAdditionalInputs);
+	$("button#addadditionalinputs").click(addAdditionalInput)
+	if( !template_data.submissempty ){
+		$(".additionalscreate").css("display", "none");
+		$("button#saveadditionalinputs").prop('disabled', true);
+	}
 }
 
 /**

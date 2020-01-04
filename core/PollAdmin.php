@@ -149,6 +149,19 @@ class PollAdmin{
 
 		$this->template->setMultipleContent('Termin', $termine);
 
+		if( $this->polldata->isValue(['additionals']) ){
+			$additionals = array();
+			foreach( $this->polldata->getValue(['additionals']) as $adds ){
+				$additionals[] = array(
+					"ADDDATA" =>  $adds['type'] . "," . ($adds['require'] ? 'true' : 'false'),
+					"ADDTYPE" => ($adds['type'] == 'text' ? 'pencil' : 'check'),
+					"ADDNAME" => Utilities::optimizeOutputString( $adds['text'] ),
+					"REQOPT" => ($adds['require'] ? '*' : '(optional)'),
+				);
+			}
+			$this->template->setMultipleContent('Additionals', $additionals);
+		}
+
 		$this->template->setContent( 'JSONDATA', str_replace( array("\\r", "\\n"), array( "\\\\r", "\\\\n"), json_encode(
 			array(
 				"delallurl" => URL::currentLinkGenerator( array( 'delete' => 'all' ) ),

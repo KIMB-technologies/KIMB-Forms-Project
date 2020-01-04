@@ -35,6 +35,10 @@ class EditPoll{
 			//set poll notifications mails 
 			$this->setMailList( $_POST['maillist'] );
 		}
+		else if( !empty( $_POST['additionals'] ) ) {
+			//save additional fields
+			$this->setAdditionals( $_POST['additionals'] );
+		}
 		die( 'nok' );
 	}
 
@@ -99,6 +103,39 @@ class EditPoll{
 		$this->polldata->setValue(['notifymails'], $savemails);
 		die('ok');
 	}
+
+	private function setAdditionals( $array ){
+		if( ( isset($array['empty']) && $array['empty'] == 'true' )
+			|| ( isset($array['data'] ) && !is_array($array['data']) )
+			|| empty($array['data'])
+		){
+			$save = array(); // no additional fields
+		}
+		else{
+			$save = array();
+			foreach($array['data'] as $f ){
+				if( !empty($f['text'])){
+					$type = (!empty($f['type']) && $f['type'] == 'text') ? 'text' : 'checkbox';
+					$req = (isset($f['require']) && $f['require'] == 'true');
+					$text = Utilities::validateInput($f['text'], PollCreator::PREG_TEXTINPUT, PollCreator::MAXL_TEXTINPUT);
+
+					if( !empty($text)){
+						$save[] = array(
+							'type' => $type,
+							'require' => $req,
+							'text' => $text
+						);
+					}
+				}
+			}
+			
+		}
+		$this->polldata->setValue(['additionals'], $save);
+		die('ok');
+	}
+
+
+	
 }
 
 ?>

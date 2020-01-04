@@ -119,6 +119,71 @@
 			</div>
 		</div>
 	</div>
+	<div class="alert alert-secondary" role="alert">
+		<div class="row">
+			<div class="col-sm" title="Weitere Eingaben neben Name und E-Mail-Adresse in der Umfrage vom User abfragen.">
+				<h3>Weitere Eingabefelder</h3>
+			</div>
+			<div class="col-sm">
+				<button type="button" class="btn btn-light" id="saveadditionalinputs" title="Untenstehende Felder übernehmen (Änderungen sind nur möglich, solange noch keine Antworten vorhanden sind).">
+					Weitere Felder speichern
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm">
+				<ul class="list-group" id="listofadditionals">
+					<li class="list-group-item">
+						<span class="ui-icon ui-icon-pencil" title="Texteingabe"></span>
+						Name
+						<span title="Verpflichtend">*</span>
+					</li>
+					<li class="list-group-item">
+						<span class="ui-icon ui-icon-pencil" title="Texteingabe"></span>
+						E-Mail-Adresse
+						(optional)
+					</li>
+<!--MULTIPLE-Additionals-BEGIN-->
+					<li class="list-group-item additionals-element" additionals-data="%%ADDDATA%%">
+						<span class="ui-icon ui-icon-%%ADDTYPE%%"></span>
+						<span class="additionals-name">%%ADDNAME%%</span>
+						%%REQOPT%%
+						<span class="ui-icon ui-icon-trash additionals-delete"></span>
+					</li>
+<!--MULTIPLE-Additionals-END-->
+				</ul>
+			</div>
+		</div>
+		<div class="row additionalscreate">
+			<div class="col-sm">
+				<h4>Eingabefelder hinzufügen</h4>
+			</div>
+		</div>
+		<div class="row form-group additionalscreate">
+			<div class="col-sm">
+				<input type="text" placeholder="Name bzw. Text des Feldes" class="form-control" id="additionals-text">
+			</div>
+		</div>
+		<div class="row form-group additionalscreate">
+			<div class="col-sm">
+				<select class="form-control" id="additionals-type">
+					<option value="text">Texteingabe</option>
+					<option value="checkbox">Checkbox mit Text</option>
+				</select>
+			</div>
+			<div class="col-sm">
+				<select class="form-control" id="additionals-req">
+					<option value="req">Verpflichtend</option>
+					<option value="opt">Optional</option>
+				</select>
+			</div>
+			<div class="col-sm">
+				<button type="button" class="btn btn-light" id="addadditionalinputs" title="Dieses Feld hinzufügen (Bitte danach noch speichern!).">
+					Hinzufügen
+				</button>
+			</div>
+		</div>
+	</div>
 	<div class="alert alert-primary" role="alert">
 		<div class="row form-group">
 			<div class="col-sm">

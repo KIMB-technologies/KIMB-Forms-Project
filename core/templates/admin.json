@@ -17,6 +17,12 @@
 			"%%HINWEISE%%" : "**Hinweise** ",
 			"%%TERMINID%%" : "termin_0",
 			"%%TEILNEHMER%%" : "Heinz (heiz@mail.mail)</li><li class=\"list-group-item\"Franz (franz@mail.mail)"
+		},
+		"Additionals" : {
+			"%%ADDDATA%%" : "text,true",
+			"%%ADDTYPE%%" : "pencil",
+			"%%ADDNAME%%" : "Test 123",
+			"%%REQOPT%%" : "*"
 		}
 	}
 }

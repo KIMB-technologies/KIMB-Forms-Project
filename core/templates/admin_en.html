@@ -119,6 +119,71 @@
 			</div>
 		</div>
 	</div>
+	<div class="alert alert-secondary" role="alert">
+		<div class="row">
+			<div class="col-sm" title="Ask the user for additional details besides his name and email address.">
+				<h3>Custom Inputs</h3>
+			</div>
+			<div class="col-sm">
+				<button type="button" class="btn btn-light" id="saveadditionalinputs" title="Save the inputs given below (Changes are only only possible if no submissions are available).">
+					Save custom inputs
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm">
+				<ul class="list-group" id="listofadditionals">
+					<li class="list-group-item">
+						<span class="ui-icon ui-icon-pencil" title="Textinput"></span>
+						Name
+						<span title="Required">*</span>
+					</li>
+					<li class="list-group-item">
+						<span class="ui-icon ui-icon-pencil" title="Textinput"></span>
+						E-Mail-Address
+						(optional)
+					</li>
+<!--MULTIPLE-Additionals-BEGIN-->
+					<li class="list-group-item additionals-element" additionals-data="%%ADDDATA%%">
+						<span class="ui-icon ui-icon-%%ADDTYPE%%"></span>
+						<span class="additionals-name">%%ADDNAME%%</span>
+						%%REQOPT%%
+						<span class="ui-icon ui-icon-trash additionals-delete"></span>
+					</li>
+<!--MULTIPLE-Additionals-END-->
+				</ul>
+			</div>
+		</div>
+		<div class="row additionalscreate">
+			<div class="col-sm">
+				<h4>Add custom field</h4>
+			</div>
+		</div>
+		<div class="row form-group additionalscreate">
+			<div class="col-sm">
+				<input type="text" placeholder="Name or text for the field" class="form-control" id="additionals-text">
+			</div>
+		</div>
+		<div class="row form-group additionalscreate">
+			<div class="col-sm">
+				<select class="form-control" id="additionals-type">
+					<option value="text">Textinput</option>
+					<option value="checkbox">Checkbox beneath some text</option>
+				</select>
+			</div>
+			<div class="col-sm">
+				<select class="form-control" id="additionals-req">
+					<option value="req">Required</option>
+					<option value="opt">Optional</option>
+				</select>
+			</div>
+			<div class="col-sm">
+				<button type="button" class="btn btn-light" id="addadditionalinputs" title="Add this field (Remember to save afterwards).">
+					Add
+				</button>
+			</div>
+		</div>
+	</div>
 	<div class="alert alert-primary" role="alert">
 		<div class="row form-group">
 			<div class="col-sm">

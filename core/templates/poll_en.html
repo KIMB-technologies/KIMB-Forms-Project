@@ -56,20 +56,39 @@
 	%%CAPTCHA%%
 	<div class="alert alert-primary" role="alert">
 		<div class="row">
-			<div class="col-sm">
-				<div class="form-group">
-					<input type="text" name="name" placeholder="Name" class="username form-control"
-						title="Name of the participant. &ndash; required">
-				</div>
+			<div class="col-sm form-group">
+				<input type="text" name="name" placeholder="Name" class="username form-control"
+					title="Name of the participant. &ndash; required">
 			</div>
-			<div class="col-sm">
-				<div class="form-group">
-					<input type="email" name="email" placeholder="E-Mail-Address" class="usermail form-control"
-						title="E-Mail-Address corresponding to the participant. &ndash; optional, only visible for admins">
-				</div>
+			<div class="col-sm form-group">
+				<input type="email" name="email" placeholder="E-Mail-Address (optional)" class="usermail form-control"
+					title="E-Mail-Address corresponding to the participant. &ndash; optional, only visible for admins">
 			</div>
 		</div>
-		<div class="row">
+<!--MULTIPLE-AdditionalsText-BEGIN-->
+		<div class="row form-group">
+			<div class="col-sm">
+				<input type="text" name="%%ADDNAME%%" placeholder="%%ADDPLACEHOLDER%%" class="form-control othersave">
+			</div>
+		</div>
+<!--MULTIPLE-AdditionalsText-END-->
+<!--MULTIPLE-AdditionalsCheck-BEGIN-->
+		<div class="row form-group">
+			<div class="col-sm form-check">
+				<label class="form-check-label">
+					<input type="checkbox" name="%%ADDNAME%%" value="yes" class="form-check-input othersave">
+					%%ADDTEXT%%
+				</label>
+			</div>
+		</div>
+<!--MULTIPLE-AdditionalsCheck-END-->
+		<div class="row form-group">
+			<div class="col-sm form-check">
+				<label class="form-check-label">
+					<input type="checkbox" name="showuser" value="show" class="showuser form-check-input othersave" %%ATTRSHOWNAME%%>
+					Publish my name provided above on this site.
+				</label>
+			</div>
 			<div class="col-sm">
 				<input type="submit" class="btn btn-primary" value="Submit poll">
 			</div>

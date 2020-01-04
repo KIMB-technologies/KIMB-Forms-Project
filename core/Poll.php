@@ -71,6 +71,7 @@ class Poll{
 			//parse name and mail
 			$name = Utilities::validateInput($_POST['name'], self::PREG_NAME, self::MAXL_NAME);
 			$mail = empty( $_POST['email'] ) ? 'mail@mail.mail' : Utilities::validateInput($_POST['email'], self::PREG_MAIL, self::MAXL_MAIL);
+			$showuser = !empty( $_POST['showuser'] ) && $_POST['showuser'] == 'show';
 			
 			if( $this->pollsub === false ){
 				$this->pollsub = new JSONReader( 'pollsub_' . $this->id, true); //directly exclusive
@@ -110,14 +111,40 @@ class Poll{
 				return false;
 			}
 
+			//parse additionals
+			$additionals = array();
+			if( $this->polldata->isValue(['additionals']) ){
+				foreach( $this->polldata->getValue(['additionals']) as $key => $add ){
+					if( !empty( $_POST['additional_' . $key] ) ){
+						$addhere = ($add['type'] === 'text' ? Utilities::validateInput($_POST['additional_' . $key], PollCreator::PREG_TEXTINPUT, PollCreator::MAXL_TEXTINPUT) : true); 
+						if( !empty($addhere) ){
+							$additionals[] = $addhere;
+						}
+						else{
+							$this->error = LanguageManager::getTranslation('FillAdditionals');
+							return false;
+						}
+					}
+					else if ( empty( $_POST['additional_' . $key] ) && $add['require'] ){
+						$this->error = LanguageManager::getTranslation('FillAdditionals');
+						return false;
+					}
+					else{
+						$additionals[] = ($add['type'] === 'text' ? '' : false); 
+					}
+				}
+			}
+
 			//save
 			$editcode = sha1($name . $mail) . Utilities::randomCode(10,Utilities::POLL_ID);
 			$addedids = array();
 			$userar = array(
 				"name" => $name,
 				"mail" => $mail,
+				"showuser" => $showuser,
 				"time" => time(),
-				"editcode" => $editcode
+				"editcode" => $editcode,
+				"additionals" => $additionals
 			);
 			foreach( $termine as $id ){
 				if( $this->pollsub->isValue( [$id] ) ){
@@ -191,33 +218,38 @@ class Poll{
 		$template->setContent( 'POLLDESCRIPT', Utilities::optimizeOutputString($this->polldata->getValue( ['description'] )) );
 		$template->setContent( 'POLLID', $this->id );
 		$template->setContent( 'DELSUBAPI', URL::generateAPILink( 'delsubmission', array( 'poll' =>  $this->id ) ) );
-
 		
-
 		$type = $this->polldata->getValue( ['formtype'] );
+
+		if( $type === 'meeting' ){ // meetings will always list the names!
+			$template->setContent( 'ATTRSHOWNAME',  'checked="checked" disabled="disabled"');
+		}
+
 		$termine = array();
 		foreach( $this->polldata->getValue( ['termine'] ) as $id => $values){
-			if( $type === 'person' ){
-				$schon = $this->pollsub->isValue( [$id] ) ? count( $this->pollsub->getValue( [$id] ) ) : 0; 
-				$anzval = $schon . '/' . $values["anz"];
+			$schon = $this->pollsub->isValue( [$id] ) ? count( $this->pollsub->getValue( [$id] ) ) : 0; 
 
+			if( $type === 'person' ){
+				$anzval = $schon . '/' . $values["anz"];
 				$disable = $schon >= $values["anz"] ? ' disabled="disabled"' : '';
 			}
 			else{
-				if( $this->pollsub->isValue( [$id] ) ){
-					$names = array();
-					foreach( $this->pollsub->getValue( [$id] ) as $user){
+				$disable = '';
+				$anzval = $schon;
+			}
+			if( $schon > 0 ){
+				$names = array();
+				foreach( $this->pollsub->getValue( [$id] ) as $user){
+					if( $type === 'meeting' || ( !empty($user['showuser']) && $user['showuser'] ) ){
 						$names[] = Utilities::optimizeOutputString( $user['name'] );
 					}
+				}
+				if( !empty($names) ){
 					$anzval = Utilities::getCollapseHtml(
-						LanguageManager::getTranslation("Teilnehm"),
+						LanguageManager::getTranslation("Teilnehm") . ' &ndash; ' . $anzval,
 						'<ul class="list-group"><li class="list-group-item">' .  implode( '</li><li class="list-group-item">',  $names ). '</li></ul>'
 					);
 				}
-				else{
-					$anzval = '';
-				}
-				$disable = '';
 			}
 			$termine[] = array(
 				"NAME" => Utilities::optimizeOutputString( $values["bez"] ),
@@ -243,6 +275,32 @@ class Poll{
 					'col-sm-1'
 				)
 			);
+		}
+
+		//additional inputs
+		if( $this->polldata->isValue(['additionals']) ){
+			$texts = array();
+			$checks = array();
+			foreach( $this->polldata->getValue(['additionals']) as $key => $add ){
+				if( $add['type'] === 'text' ){
+					$texts[] = array(
+						"ADDNAME" => "additional_" . $key,
+						"ADDPLACEHOLDER" => $add['text'] . ( $add['require'] ? '' : ' (optional)' )
+					);
+				}
+				else {
+					$checks[] = array(
+						"ADDNAME" => "additional_" . $key,
+						"ADDTEXT" => $add['text'] . ( $add['require'] ? '' : ' (optional)' )
+					);
+				}
+			}
+			if( !empty($texts) ){
+				$template->setMultipleContent('AdditionalsText', $texts);
+			}
+			if( !empty($checks) ){
+				$template->setMultipleContent('AdditionalsCheck', $checks);
+			}
 		}
 	}		
 

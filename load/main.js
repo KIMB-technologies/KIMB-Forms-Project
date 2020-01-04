@@ -196,6 +196,16 @@ function template_poll(){
 				$( "input.terminwahl" ).each( (k, v) => {
 					$(v).prop('checked', wahl[pollid][k]);
 				});
+				Object.keys(wahl[pollid]).forEach(function(k) {
+					if( !$.isNumeric(k) ){
+						if( typeof wahl[pollid][k] === "string" ){
+							$("input.othersave[name="+ k +"]").val(wahl[pollid][k]);
+						}
+						else{
+							$("input.othersave[name="+ k +"]").prop('checked', wahl[pollid][k]);
+						}		
+					}
+				});
 			}
 		}
 	}
@@ -245,13 +255,22 @@ function template_poll(){
 		localStorage.setItem( "pollPollData", JSON.stringify( data ) );
 
 		var wahl = localStorage.hasOwnProperty("pollPollDateData") ? JSON.parse( localStorage.getItem( "pollPollDateData" ) ) : {};
-		wahl[pollid] = [];
+		wahl[pollid] = {};
 		$( "input.terminwahl" ).each( (k, v) => {
 			wahl[pollid][k] = $(v).prop('checked');
 		});
+		$("input.othersave").each( (k, v) => {
+			var name = $(v).attr('name');
+			if( $(v).attr('type') == 'text' ){
+				wahl[pollid][name] = $(v).val();
+			}
+			else{
+				wahl[pollid][name] = $(v).prop('checked');
+			}
+		});
 		localStorage.setItem( "pollPollDateData", JSON.stringify( wahl ) );
 	}
-	$("input[type=text], input[type=email], input.terminwahl").change(save);
+	$("input[type=text], input[type=email], input.terminwahl, input.othersave").change(save);
 }
 
 function template_admin(){
@@ -439,7 +458,7 @@ function template_admin(){
 									$( "div#swapdate #swapB" ).prop('disabled', false)
 								}
 							});
-					},
+					}
 				}
 			]
 		});
@@ -530,18 +549,22 @@ function template_admin(){
 	function removeAdditionalInput(){
 		$(this).parent().remove();
 	}
-	$("ul#listofadditionals li span.additionals-delete").click(removeAdditionalInput)
 	$("button#saveadditionalinputs").click(saveAdditionalInputs);
 	$("button#addadditionalinputs").click(addAdditionalInput)
 	if( !template_data.submissempty ){
 		$(".additionalscreate").css("display", "none");
+		$("ul#listofadditionals li span.additionals-delete").css("display", "none");
 		$("button#saveadditionalinputs").prop('disabled', true);
+	}
+	else {
+		$("ul#listofadditionals li span.additionals-delete").click(removeAdditionalInput)
 	}
 }
 
 /**
  * Global functions
  */
+// add a new poll submission delete code
 function poll_submissions_delete_code(pollid, values, code){
 	if( !values.length > 0 ){
 		return; // nothing to add
@@ -555,6 +578,7 @@ function poll_submissions_delete_code(pollid, values, code){
 	});
 	localStorage.setItem('pollsubmissons', JSON.stringify(json));
 }
+// remove a used poll submission delete code
 function poll_submissions_delete_code_used(pollid, value){
 	var json = JSON.parse(localStorage.getItem('pollsubmissons')) || {};
 	if( !json.hasOwnProperty(pollid) ){
@@ -562,4 +586,16 @@ function poll_submissions_delete_code_used(pollid, value){
 	}
 	delete json[pollid][value];
 	localStorage.setItem('pollsubmissons', JSON.stringify(json));
+}
+// delete checked options for a poll
+function delete_wahl_for_poll(pollid){
+	var wahl = localStorage.hasOwnProperty("pollPollDateData") ? JSON.parse( localStorage.getItem( "pollPollDateData" ) ) : {};
+	var neu = {};
+	Object.keys(wahl[pollid]).forEach(function(k) {
+		if( !$.isNumeric(k) ){ 
+			neu[k] = wahl[pollid][k];
+		}
+	});
+	wahl[pollid] = neu;
+	localStorage.setItem( "pollPollDateData", JSON.stringify( wahl ) );
 }

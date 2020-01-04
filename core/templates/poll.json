@@ -6,6 +6,7 @@
 	"%%TEXTSEINWILL%%" : "",
 	"%%INNERCONTAINER%%" : "",
 	"%%POLLID%%" : "poll",
+	"%%ATTRSHOWNAME%%" : "",
 	"multiples" : {
 		"Termin" : {
 			"%%NAME%%" : "Name",
@@ -13,7 +14,15 @@
 			"%%HINWEISE%%" : "**bla**",
 			"%%TERMINID%%" : "termin_a",
 			"%%DISABLE%%" : ""
-		}
+		},
+		"AdditionalsText" : {
+			"%%ADDNAME%%" : "",
+			"%%ADDPLACEHOLDER%%" : ""
+		},
+		"AdditionalsCheck" : {
+			"%%ADDNAME%%" : "",
+			"%%ADDTEXT%%" : ""
+		}	
 	},
 	"%%DELSUBAPI%%": ""
 }

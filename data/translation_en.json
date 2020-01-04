@@ -20,7 +20,8 @@
     "TooManySubmiss": "This poll has reached the limit of submissions.",
     "HelfFin": "Coordinate volunteers",
     "TermFin": "Schedule meetings",
-    "Teilnehm": "Attendees",
+    "Teilnehm": "Participants",
     "mailAdminNotif": "New Submission",
-    "mailNewPollNotif": "A new Poll was created"
+    "mailNewPollNotif": "A new Poll was created",
+    "FillAdditionals": "Please fill in all values, fields not marked as optional are required."
 }

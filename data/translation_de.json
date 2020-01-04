@@ -22,5 +22,6 @@
     "TermFin": "Termin finden",
     "Teilnehm": "Teilnehmende",
     "mailAdminNotif": "Neue Teilnahme",
-    "mailNewPollNotif": "Neue Umfrage erstellt"
+    "mailNewPollNotif": "Neue Umfrage erstellt",
+    "FillAdditionals": "Bitte alle Felder füllen, nicht als optional gekennzeichnete Felder sind Pflichtfelder."
 }

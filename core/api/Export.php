@@ -59,15 +59,45 @@ class Export{
 
 		$data = array();
 		$data[] = array( $this->polldata->getValue(['pollname']) );
-		
+
+		$addsHeader = array();
+		if( $this->polldata->isValue(['additionals']) ){
+			foreach( $this->polldata->getValue(['additionals']) as $key => $add ){
+				$addsHeader[] = $add['text'];
+			}
+		}
+
 		foreach( $this->polldata->getValue( ['termine'] ) as $id => $values){
 			$data[] = array();
-			$data[] = array( $values['bez'] );
+			$data[] = array_merge(
+				array( $values['bez'] , '', '', '', '' ),
+				$addsHeader
+			);
 
 			if( $this->pollsub->isValue( [$id] ) ){
 				$i = 1;
 				foreach( $this->pollsub->getValue( [$id] ) as $sub){
-					$data[] = array( '', $i++, $sub['name'], $sub['mail'], date( 'H:i:s d.m.Y', $sub['time'] ) );
+					$addsCells = array();
+					if( $this->polldata->isValue(['additionals']) ){
+						foreach( $this->polldata->getValue(['additionals']) as $key => $add ){
+							if( isset($sub['additionals'][$key]) ){
+								if( $add['type'] === 'checkbox' ){
+									$addsCells[] = ($sub['additionals'][$key] ? 'yes' : 'no');
+								}
+								else {
+									$addsCells[] = $sub['additionals'][$key];
+								}
+							}
+							else {
+								$addsCells[] = '';
+							}
+						}
+					}
+
+					$data[] = array_merge(
+						array( '', $i++, $sub['name'], $sub['mail'], date( 'H:i:s d.m.Y', $sub['time'] ) ),
+						$addsCells
+					);
 				}
 			}
 			if( $values['anz'] !== false ){
@@ -98,15 +128,38 @@ class Export{
 		$h.= '<h2>' . Utilities::optimizeOutputString( $this->polldata->getValue(['pollname']) ) . '</h2>';
 		$h .= '<div>' . $mdp->text($this->polldata->getValue( ['description'] )) . '</div>';
 
+		$addsHeader = '';
+		if( $this->polldata->isValue(['additionals']) ){
+			foreach( $this->polldata->getValue(['additionals']) as $key => $add ){
+				$addsHeader .= '<th>'. Utilities::optimizeOutputString( $add['text'] ) .'</th>';
+			}
+		}
+
 		$termine = array();
 		foreach( $this->polldata->getValue( ['termine'] ) as $id => $values){
 			$h .= '<hr /><h3>'. Utilities::optimizeOutputString( $values['bez'] ) .'</h3>';
 			$h .= empty( $values['des'] ) ? '' : '<div>'. $mdp->text($values['des']) .'</div>';
-			$h .= '<table style="width: 100%;"><tr><th>ID</th><th>Name</th><th>E-Mail</th><th style="width:30%;">Time</th></tr>';
+			$h .= '<table style="width: 100%;"><tr><th>ID</th><th>Name</th><th>E-Mail</th><th>Time</th>'. $addsHeader .'</tr>';
 			if( $this->pollsub->isValue( [$id] ) ){
 				$i = 1;
 				foreach( $this->pollsub->getValue( [$id] ) as $sub){
-					$h .= '<tr><td>'. $i++ .'</td><td>'. Utilities::optimizeOutputString( $sub['name'] ) .'</td><td>'. Utilities::optimizeOutputString( $sub['mail'] ) .'</td><td>'. date( 'H:i:s d.m.Y', $sub['time'] ) .'</td></tr>';
+					$addsCells = '';
+					if( $this->polldata->isValue(['additionals']) ){
+						foreach( $this->polldata->getValue(['additionals']) as $key => $add ){
+							if( isset($sub['additionals'][$key]) ){
+								if( $add['type'] === 'checkbox' ){
+									$addsCells .= '<td>'. ($sub['additionals'][$key] ? '&check;' : '&cross;' ) .'</td>';
+								}
+								else {
+									$addsCells .= '<td>'. Utilities::optimizeOutputString( $sub['additionals'][$key] ) .'</td>';
+								}
+							}
+							else {
+								$addsCells .= '<td></td>';
+							}
+						}
+					}
+					$h .= '<tr><td>'. $i++ .'</td><td>'. Utilities::optimizeOutputString( $sub['name'] ) .'</td><td>'. Utilities::optimizeOutputString( $sub['mail'] ) .'</td><td>'. date( 'H:i:s d.m.Y', $sub['time'] ) .'</td>'. $addsCells .'</tr>';
 				}
 			}
 			$h .= '</table>';

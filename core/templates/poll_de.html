@@ -53,23 +53,42 @@
 	%%TEXTSEINWILL%%
 	%%CAPTCHA%%
 	<div class="alert alert-primary" role="alert">
-		<div class="row">
+		<div class="row form-group">
 			<div class="col-sm">
-				<div class="form-group">
-					<input type="text" name="name" placeholder="Name" class="username form-control"
+				<input type="text" name="name" placeholder="Name" class="username form-control"
 						title="Name der Person, die den Termin wahrnimmt. &ndash; Pflichtfeld">
-				</div>
 			</div>
 			<div class="col-sm">
-				<div class="form-group">
-					<input type="email" name="email" placeholder="E-Mail-Adresse" class="usermail form-control"
+					<input type="email" name="email" placeholder="E-Mail-Adresse (optional)" class="usermail form-control"
 						title="E-Mail Adresse der Person für Nachfragen. &ndash; optional und nur für Admins sichtbar">
-				</div>
 			</div>
 		</div>
-		<div class="row">
+<!--MULTIPLE-AdditionalsText-BEGIN-->
+		<div class="row form-group">
 			<div class="col-sm">
-				<input type="submit" class="btn btn-primary" value="Umfrage absenden">
+				<input type="text" name="%%ADDNAME%%" placeholder="%%ADDPLACEHOLDER%%" class="form-control othersave">
+			</div>
+		</div>
+<!--MULTIPLE-AdditionalsText-END-->
+<!--MULTIPLE-AdditionalsCheck-BEGIN-->
+		<div class="row form-group">
+			<div class="col-sm form-check">
+				<label class="form-check-label">
+					<input type="checkbox" name="%%ADDNAME%%" value="yes" class="form-check-input othersave">
+					%%ADDTEXT%%
+				</label>
+			</div>
+		</div>
+<!--MULTIPLE-AdditionalsCheck-END-->
+		<div class="row form-group">
+			<div class="col-sm form-check">
+				<label class="form-check-label">
+					<input type="checkbox" name="showuser" value="show" class="showuser form-check-input othersave" %%ATTRSHOWNAME%%>
+					Zeige den oben angegebenen Namen öffentlich auf dieser Seite an.
+				</label>
+			</div>
+			<div class="col-sm">
+				<input type="submit" class="btn btn-primary form-control" value="Umfrage absenden">
 			</div>
 		</div>
 	</div>

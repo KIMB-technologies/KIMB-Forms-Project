@@ -24,6 +24,8 @@
 </div>
 
 <script>
-	localStorage.removeItem("pollPollDateData");
-	var on_site_loaded = () => poll_submissions_delete_code( '%%POLLID%%', %%VALUES%%, '%%CODE%%' );
+	var on_site_loaded = () => {
+		poll_submissions_delete_code( '%%POLLID%%', %%VALUES%%, '%%CODE%%' );
+		delete_wahl_for_poll( '%%POLLID%%' );
+	}
 </script>

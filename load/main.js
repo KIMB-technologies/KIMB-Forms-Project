@@ -29,6 +29,9 @@ $( function (){
 			case "admin":
 				template_admin();
 				break;
+			case "submissionquery":
+				template_submissionquery();
+				break;
 			default:
 				break;
 		}
@@ -559,6 +562,33 @@ function template_admin(){
 	else {
 		$("ul#listofadditionals li span.additionals-delete").click(removeAdditionalInput)
 	}
+}
+
+function template_submissionquery(){
+	const item = (t) => '<li class="list-group-item ">'+ t +'</li>';
+	const ahref = (l,n) => '<a href="' + l + '" target="_blank">' + n + '</a>';
+
+	var json = JSON.parse(localStorage.getItem('pollsubmissons')) || {};
+	
+	if( json.hasOwnProperty(template_data.pollid) ){
+		// list of entries
+		var h = '';
+		Object.keys(json[template_data.pollid]).forEach(function(k) {
+			if( template_data.termine.hasOwnProperty( k ) ){
+				h += item( template_data.termine[k][0] + ' (' + template_data.termine[k][1] + ')' );
+			}
+		});
+		$("ul.entriesSamePollDelcode").append(h);
+	}
+
+	// list of 
+	var h = '';
+	Object.keys(json).forEach(function(pollid) {
+		if( template_data.pollid != pollid ){
+			h += item( ahref( template_data.polllink.replace('<poll>', pollid ), pollid ) );
+		}
+	});
+	$("ul.entriesOtherPollDelcode").append(h);
 }
 
 /**

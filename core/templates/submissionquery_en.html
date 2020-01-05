@@ -1,19 +1,44 @@
-<h1>Submit a poll</h1>
+<h1>My entries</h1>
+<a class="btn btn-secondary btn-lg float-sm-right" href="%%BACKTOPOLLLINK%%" type="button">
+	&larr; Go back to poll
+</a>
 <h2>%%POLLNAME%%</h2>
 
 %%INNERCONTAINER%%
 
-<div class="alert alert-dark" role="alert">
-	<div class="parseasmarkdown">
-		%%POLLDESCRIPT%%
+<div class="container mb-5 mt-5">
+	<h3>Submissions for this poll done on this device</h3>
+	<div class="alert alert-info" role="alert">
+		When submitting a poll the system saves a token in the users browser.<br>
+		Using the "Delete my entry" button on the polls site, which internally uses
+		this token, one may delete the corresponding entry.<br>
+		This list shows all entries wich can be delete as described before:
 	</div>
+	<ul class="list-group entriesSamePollDelcode">
+	</ul>
 </div>
 
-<form action="%%FORMDEST%%" method="post">
-	%%TEXTSEINWILL%%
-	%%CAPTCHA%%
-</form>
+<div class="container mb-5">
+	<h3>Query all entries for this poll using your E-Mail-Address</h3>
+	<div class="alert alert-danger" role="alert">
+		Under Development!
+	</div>
+	<form action="%%FORMDEST%%" method="post">
+		%%CAPTCHA%%
+	</form>
+</div>
+
+<div class="container mb-5">
+	<h3>Other polls submitted using this device</h3>
+	<div class="alert alert-info" role="alert">
+		This list shows all other polls, for which
+		submissions were made using this device.
+	</div>
+	<ul class="list-group entriesOtherPollDelcode">
+	</ul>
+</div>
 
 <script>
 	var template_name = 'submissionquery';
+	var template_data = JSON.parse('%%JSONDATA%%');
 </script>

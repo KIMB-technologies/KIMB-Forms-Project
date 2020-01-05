@@ -24,7 +24,7 @@ services:
       - CONF_newpollmailto=test@example.com # admin mail, get mail when a poll is created
       - CONF_submissions_enabled=true # query for poll submissions by mail
       - CONF_submissions_captcha=true # query needs captcha
-      - CONF_submissions_mailValidate=^\\S+@\\S+.\\S+$ # query mail address validation
+      - CONF_submissions_mailValidate=^\S+@\S+.\S+$$ # query mail address validation
       - SMTP_SERVER= # the mail server host (used for admin notification mails)
       - SMTP_PORT= # the port to deliver mails (587 for starttls or 465 for tls)
       - SMTP_USER= # the username for the mail server

@@ -11,13 +11,12 @@
  */
 defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 
-class SubmissionQuery{
+class SubmissionQuery {
 
 	private $polldata,
 		$pollsub,
 		$configjson,
-		$id,
-		$error = '';
+		$id;
 
 	/**
 	 * Generate poll participate by poll id
@@ -39,17 +38,45 @@ class SubmissionQuery{
 	}
 
 	/**
+	 * Generates the poll submission query Link 
+	 * (Uses the current Link and adds parameter!)
+	 * @return The link
+	 */
+	public static function getLink() : string {
+		return URL::currentLinkGenerator(array('submission' => 'query'));
+	}
+
+	/**
 	 * Show the 
 	 */
 	public function showForm(){
-		$this->template->setContent( 'FORMDEST', URL::currentLinkGenerator(array('submission' => 'query')) );
+		$this->template->setContent( 'FORMDEST', self::getLink() );
+		$this->template->setContent( 'BACKTOPOLLLINK', URL::currentLinkGenerator() );
+		
+		$this->template->setContent( 'JSONDATA', json_encode(
+			array(
+				'pollid' => $this->id,
+				'termine' => array_map( function ($a) {
+							return array(
+								Utilities::optimizeOutputString( $a['bez'] ),
+								Utilities::optimizeOutputString( mb_substr(
+									Utilities::validateInput( $a['des'], PollCreator::PREG_TEXTINPUT, PollCreator::MAXL_TEXTINPUT  ),
+									0, 100 ) )
+							);
+						},
+						$this->polldata->getValue(['termine'])
+					),
+				"polllink" => URL::generateLink('poll','<poll>','')
+			), JSON_FORCE_OBJECT
+		));
+
+
 	}
 
 	public function getTemplate(): Template {
 		return $this->template;
 	}
 
-	
 }
 
 ?>

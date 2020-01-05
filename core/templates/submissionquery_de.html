@@ -1,19 +1,45 @@
-<h1>Umfrage ausfüllen</h1>
+<h1>Meine Einträge</h1>
+<a class="btn btn-secondary btn-lg float-sm-right" href="%%BACKTOPOLLLINK%%" type="button">
+	&larr; Zurück zur Umfrage
+</a>
 <h2>%%POLLNAME%%</h2>
 
 %%INNERCONTAINER%%
 
-<div class="alert alert-dark" role="alert">
-	<div class="parseasmarkdown">
-		%%POLLDESCRIPT%%
+<div class="container mb-5 mt-5">
+	<h3>Einträge mit diesem Gerät</h3>
+	<div class="alert alert-info" role="alert">
+		Beim Ausfüllen einer Umfrage wird im Browser ein Code zum Löschen des Eintrags
+		abgelegt.<br>
+		Mit diesem Code können Einträge direkt mit dem Button
+		"Meinen Eintrag löschen" auf der Seite der Umfrage gelöscht werden.<br>
+		Die Liste zeigt alle Einträge an, die so zu löschen sind:
 	</div>
+	<ul class="list-group entriesSamePollDelcode">
+	</ul>
 </div>
 
-<form action="%%FORMDEST%%" method="post">
-	%%TEXTSEINWILL%%
-	%%CAPTCHA%%
-</form>
+<div class="container mb-5">
+	<h3>Einträge über die E-Mail-Adresse abfragen</h3>
+	<div class="alert alert-danger" role="alert">
+		Under Development!
+	</div>
+	<form action="%%FORMDEST%%" method="post">
+		%%CAPTCHA%%
+	</form>
+</div>
+
+<div class="container mb-5">
+	<h3>Einträge in anderen Umfragen mit diesem Gerät</h3>
+	<div class="alert alert-info" role="alert">
+		Die Liste zeigt alle Umfragen an, an denen mit 
+		diesem Browser teilgenommen wurde:
+	</div>
+	<ul class="list-group entriesOtherPollDelcode">
+	</ul>
+</div>
 
 <script>
 	var template_name = 'submissionquery';
+	var template_data = JSON.parse('%%JSONDATA%%');
 </script>

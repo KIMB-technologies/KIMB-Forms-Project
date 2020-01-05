@@ -27,7 +27,7 @@ services:
       - CONF_newpollmailto=info@kimb-technologies.eu
       - CONF_submissions_enabled=true
       - CONF_submissions_captcha=true
-      - CONF_submissions_mailValidate=^\\S+@\\S+.\\S+$
+      - CONF_submissions_mailValidate=^\S+@\S+.\S+$$
       - SMTP_SERVER=
       - SMTP_PORT=
       - SMTP_USER=

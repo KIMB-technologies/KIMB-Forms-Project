@@ -218,6 +218,7 @@ class Poll{
 		$template->setContent( 'POLLDESCRIPT', Utilities::optimizeOutputString($this->polldata->getValue( ['description'] )) );
 		$template->setContent( 'POLLID', $this->id );
 		$template->setContent( 'DELSUBAPI', URL::generateAPILink( 'delsubmission', array( 'poll' =>  $this->id ) ) );
+		$template->setContent( 'SUBMQUERYLINK', SubmissionQuery::getLink($this->id) );
 		
 		$type = $this->polldata->getValue( ['formtype'] );
 

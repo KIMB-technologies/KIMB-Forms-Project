@@ -11,12 +11,12 @@
  */
 defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 
-class Utilities{
+class Utilities {
 
 	/**
 	 * The system's Version
 	 */
-	const SYS_VERSION = 'v1.1.7';
+	const SYS_VERSION = 'v1.1.8';
 
 	/**
 	 * Possible chars for:

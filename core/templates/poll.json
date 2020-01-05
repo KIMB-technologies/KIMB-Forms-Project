@@ -24,5 +24,6 @@
 			"%%ADDTEXT%%" : ""
 		}	
 	},
-	"%%DELSUBAPI%%": ""
+	"%%DELSUBAPI%%": "",
+	"%%SUBMQUERYLINK%%": ""
 }

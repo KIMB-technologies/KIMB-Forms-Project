@@ -16,5 +16,10 @@
     },
     "urlrewrite": false,
     "cookiebanner": false,
-    "newpollmailto": "test@example.com"
+    "newpollmailto": "test@example.com",
+    "submissions": {
+        "enabled": true,
+        "captcha": true,
+        "mailValidate": "^\\S+@\\S+.\\S+$"
+    }
 }

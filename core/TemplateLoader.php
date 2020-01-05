@@ -185,7 +185,12 @@ class TemplateLoader{
 				}
 				//else { template done in saveSendData }
 			}
-			else{
+			else if( SubmissionQuery::queried() ){ // user wants to query his old submissions
+				$subQuery = new SubmissionQuery($pollid);
+				$subQuery->showForm();
+				$this->maintemplate->includeTemplate($subQuery->getTemplate());
+			}
+			else {
 				$poll->showPollForm( $this->includetemp );
 			}
 		}

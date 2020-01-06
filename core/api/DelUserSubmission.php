@@ -35,13 +35,13 @@ class DelUserSubmission {
 	public function __construct(){
 		header('Content-Type: text/plain; charset=utf-8');
 
-		if( isset( $_POST['terminid'] ) && !empty( $_POST['code'] ) ){
+		if( isset( $_REQUEST['terminid'] ) && !empty( $_REQUEST['code'] ) ){
 			// open 
 			$this->openPollSubmissions();
 
 			//delete termin
-			$id = intval(Utilities::validateInput($_POST['terminid'], self::PREG_ID, self::MAXL_ID ));
-			$code = Utilities::validateInput($_POST['code'], self::PREG_CODE, self::MAXL_CODE );
+			$id = intval(Utilities::validateInput($_REQUEST['terminid'], self::PREG_ID, self::MAXL_ID ));
+			$code = Utilities::validateInput($_REQUEST['code'], self::PREG_CODE, self::MAXL_CODE );
 			$this->deleteSubmission( $id, $code );
 		}
 		die( 'nok' );

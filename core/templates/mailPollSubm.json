@@ -1,0 +1,14 @@
+{
+	"%%POLLNAME%%" : "",
+	"%%POLLLINK%%" : "",
+	"multiples" : {
+		"Items" : {
+			"%%OPTION%%" : "",
+			"%%DESC%%" : "",
+			"%%NAME%%" : "",
+			"%%MAIL%%" : "",
+			"%%TIME%%" : "",
+			"%%DELTELINK%%" : ""
+		}
+	}
+}

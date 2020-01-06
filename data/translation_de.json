@@ -23,5 +23,7 @@
     "Teilnehm": "Teilnehmende",
     "mailAdminNotif": "Neue Teilnahme",
     "mailNewPollNotif": "Neue Umfrage erstellt",
-    "FillAdditionals": "Bitte alle Felder füllen, nicht als optional gekennzeichnete Felder sind Pflichtfelder."
+    "FillAdditionals": "Bitte alle Felder füllen, nicht als optional gekennzeichnete Felder sind Pflichtfelder.",
+    "InvalMail": "Die eingegebene E-Mail-Adresse erfüllt nicht die Anforderungen!",
+    "mailPollSubm": "Liste meiner Eintraege"
 }

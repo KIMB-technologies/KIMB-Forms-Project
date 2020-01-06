@@ -16,7 +16,8 @@ class SubmissionQuery {
 	private $polldata,
 		$pollsub,
 		$configjson,
-		$id;
+		$id,
+		$mailsend = false;
 
 	/**
 	 * Generate poll participate by poll id
@@ -47,12 +48,106 @@ class SubmissionQuery {
 	}
 
 	/**
-	 * Show the 
+	 * Check for E-Mail submission and send mail (if data found)
+	 */
+	private function checkForPost(){
+		if( !empty( $_POST['email'] ) ){
+			//captcha?
+			if( $this->configjson->getValue(['submissions', 'captcha']) ){
+				if( !Captcha::checkImageData() ){
+					$alert = new Template( 'alert' );
+					$this->template->includeTemplate($alert);
+					$alert->setContent( 'ALERTMESSAGE', Captcha::getError() );
+					return;
+				}
+			}
+
+			$email = Utilities::validateInput( $_POST['email'], Poll::PREG_MAIL, Poll::MAXL_MAIL );
+			if(!empty( $email ) && $email !== 'mail@mail.mail' ){
+				if( preg_match( '/' . $this->configjson->getValue(['submissions', 'mailValidate']) . '/' , $email ) === 1 ){
+
+					$mailsubs = array();
+					foreach( $this->pollsub->getArray() as $tid => $option ){
+						foreach( $option as $entry ){
+							if( $entry['mail'] === $email ){
+								unset($entry['showuser'], $entry['additionals'], $entry['mail']);
+								if( !isset( $mailsubs[$tid] ) ) {
+									$mailsubs[$tid] = array();
+								}
+								$mailsubs[$tid][] = $entry;
+							}
+						}
+					}
+					if( !empty($mailsubs) ){ // found entry?
+						$this->doMail( $mailsubs, $email );
+					}
+					usleep(random_int(200000,800000)); // prevent timing attacks
+
+					$this->mailsend = true;
+					return;
+				}
+			}
+			$alert = new Template( 'alert' );
+			$this->template->includeTemplate($alert);
+			$alert->setContent( 'ALERTMESSAGE', LanguageManager::getTranslation('InvalMail') );
+		}
+	}
+
+	private function doMail( array $d, string $email ){
+		$m = new Mail('PollSubm');
+		$m->setContent( "POLLNAME", $this->polldata->getValue(['pollname']));
+		$m->setContent( "POLLLINK", URL::currentLinkGenerator());
+
+		$items = array();
+		foreach( $d as $tid => $subs ){
+			foreach( $subs as $v ){
+				$items[] = array(
+					"OPTION" => Utilities::optimizeOutputString( $this->polldata->getValue(["termine", $tid, "bez"]) ),
+					"DESC" => Utilities::optimizeOutputString( $this->polldata->getValue(["termine", $tid, "des"]) ),
+					"NAME" => Utilities::optimizeOutputString( $v['name'] ),
+					"MAIL" => Utilities::optimizeOutputString( $email ),
+					"TIME" => date( 'H:i:s d.m.Y', $v['time'] ),
+					"DELTELINK" => URL::generateAPILink( 'delsubmission', array(
+							'poll' => $this->id,
+							'terminid' => $tid,
+							'code' => $v['editcode']
+						))
+				);
+			}
+		}
+		$m->setMultipleContent( "Items", $items );
+
+		$m->sendMail($email);
+	}
+
+	/**
+	 * Show the Submission Query Page and Form
 	 */
 	public function showForm(){
+		if( $this->configjson->getValue(['submissions', 'enabled']) ){
+			$this->checkForPost();
+
+			if( $this->mailsend ){
+				$this->template->setContent( 'MAILFORM', 'd-none' );	
+				$this->template->setContent( 'MAILSUCCESS', '' );	
+			}
+		}
+
 		$this->template->setContent( 'FORMDEST', self::getLink() );
+		$this->template->setContent( 'POLLNAME', $this->polldata->getValue(['pollname']) );
 		$this->template->setContent( 'BACKTOPOLLLINK', URL::currentLinkGenerator() );
-		
+
+		if( $this->configjson->getValue(['submissions', 'enabled']) ){ //query via mail enabled?
+			$this->template->setContent( 'PATTERN', $this->configjson->getValue(['submissions', 'mailValidate']) );
+			//captcha?
+			if( $this->configjson->getValue(['submissions', 'captcha']) ){
+				$this->template->setContent( 'CAPTCHA', Captcha::getCaptchaHTML() );
+			}
+		}
+		else {
+			$this->template->setContent( 'MAILDISABLED', 'd-none' );
+		}
+
 		$this->template->setContent( 'JSONDATA', json_encode(
 			array(
 				'pollid' => $this->id,
@@ -70,9 +165,11 @@ class SubmissionQuery {
 			), JSON_FORCE_OBJECT
 		));
 
-
 	}
 
+	/**
+	 * Get the Page Template Object
+	 */
 	public function getTemplate(): Template {
 		return $this->template;
 	}

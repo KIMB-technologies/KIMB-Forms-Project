@@ -4,5 +4,9 @@
 	"%%CAPTCHA%%" : "",
 	"%%INNERCONTAINER%%" : "",
 	"%%JSONDATA%%" : "[]",
-	"%%BACKTOPOLLLINK%%" : ""
+	"%%BACKTOPOLLLINK%%" : "",
+	"%%PATTERN%%" : "^\\S*$",
+	"%%MAILDISABLED%%" : "",
+	"%%MAILSUCCESS%%" : "d-none",
+	"%%MAILFORM%%" : ""
 }

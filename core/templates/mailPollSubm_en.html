@@ -1,0 +1,28 @@
+<html>
+	<body>
+		<h1>My entries</h1>
+		<h2>%%POLLNAME%%</h2>
+		<ul>
+<!--MULTIPLE-Items-BEGIN-->
+			<li>
+				<ul>
+					<li>Option: %%OPTION%%</li>
+					<li>Description: %%DESC%%</li>
+					<li>Participants: %%NAME%% (%%MAIL%%)</li>
+					<li>Time: %%TIME%%</li>
+					<li><a href="%%DELTELINK%%">Delete this entry</a></li>
+				</ul>
+			</li>
+<!--MULTIPLE-Items-END-->
+		</ul>
+		<p>
+			<a href="%%POLLLINK%%">Go to poll</a>
+		</p>
+			<p>
+			<small>
+				When deleting an entry, the page will only show the string <code>ok</code> or <code>nok</code>.
+				Where <code>ok</code> represents a successful operation.
+			</small>
+		</p>
+	</body>
+</html>

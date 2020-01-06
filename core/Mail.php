@@ -19,7 +19,8 @@ class Mail {
 
 	private static $templates = array(
 		'mailAdminNotif',
-		'mailNewPollNotif'
+		'mailNewPollNotif',
+		'mailPollSubm'
 	);
 
 	private $type, $template, $mailHeader;
@@ -42,6 +43,13 @@ class Mail {
 	 */
 	public function setContent( $key, $value ){
 		$this->template->setContent($key, $value);
+	}
+
+	/**
+	 * Set a multiple content key in the mail template
+	 */
+	public function setMultipleContent( $key, $value ){
+		$this->template->setMultipleContent($key, $value);
 	}
 
 	/**

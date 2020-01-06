@@ -20,6 +20,6 @@
     "submissions": {
         "enabled": true,
         "captcha": true,
-        "mailValidate": "^\\S+@\\S+.\\S+$"
+        "mailValidate": "^\\S+@\\S+\\.\\S+$"
     }
 }

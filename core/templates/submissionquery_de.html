@@ -19,14 +19,32 @@
 	</ul>
 </div>
 
-<div class="container mb-5">
+<div class="container mb-5 %%MAILDISABLED%%">
 	<h3>Einträge über die E-Mail-Adresse abfragen</h3>
-	<div class="alert alert-danger" role="alert">
-		Under Development!
+	<div class="alert alert-info" role="alert">
+		Wurde ein Eintrag auf einem anderen Gerät vorgenommen oder taucht nicht mehr in der Liste oben auf,
+		so kann hier eine Liste mit allen Einträgen für eine bestimmte E-Mail-Adresse angefragt werden.<br>
+		Die Liste wird an die angegebene E-Mail-Adresse versendet und beinhaltet auch die Links zum Löschen der
+		Einträge.<br>
+		Achtung, es kann sein, dass Anfragen nicht für alle E-Mail-Adresse freigeschaltet sind.
 	</div>
-	<form action="%%FORMDEST%%" method="post">
-		%%CAPTCHA%%
-	</form>
+	<div class="container %%MAILFORM%%">
+		<form action="%%FORMDEST%%" method="post">
+			%%CAPTCHA%%
+			<div class="row">
+				<div class="col-sm form-group">
+					<input type="email" name="email" placeholder="E-Mail-Adresse" class="form-control"
+						title="E-Mail-Adresse die für die abzufragenden Einträge genutzt wurde." pattern="%%PATTERN%%">
+				</div>
+				<div class="col-sm form-group">
+					<input type="submit" class="btn btn-primary form-control" value="Anfrage absenden">
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="alert alert-success %%MAILSUCCESS%%" role="alert">
+		Falls Einträge gefunden wurden, haben wir eine E-Mail verschickt.
+	</div>
 </div>
 
 <div class="container mb-5">

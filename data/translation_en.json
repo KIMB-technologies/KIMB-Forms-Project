@@ -23,5 +23,7 @@
     "Teilnehm": "Participants",
     "mailAdminNotif": "New Submission",
     "mailNewPollNotif": "A new Poll was created",
-    "FillAdditionals": "Please fill in all values, fields not marked as optional are required."
+    "FillAdditionals": "Please fill in all values, fields not marked as optional are required.",
+    "InvalMail": "The given E-Mail-Address does not fullfil the requirements!",
+    "mailPollSubm": "List of my entries"
 }

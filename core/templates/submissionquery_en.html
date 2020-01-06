@@ -18,14 +18,32 @@
 	</ul>
 </div>
 
-<div class="container mb-5">
+<div class="container mb-5 %%MAILDISABLED%%">
 	<h3>Query all entries for this poll using your E-Mail-Address</h3>
-	<div class="alert alert-danger" role="alert">
-		Under Development!
+	<div class="alert alert-info" role="alert">
+		Sometimes an entry does not show up in the list above or the submission was made on another 
+		device. In this case it is possible to query the system using the E-Mail-Address.<br>
+		If we find entries made using the given E-Mail-Address, we will send a list via mail containing the 
+		token to delete the entries.<br>
+		Attention, not all E-Mail-Addresses may be activated.
 	</div>
-	<form action="%%FORMDEST%%" method="post">
-		%%CAPTCHA%%
-	</form>
+	<div class="container %%MAILFORM%%">
+		<form action="%%FORMDEST%%" method="post">
+			%%CAPTCHA%%
+			<div class="row">
+				<div class="col-sm form-group">
+					<input type="email" name="email" placeholder="E-Mail-Address" class="form-control"
+						title="Search for entries made with this E-Mail-Address." pattern="%%PATTERN%%">
+				</div>
+				<div class="col-sm form-group">
+					<input type="submit" class="btn btn-primary form-control" value="Submit query">
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="alert alert-success %%MAILSUCCESS%%" role="alert">
+		We have send an e-mail if we have found entries.
+	</div>
 </div>
 
 <div class="container mb-5">

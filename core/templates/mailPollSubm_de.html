@@ -1,0 +1,28 @@
+<html>
+	<body>
+		<h1>Meine Einträge</h1>
+		<h2>%%POLLNAME%%</h2>
+		<ul>
+<!--MULTIPLE-Items-BEGIN-->
+			<li>
+				<ul>
+					<li>Termin: %%OPTION%%</li>
+					<li>Beschreibung: %%DESC%%</li>
+					<li>Teilnehmender: %%NAME%% (%%MAIL%%)</li>
+					<li>Zeit: %%TIME%%</li>
+					<li><a href="%%DELTELINK%%">Eintrag löschen</a></li>
+				</ul>
+			</li>
+<!--MULTIPLE-Items-END-->
+		</ul>
+		<p>
+			<a href="%%POLLLINK%%">Zur Umfrage</a>
+		</p>
+			<p>
+			<small>
+				Beim Löschen eines Eintrages, wird auf der Seite nur der String <code>ok</code> oder <code>nok</code> angegeben.
+				Wobei <code>ok</code> für eine erfolgreiche Operation steht.
+			</small>
+		</p>
+	</body>
+</html>

@@ -78,12 +78,20 @@ class SubmissionQuery {
 							}
 						}
 					}
+					$this->mailsend = true;
 					if( !empty($mailsubs) ){ // found entry?
-						$this->doMail( $mailsubs, $email );
+						if( !$this->doMail( $mailsubs, $email ) ){
+							$this->mailsend = false;
+
+							$alert = new Template( 'alert' );
+							$this->template->includeTemplate($alert);
+							$alert->setContent( 'ALERTMESSAGE', LanguageManager::getTranslation('MailTimeout') );
+							
+							return;
+						}
 					}
 					usleep(random_int(200000,800000)); // prevent timing attacks
-
-					$this->mailsend = true;
+					
 					return;
 				}
 			}
@@ -117,7 +125,7 @@ class SubmissionQuery {
 		}
 		$m->setMultipleContent( "Items", $items );
 
-		$m->sendMail($email);
+		return $m->sendMail($email);
 	}
 
 	/**

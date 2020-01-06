@@ -208,7 +208,7 @@ class PollCreator{
 		$m->setContent('POLLLINK', URL::generateLink('poll', $this->data['code']['poll'], '' ));
 		$m->setContent('POLLID', $this->data['code']['poll'] );
 	
-		$m->sendMail( $to );
+		$m->sendMail( $to, true );
 	}
 }
 

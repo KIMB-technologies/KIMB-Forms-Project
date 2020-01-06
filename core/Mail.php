@@ -17,13 +17,20 @@ defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
  */
 class Mail {
 
+	/**
+	 * The system uses some type of spam protection.
+	 * One can not send too many mails to one address.
+	 */
+	const LAST_TIMES = 3; // check times of last x mails to this address
+	const LAST_SECONDS = 3600; // allow LAST_TIMES mails in last y seconds
+
 	private static $templates = array(
 		'mailAdminNotif',
 		'mailNewPollNotif',
 		'mailPollSubm'
 	);
 
-	private $type, $template, $mailHeader;
+	private $type, $template, $mailHeader, $maillog;
 
 	/**
 	 * Creates the Mail (also using a HTML Template)
@@ -34,6 +41,8 @@ class Mail {
 			throw new Exception('Unknown Mail Template Type');
 		}
 		$this->template = new Template( $this->type );
+
+		$this->maillog = new JSONReader('mail');
 
 		$this->setUpMailMeta();
 	}
@@ -74,9 +83,26 @@ class Mail {
 	/**
 	 * Sends the created Mail 
 	 * @param $to The destination mail address
+	 * @param $force Force to send the mail (also if many mail send to this address in the last time)
 	 */
-	public function sendMail(string $to){
-		mail(
+	public function sendMail(string $to, bool $force = false){
+		if( $this->maillog->isValue( [$to] ) && !$force ){
+			$lastx = array_slice( $this->maillog->getValue( [$to] ), -self::LAST_TIMES);
+			if(
+				count($lastx) == self::LAST_TIMES && $lastx[0] + self::LAST_SECONDS > time()
+			){
+				return false;
+			}
+		}
+
+		if( $this->maillog->isValue( [$to] ) ){
+			$this->maillog->setValue( [$to, null], time() );
+		}
+		else {
+			$this->maillog->setValue( [$to], array(time()) );
+		}
+
+		return mail(
 			$to,
 			LanguageManager::getTranslation($this->type),
 			$this->template->getOutputString(),

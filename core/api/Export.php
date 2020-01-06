@@ -74,8 +74,8 @@ class Export{
 				$addsHeader
 			);
 
+			$i = 1;
 			if( $this->pollsub->isValue( [$id] ) ){
-				$i = 1;
 				foreach( $this->pollsub->getValue( [$id] ) as $sub){
 					$addsCells = array();
 					if( $this->polldata->isValue(['additionals']) ){
@@ -140,8 +140,8 @@ class Export{
 			$h .= '<hr /><h3>'. Utilities::optimizeOutputString( $values['bez'] ) .'</h3>';
 			$h .= empty( $values['des'] ) ? '' : '<div>'. $mdp->text($values['des']) .'</div>';
 			$h .= '<table style="width: 100%;"><tr><th>ID</th><th>Name</th><th>E-Mail</th><th>Time</th>'. $addsHeader .'</tr>';
+			$i = 1;
 			if( $this->pollsub->isValue( [$id] ) ){
-				$i = 1;
 				foreach( $this->pollsub->getValue( [$id] ) as $sub){
 					$addsCells = '';
 					if( $this->polldata->isValue(['additionals']) ){

@@ -560,7 +560,8 @@ function template_admin(){
 		$("button#saveadditionalinputs").prop('disabled', true);
 	}
 	else {
-		$("ul#listofadditionals li span.additionals-delete").click(removeAdditionalInput)
+		$("ul#listofadditionals li span.additionals-delete").click(removeAdditionalInput);
+		$( "ul#listofadditionals" ).sortable({ items: "> li.additionals-element" });
 	}
 }
 

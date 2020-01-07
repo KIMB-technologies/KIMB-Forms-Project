@@ -83,7 +83,7 @@ class PollAdmin{
 				header( 'Location: ' . URL::generateLink() );
 				die();
 			}
-			else{
+			else if( !empty($_SESSION['DELETE_SUBMISSIONS_CODE']) && $_GET['delete'] == $_SESSION['DELETE_SUBMISSIONS_CODE'] ){
 				$this->pollsub->setArray(array());
 			}
 		}
@@ -162,10 +162,12 @@ class PollAdmin{
 			$this->template->setMultipleContent('Additionals', $additionals);
 		}
 
+		$_SESSION['DELETE_SUBMISSIONS_CODE'] = Utilities::randomCode(6, Utilities::POLL_ID);
+
 		$this->template->setContent( 'JSONDATA', str_replace( array("\\r", "\\n"), array( "\\\\r", "\\\\n"), json_encode(
 			array(
 				"delallurl" => URL::currentLinkGenerator( array( 'delete' => 'all' ) ),
-				"delsuburl" => URL::currentLinkGenerator( array( 'delete' => 'sub' ) ),
+				"delsuburl" => URL::currentLinkGenerator( array( 'delete' => $_SESSION['DELETE_SUBMISSIONS_CODE'] ) ),
 				"polladmin" => URL::generateLink('admin', '', $this->polldata->getValue(['code', 'admin'])),
 				"meta" => array(  $this->polldata->getValue(['pollname']), $this->polldata->getValue(['description']) ),
 				"terminmeta" => $terminmeta,

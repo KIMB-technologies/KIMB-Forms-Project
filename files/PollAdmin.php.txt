@@ -3,7 +3,7 @@
  * KIMB-Forms-Project
  * https://github.com/KIMB-technologies/KIMB-Forms-Project
  * 
- * (c) 2018 KIMB-technologies 
+ * (c) 2018 - 2020 KIMB-technologies 
  * https://github.com/KIMB-technologies/
  * 
  * released under the terms of GNU Public License Version 3
@@ -83,7 +83,7 @@ class PollAdmin{
 				header( 'Location: ' . URL::generateLink() );
 				die();
 			}
-			else{
+			else if( !empty($_SESSION['DELETE_SUBMISSIONS_CODE']) && $_GET['delete'] == $_SESSION['DELETE_SUBMISSIONS_CODE'] ){
 				$this->pollsub->setArray(array());
 			}
 		}
@@ -108,6 +108,10 @@ class PollAdmin{
 		$this->template->setContent( 'EXPORTLINK', URL::generateAPILink('export', array( 'type' => 'csv', 'admin' =>  $this->polldata->getValue(['code', 'admin']) ) ) );
 		$this->template->setContent( 'PRINTLINK', URL::generateAPILink('export', array( 'type' => 'print', 'admin' =>  $this->polldata->getValue(['code', 'admin']) ) ) );
 
+		if( $this->polldata->isValue(['notifymails']) ){
+			$this->template->setContent( 'NOTIFMAILS', implode( ',', $this->polldata->getValue(['notifymails']) ) );
+		}
+
 		$termine = array();
 		$terminmeta = array();
 		$submissempty = true;
@@ -121,10 +125,12 @@ class PollAdmin{
 			
 			$i = 1;
 			$submiss = array();
-			foreach( $this->pollsub->getValue( [$id] ) as $sub){
-				$i++;
-				$submiss[] = Utilities::optimizeOutputString( $sub['name'] . ' (' . $sub['mail'] . ') ' );
-				$submissempty = false;
+			if( $this->pollsub->isValue( [$id] ) ){
+				foreach( $this->pollsub->getValue( [$id] ) as $sub){
+					$i++;
+					$submiss[] = Utilities::optimizeOutputString( $sub['name'] . ' (' . $sub['mail'] . ') ' );
+					$submissempty = false;
+				}
 			}
 
 			$termine[] = array(
@@ -132,7 +138,10 @@ class PollAdmin{
 				"ANZAHL" => ($i-1) . $maxanz,
 				"HINWEISE" => Utilities::optimizeOutputString( $values["des"] ),
 				"TERMINID" => "termin_" . $id,
-				"TEILNEHMER" => implode( '</li><li class="list-group-item">',  $submiss )
+				"TEILNEHMER" => Utilities::getCollapseHtml(
+					LanguageManager::getTranslation("Teilnehm"),
+					'<ul class="list-group"><li class="list-group-item">' . implode( '</li><li class="list-group-item">',  $submiss ) . '</li></ul>'
+				)
 			);
 
 			$terminmeta["termin_" . $id] = array( $values["bez"], $values["anz"], $values["des"]  );
@@ -140,10 +149,25 @@ class PollAdmin{
 
 		$this->template->setMultipleContent('Termin', $termine);
 
+		if( $this->polldata->isValue(['additionals']) ){
+			$additionals = array();
+			foreach( $this->polldata->getValue(['additionals']) as $adds ){
+				$additionals[] = array(
+					"ADDDATA" =>  $adds['type'] . "," . ($adds['require'] ? 'true' : 'false'),
+					"ADDTYPE" => ($adds['type'] == 'text' ? 'pencil' : 'check'),
+					"ADDNAME" => Utilities::optimizeOutputString( $adds['text'] ),
+					"REQOPT" => ($adds['require'] ? '*' : '(optional)'),
+				);
+			}
+			$this->template->setMultipleContent('Additionals', $additionals);
+		}
+
+		$_SESSION['DELETE_SUBMISSIONS_CODE'] = Utilities::randomCode(6, Utilities::POLL_ID);
+
 		$this->template->setContent( 'JSONDATA', str_replace( array("\\r", "\\n"), array( "\\\\r", "\\\\n"), json_encode(
 			array(
 				"delallurl" => URL::currentLinkGenerator( array( 'delete' => 'all' ) ),
-				"delsuburl" => URL::currentLinkGenerator( array( 'delete' => 'sub' ) ),
+				"delsuburl" => URL::currentLinkGenerator( array( 'delete' => $_SESSION['DELETE_SUBMISSIONS_CODE'] ) ),
 				"polladmin" => URL::generateLink('admin', '', $this->polldata->getValue(['code', 'admin'])),
 				"meta" => array(  $this->polldata->getValue(['pollname']), $this->polldata->getValue(['description']) ),
 				"terminmeta" => $terminmeta,

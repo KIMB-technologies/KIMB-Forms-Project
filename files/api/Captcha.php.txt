@@ -3,7 +3,7 @@
  * KIMB-Forms-Project
  * https://github.com/KIMB-technologies/KIMB-Forms-Project
  * 
- * (c) 2018 KIMB-technologies 
+ * (c) 2018 - 2020 KIMB-technologies 
  * https://github.com/KIMB-technologies/
  * 
  * released under the terms of GNU Public License Version 3
@@ -75,13 +75,13 @@ class Captcha{
 				$img, 30, random_int(-10, 10),
 				$l + (($i+1 != 1?15:5) * ($i+1)), 25,
 				imagecolorallocate($img, 200, 200, 200),
-				self::FONT, self::$string{$i}
+				self::FONT, self::$string[$i]
 			);
 			imagettftext(
 				$img, 24, random_int(-15, 15),
 				$l + (($i+1 != 1?15:5) * ($i+1)), 25,
 				imagecolorallocate($img, 69, 103, 137),
-				self::FONT, self::$string{$i}
+				self::FONT, self::$string[$i]
 			);
 		}
 

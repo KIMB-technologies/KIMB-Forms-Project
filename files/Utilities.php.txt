@@ -3,7 +3,7 @@
  * KIMB-Forms-Project
  * https://github.com/KIMB-technologies/KIMB-Forms-Project
  * 
- * (c) 2018 KIMB-technologies 
+ * (c) 2018 - 2020 KIMB-technologies 
  * https://github.com/KIMB-technologies/
  * 
  * released under the terms of GNU Public License Version 3
@@ -11,12 +11,12 @@
  */
 defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 
-class Utilities{
+class Utilities {
 
 	/**
 	 * The system's Version
 	 */
-	const SYS_VERSION = 'v1.0.8';
+	const SYS_VERSION = 'v1.2.2';
 
 	/**
 	 * Possible chars for:
@@ -47,7 +47,7 @@ class Utilities{
 	 * 	**no boolean return**
 	 * @param $s the string to check
 	 * @param $reg the regular expressions (/[^a-z]/ to allow only small latin letters)
-	 * @param $len the maximum lenght
+	 * @param $len the maximum length
 	 * @return the clean string (empty, if other input than string or only dirty characters)
 	 */
 	public static function validateInput($s, $reg, $len){
@@ -67,7 +67,7 @@ class Utilities{
 		$r = '';
 		$charAnz = strlen( $chars );
 		for($i = 0; $i < $len; $i++){
-			$r .= $chars{random_int(0, $charAnz-1)};
+			$r .= $chars[random_int(0, $charAnz-1)];
 		}
 		return $r;
 	}
@@ -81,6 +81,20 @@ class Utilities{
 	 */
 	public static function getRowHtml($first, $second, $clF = '', $clS = ''){
 		return '<div class="alert" role="alert"><div class="row"><div class="col-sm '. $clF .'">' . $first .'</div><div class="col-sm '. $clS .'">'. $second .'</div></div></div>';
+	}
+
+	/**
+	 * Generates a collapsable HTML-Element
+	 * @param $name the name of the element (click on this to open)
+	 * @param $content The content to collapse
+	 * @return HTML String
+	 */
+	public static function getCollapseHtml(string $name, string $content) : string {
+		$html = '<div class="card collapseContent">';
+		$html .= '<div class="card-header">&#x25bc; ' . $name . '</div>';		
+		$html .= '<div class="card-text">'. $content .'</div>';
+		$html .= '</div>';
+		return $html;
 	}
 }
 

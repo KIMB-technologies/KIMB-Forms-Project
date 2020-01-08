@@ -106,12 +106,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">273</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">293</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                             <li>
@@ -136,10 +136,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1317622515"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-880519429"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1317622515" class="accordion-body collapse in">
+            <div id="namespace-880519429" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -148,14 +148,18 @@
                                                     <li class="class"><a href="../classes/Config.html">Config</a></li>
                                                     <li class="class"><a href="../classes/CookieBanner.html">CookieBanner</a></li>
                                                     <li class="class"><a href="../classes/CSSManager.html">CSSManager</a></li>
+                                                    <li class="class"><a href="../classes/DelUserSubmission.html">DelUserSubmission</a></li>
                                                     <li class="class"><a href="../classes/EditPoll.html">EditPoll</a></li>
                                                     <li class="class"><a href="../classes/Export.html">Export</a></li>
                                                     <li class="class"><a href="../classes/JSONReader.html">JSONReader</a></li>
                                                     <li class="class"><a href="../classes/LanguageManager.html">LanguageManager</a></li>
+                                                    <li class="class"><a href="../classes/Mail.html">Mail</a></li>
                                                     <li class="class"><a href="../classes/Parsedown.html">Parsedown</a></li>
                                                     <li class="class"><a href="../classes/Poll.html">Poll</a></li>
                                                     <li class="class"><a href="../classes/PollAdmin.html">PollAdmin</a></li>
                                                     <li class="class"><a href="../classes/PollCreator.html">PollCreator</a></li>
+                                                    <li class="class"><a href="../classes/Reader.html">Reader</a></li>
+                                                    <li class="class"><a href="../classes/SubmissionQuery.html">SubmissionQuery</a></li>
                                                     <li class="class"><a href="../classes/Template.html">Template</a></li>
                                                     <li class="class"><a href="../classes/TemplateLoader.html">TemplateLoader</a></li>
                                                     <li class="class"><a href="../classes/URL.html">URL</a></li>
@@ -178,8 +182,14 @@
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
                     <h1><small>\</small>JSONReader</h1>
-                    <p><em>Diese Klasse stellt den Zugriff auf JSON-Dateien des Systems bereit</em></p>
-                    
+                    <p><em>A JSON Reader, storage using json files, as defined in Reader.</em></p>
+                    <p>A index is a array of json keys:
+{
+&quot;a&quot; : {
+&quot;b&quot; : 12
+}
+}
+[&quot;a&quot;, &quot;b&quot;] =&gt; 12</p>
                     
                                         
                     <section id="summary">
@@ -197,17 +207,17 @@
                         </section>
                         <section class="row-fluid public">
                             <section class="span4">
-                                                                    <a href="../classes/JSONReader.html#method_changepath" class="">changepath()</a><br />
+                                                                    <a href="../classes/Reader.html#method_changePath" class="">changePath()</a><br />
                                                                     <a href="../classes/JSONReader.html#method_deleteFile" class="">deleteFile()</a><br />
-                                                                    <a href="../classes/JSONReader.html#method___construct" class="">__construct()</a><br />
-                                                                    <a href="../classes/JSONReader.html#method___destruct" class="">__destruct()</a><br />
                                                                     <a href="../classes/JSONReader.html#method_getArray" class="">getArray()</a><br />
                                                                     <a href="../classes/JSONReader.html#method_setArray" class="">setArray()</a><br />
-                                                                    <a href="../classes/JSONReader.html#method_output" class="">output()</a><br />
+                                                                    <a href="../classes/Reader.html#method_output" class="">output()</a><br />
                                                                     <a href="../classes/JSONReader.html#method_isValue" class="">isValue()</a><br />
                                                                     <a href="../classes/JSONReader.html#method_getValue" class="">getValue()</a><br />
                                                                     <a href="../classes/JSONReader.html#method_searchValue" class="">searchValue()</a><br />
                                                                     <a href="../classes/JSONReader.html#method_setValue" class="">setValue()</a><br />
+                                                                    <a href="../classes/JSONReader.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/JSONReader.html#method___destruct" class="">__destruct()</a><br />
                                                             </section>
                             <section class="span4">
                                                                     <em>No public properties found</em>
@@ -221,7 +231,7 @@
                                                                     <em>No protected methods found</em>
                                                             </section>
                             <section class="span4">
-                                                                    <em>No protected properties found</em>
+                                                                    <a href="../classes/Reader.html#property_path" class="">$path</a><br />
                                                             </section>
                             <section class="span4">
                                 <em>N/A</em>
@@ -233,7 +243,6 @@
                                                                     <a href="../classes/JSONReader.html#method_setValueHelper" class="">setValueHelper()</a><br />
                                                             </section>
                             <section class="span4">
-                                                                    <a href="../classes/JSONReader.html#property_path" class="">$path</a><br />
                                                                     <a href="../classes/JSONReader.html#property_filehandler" class="">$filehandler</a><br />
                                                                     <a href="../classes/JSONReader.html#property_data" class="">$data</a><br />
                                                                     <a href="../classes/JSONReader.html#property_filepath" class="">$filepath</a><br />
@@ -256,7 +265,9 @@
                             <dd><div class="namespace-wrapper">Default</div></dd>
                                                 <dt>Class hierarchy</dt>
                             <dd class="hierarchy">
-                                                                                                                                                                    <div class="namespace-wrapper">\JSONReader</div>
+                                                                                                                                                                                                                                                                                                
+                                        <div class="namespace-wrapper"><a href="../classes/Reader.html">\Reader</a></div>
+                                                                                                    <div class="namespace-wrapper">\JSONReader</div>
                             </dd>
 
                         
@@ -280,13 +291,13 @@
                 <aside class="span4 detailsbar"></aside>
             </div>
 
-                                                                    <div class="row-fluid">
+                                                    <div class="row-fluid">
         <div class="span8 content class">
             <a id="property_path" name="property_path" class="anchor"></a>
             <article class="property">
-                <h3 class="private ">$path</h3>
+                <h3 class="protected ">$path</h3>
                 <pre class="signature">$path : </pre>
-                <p><em></em></p>
+                <p><em>Path where the JSON files are located, in redis used as key prefix</em></p>
                 
 
                                 <h4>Type</h4>
@@ -296,6 +307,8 @@
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                         <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Reader.html"><div class="path-wrapper">\Reader</div></a></dd>
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
@@ -304,7 +317,7 @@
         </aside>
     </div>
 
-                                    <div class="row-fluid">
+                                                    <div class="row-fluid">
         <div class="span8 content class">
             <a id="property_filehandler" name="property_filehandler" class="anchor"></a>
             <article class="property">
@@ -433,12 +446,12 @@
 
                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="method_changepath" name="method_changepath" class="anchor"></a>
+            <a id="method_changePath" name="method_changePath" class="anchor"></a>
             <article class="method">
-                <h3 class="public ">changepath()</h3>
+                <h3 class="public ">changePath()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">changepath(  <span class="argument">$path = &#039;&#039;</span>) </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">changePath(  <span class="argument">$path = &#039;&#039;</span>) : \the</pre>
+                <p><em>Changes the data path, the path on filesystem</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -446,12 +459,54 @@
                                                     <tr>
                                 <td></td>
                                 <td>$path </td>
-                                <td></td>
+                                <td><p>the new path (optional)</p></td>
                             </tr>
                                             </table>
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    \the
+                                            &mdash; <p>current path</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Reader.html"><div class="path-wrapper">\Reader</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_deleteFile" name="method_deleteFile" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">deleteFile()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">deleteFile(\string  <span class="argument">$name</span>) : \deleted?</pre>
+                <p><em>Deletes a JSON file. (needs exclusive rights)</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\string</td>
+                                <td>$name </td>
+                                <td><p>file to delete</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \deleted?
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -468,20 +523,250 @@
 
                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="method_deleteFile" name="method_deleteFile" class="anchor"></a>
+            <a id="method_getArray" name="method_getArray" class="anchor"></a>
             <article class="method">
-                <h3 class="public ">deleteFile()</h3>
+                <h3 class="public ">getArray()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">deleteFile(  <span class="argument">$filename</span>) </pre>
-                <p><em>Deletes a JSON file. (needs exclusive rights)</em></p>
+                <pre class="signature" style="margin-right: 54px;">getArray() : \the</pre>
+                <p><em>Returns the array of this dataset</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \the
+                                            &mdash; <p>array</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setArray" name="method_setArray" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setArray()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setArray(array  <span class="argument">$data</span>) : \successful</pre>
+                <p><em>Sets the array of this dataset</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$data </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \successful
+                                            &mdash; <p>changed?</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_output" name="method_output" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">output()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">output() </pre>
+                <p><em>Print the array</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Reader.html"><div class="path-wrapper">\Reader</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isValue" name="method_isValue" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">isValue()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isValue(array  <span class="argument">$index</span>,   <span class="argument">$value = null</span>) : \$value</pre>
+                <p><em>Checks if a key has a value.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$index </td>
+                                <td><p>array of indexes, the index</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$value </td>
+                                <td><p>the value need at index</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \$value
+                                            &mdash; <p>and value at $index matches, or $index exists</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getValue" name="method_getValue" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getValue()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getValue(array  <span class="argument">$index</span>, \bool  <span class="argument">$exception = false</span>) : \the</pre>
+                <p><em>Fetch a value by the index</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$index </td>
+                                <td><p>the array of indexes, the index</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\bool</td>
+                                <td>$exception </td>
+                                <td><p>throw an exception if index not found, or return false (optional)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \the
+                                            &mdash; <p>value or false</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_searchValue" name="method_searchValue" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">searchValue()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">searchValue(  <span class="argument">$index</span>,   <span class="argument">$value</span>,   <span class="argument">$column = null</span>) : \like</pre>
+                <p><em>Search a value.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
                                 <td></td>
-                                <td>$filename </td>
+                                <td>$index </td>
+                                <td><p>$index the array of indexes, the index</p></td>
+                            </tr>
+                                                    <tr>
                                 <td></td>
+                                <td>$value </td>
+                                <td><p>the value to search</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$column </td>
+                                <td><p>search a colum, name here or null (optional)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \like
+                                            &mdash; <p>array_search(), the first found index or false</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setValue" name="method_setValue" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setValue()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setValue(array  <span class="argument">$index</span>,   <span class="argument">$value</span>) </pre>
+                <p><em>Set a value.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$index </td>
+                                <td><p>array of indexes, the index</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$value </td>
+                                <td><p>the value to set</p></td>
                             </tr>
                                             </table>
                 
@@ -491,7 +776,6 @@
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
-                            <span class="label label-info">static</span>
                                                             <dl>
                                                                             </dl>
             <h2>Tags</h2>
@@ -508,25 +792,27 @@
                 <h3 class="public ">__construct()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">__construct(  <span class="argument">$filename</span>,   <span class="argument">$lockex = false</span>,   <span class="argument">$otherpath = &#039;&#039;</span>) </pre>
-                <p><em></em></p>
-                
+                <p><em>Creates a JSON Reader, opens and imports file if files exists.</em></p>
+                <p>else creates a new file. Opens parent::$path/$filename, $filename
+contain a folder and a file (parent::$path/myfolder/myfile).
+Then myfolder has to be created before!</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
                                 <td></td>
                                 <td>$filename </td>
-                                <td></td>
+                                <td><p>the filename, without .json</p></td>
                             </tr>
                                                     <tr>
                                 <td></td>
                                 <td>$lockex </td>
-                                <td></td>
+                                <td><p>lock the file exclusive, if yo</p></td>
                             </tr>
                                                     <tr>
                                 <td></td>
                                 <td>$otherpath </td>
-                                <td></td>
+                                <td><p>use another path than parent::$path</p></td>
                             </tr>
                                             </table>
                 
@@ -552,256 +838,9 @@
                 <h3 class="public ">__destruct()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">__destruct() </pre>
-                <p><em></em></p>
+                <p><em>Write file contents on exit, if file changed</em></p>
                 
 
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getArray" name="method_getArray" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getArray()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getArray() </pre>
-                <p><em></em></p>
-                
-
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setArray" name="method_setArray" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setArray()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setArray(  <span class="argument">$data</span>) </pre>
-                <p><em></em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td></td>
-                                <td>$data </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_output" name="method_output" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">output()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">output() </pre>
-                <p><em></em></p>
-                
-
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_isValue" name="method_isValue" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">isValue()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">isValue(  <span class="argument">$index</span>,   <span class="argument">$value = null</span>) </pre>
-                <p><em></em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td></td>
-                                <td>$index </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td></td>
-                                <td>$value </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getValue" name="method_getValue" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getValue()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getValue(  <span class="argument">$index</span>,   <span class="argument">$exception = false</span>) </pre>
-                <p><em></em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td></td>
-                                <td>$index </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td></td>
-                                <td>$exception </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_searchValue" name="method_searchValue" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">searchValue()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">searchValue(  <span class="argument">$index</span>,   <span class="argument">$value</span>,   <span class="argument">$column = null</span>) </pre>
-                <p><em></em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td></td>
-                                <td>$index </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td></td>
-                                <td>$value </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td></td>
-                                <td>$column </td>
-                                <td></td>
-                            </tr>
-                                            </table>
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setValue" name="method_setValue" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setValue()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setValue(  <span class="argument">$index</span>,   <span class="argument">$value</span>) </pre>
-                <p><em></em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td></td>
-                                <td>$index </td>
-                                <td></td>
-                            </tr>
-                                                    <tr>
-                                <td></td>
-                                <td>$value </td>
-                                <td></td>
-                            </tr>
-                                            </table>
                 
                 
                 				
@@ -824,13 +863,16 @@
             <article class="method">
                 <h3 class="private ">write_content()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">write_content() </pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">write_content() : \successful</pre>
+                <p><em>Write file contents, if file writeable and changed</em></p>
                 
 
                 
                 
-                				
+                                    <h4>Returns</h4>
+                    \successful
+                                            &mdash; <p>written?</p>
+                                    				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -937,7 +979,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on September 22nd, 2019 at 15:43.
+                    on January 8th, 2020 at 19:15.
                 </section>
             </section>
         </section>

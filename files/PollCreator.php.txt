@@ -3,7 +3,7 @@
  * KIMB-Forms-Project
  * https://github.com/KIMB-technologies/KIMB-Forms-Project
  * 
- * (c) 2018 KIMB-technologies 
+ * (c) 2018 - 2020 KIMB-technologies 
  * https://github.com/KIMB-technologies/
  * 
  * released under the terms of GNU Public License Version 3
@@ -16,7 +16,7 @@ class PollCreator{
 	/**
 	 * Input check constants
 	 */
-	const PREG_TEXTINPUT = '/[^A-Za-z0-9 \.\-_ÄÜÖäüöß]/';
+	const PREG_TEXTINPUT = '/[^A-Za-z0-9 :\.\-_ÄÜÖäüöß]/';
 	const PREG_TEXTAREA = '/[^A-Za-z0-9 :\/\*\#\.\-_ÄÜÖäüöß\r\n]/';
 	const PREG_NUMBER = '/[^0-9]/';
 	/**
@@ -40,6 +40,7 @@ class PollCreator{
 		'pollname' => '',
 		'formtype' => '',
 		'description' => '',
+		'notifymails' => array(),
 		'termine' => array()
 	);
 	private $errormsg = '';
@@ -93,6 +94,8 @@ class PollCreator{
 		$this->data['code']['admin'] = $admcode;
 		$this->data['code']['poll'] = $pollid;
 		$poll->setArray( $this->data );
+
+		$this->sendNewPollMail();
 
 		return true;
 	}
@@ -184,6 +187,28 @@ class PollCreator{
 	 */
 	public function errorMessage(){
 		return $this->errormsg;
+	}
+
+	/**
+	 * Checks if a mail should be send, when a new poll was created
+	 * And sends the mail.
+	 */
+	private function sendNewPollMail() {
+		$c = new Config();
+		$to = $c->getValue(['newpollmailto']);
+		if( empty( $to ) || $to == 'test@example.com' ){
+			return;
+		}
+	
+		$m = new Mail( 'NewPollNotif' );
+
+		$m->setContent('POLLNAME', Utilities::optimizeOutputString( $this->data['pollname'] ));
+		$m->setContent('POLLDESCRIP', Utilities::optimizeOutputString( $this->data['description'] ));
+		$m->setContent('ADMINLINK', $this->getAdminLink() );
+		$m->setContent('POLLLINK', URL::generateLink('poll', $this->data['code']['poll'], '' ));
+		$m->setContent('POLLID', $this->data['code']['poll'] );
+	
+		$m->sendMail( $to, true );
 	}
 }
 

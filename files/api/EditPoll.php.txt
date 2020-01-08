@@ -3,7 +3,7 @@
  * KIMB-Forms-Project
  * https://github.com/KIMB-technologies/KIMB-Forms-Project
  * 
- * (c) 2018 KIMB-technologies 
+ * (c) 2018 - 2020 KIMB-technologies 
  * https://github.com/KIMB-technologies/
  * 
  * released under the terms of GNU Public License Version 3
@@ -30,6 +30,14 @@ class EditPoll{
 		else if( !empty( $_POST['name'] ) && !empty( $_POST['desc'] ) ){
 			//poll meta aendern
 			$this->changePoll( $_POST['name'], $_POST['desc'] );
+		}
+		else if( isset( $_POST['maillist'] ) ) {
+			//set poll notifications mails 
+			$this->setMailList( $_POST['maillist'] );
+		}
+		else if( !empty( $_POST['additionals'] ) ) {
+			//save additional fields
+			$this->setAdditionals( $_POST['additionals'] );
 		}
 		die( 'nok' );
 	}
@@ -76,6 +84,58 @@ class EditPoll{
 			}
 		}
 	}
+
+	private function setMailList( string $list ){
+		$mails = Utilities::validateInput($list, Poll::PREG_MAIL, 500);
+		$mails = explode( ',', $list );
+		$mails = array_map(
+				function ($m) {
+					return  trim( $m );
+				},
+				$mails
+			);
+		$savemails = array();
+		foreach( $mails as $m ){
+			if( filter_var( $m, FILTER_VALIDATE_EMAIL ) !== false ){
+				$savemails[] = $m;
+			}
+		}
+		$this->polldata->setValue(['notifymails'], $savemails);
+		die('ok');
+	}
+
+	private function setAdditionals( $array ){
+		if( ( isset($array['empty']) && $array['empty'] == 'true' )
+			|| ( isset($array['data'] ) && !is_array($array['data']) )
+			|| empty($array['data'])
+		){
+			$save = array(); // no additional fields
+		}
+		else{
+			$save = array();
+			foreach($array['data'] as $f ){
+				if( !empty($f['text'])){
+					$type = (!empty($f['type']) && $f['type'] == 'text') ? 'text' : 'checkbox';
+					$req = (isset($f['require']) && $f['require'] == 'true');
+					$text = Utilities::validateInput($f['text'], PollCreator::PREG_TEXTINPUT, PollCreator::MAXL_TEXTINPUT);
+
+					if( !empty($text)){
+						$save[] = array(
+							'type' => $type,
+							'require' => $req,
+							'text' => $text
+						);
+					}
+				}
+			}
+			
+		}
+		$this->polldata->setValue(['additionals'], $save);
+		die('ok');
+	}
+
+
+	
 }
 
 ?>

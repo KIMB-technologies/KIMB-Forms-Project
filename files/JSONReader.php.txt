@@ -3,7 +3,7 @@
  * KIMB-Forms-Project
  * https://github.com/KIMB-technologies/KIMB-Forms-Project
  * 
- * (c) 2018 KIMB-technologies 
+ * (c) 2018 - 2020 KIMB-technologies 
  * https://github.com/KIMB-technologies/
  * 
  * released under the terms of GNU Public License Version 3
@@ -12,37 +12,15 @@
 defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 
 /**
- * Diese Klasse stellt den Zugriff auf JSON-Dateien des Systems bereit
+ * A JSON Reader, storage using json files, as defined in Reader.
  */
-class JSONReader{
-
-	//Pfad unter dem alle Dateien liegen
-	//	können auch Unterordner sein!
-	private static $path = __DIR__.'/';
-
-	//Den Pfad fuer die json Dateien aendern
-	//	$path => neuer Pfad (vollständig ab /)
-	//	Rückgabe => neuer Pfad, bzw. bei keinem Übergabeparameter aktueller Pfad
-	public static function changepath( $path = '' ){
-		//neuen Pfad uebergeben?
-		if( !empty( $path ) ){
-			//hat neuer Pfad einen abschließend Slash?
-			if( substr( $path , -1 ) != '/' ){
-				//nein, anfügen
-				$path = $path.'/';
-			}
-			//neuen Pfad setzen
-			self::$path = $path;
-		}
-		//Pfad ausgeben (neu oder unverändert)
-		return self::$path;
-	}
+class JSONReader extends Reader {
 
 	/**
 	 * Deletes a JSON file. (needs exclusive rights)
 	 */
-	public static function deleteFile( $filename ){
-		$file = self::$path . $filename . '.json';
+	public static function deleteFile( string $name ) : bool{
+		$file = parent::$path . $name . '.json';
 		if( !is_file( $file ) && !is_file( $file . '.lock' ) ){
 			return true;
 		}
@@ -50,98 +28,108 @@ class JSONReader{
 		return (!is_file( $file ) || unlink( $file )) && (!is_file( $file . '.lock' ) || unlink( $file . '.lock' ));
 	}
 
-	//Daten über die geöffnete JSON
+	// information about opened JSON
 	private
 		$filehandler, // fopen handler
-		$data, //JSON Daten Array
-		$filepath, //Vollständiger Dateipfad
-		$datahash, //Hash des JSON-Strings auf dem Dateissystem
-		$writeable = false; //Schreibbar?
+		$data, // JSON data array
+		$filepath, // full JSON file path
+		$datahash, // hash of json data on disk
+		$writeable = false; // file writeable?
 
-	//Konstruktor
-	//	Liest eine JSON Datei ein bzw. erstelle eine neue.
-	//	Order muss existieren
-	//	$filename => Dateiname (ohne .json, relativ zu self::$path)
-	//	$lockex => directly lock the file exclusive
-	//	$otherpath => use other path than self::$path
+	/**
+	 * Creates a JSON Reader, opens and imports file if files exists.
+	 * else creates a new file. Opens parent::$path/$filename, $filename
+	 * contain a folder and a file (parent::$path/myfolder/myfile).
+	 * Then myfolder has to be created before!
+	 * 
+	 * @param $filename the filename, without .json 
+	 * @param $lockex lock the file exclusive, if yo
+	 * @param $otherpath use another path than parent::$path 
+	 */
 	public function __construct( $filename, $lockex = false, $otherpath = ''){
-		//Dateinamen erstellen
-		$this->filepath = (empty($otherpath) ? self::$path : $otherpath . '/' ). $filename . '.json';
+		//create filename
+		$this->filepath = (empty($otherpath) ? parent::$path : $otherpath . '/' ). $filename . '.json';
 		
 		$isfile = is_file( $this->filepath );
 
 		// file lock
 		$this->filehandler = fopen( $this->filepath . '.lock', 'c+' );
 		if( !flock( $this->filehandler, $lockex ? LOCK_EX : LOCK_SH ) ){
-			//Fehler
+			// error
 			throw new Exception('Unable to lock file!');
 		}
 
-		//Datei öffnen
-		//	vorhnaden?
+		//open file
+		//	file exists?
 		if( $isfile ){
-			//auslesen
+			//read file
 			$this->data = file_get_contents( $this->filepath );
 		}
-		//	Order vorhanden => neue Datei
+		//	folder exists, but file not => new file
 		elseif( is_dir( dirname( $this->filepath ) ) ){
-			//leeres Array
+			//empty array
 			$this->data = '[]';
+			// create file
 			file_put_contents( $this->filepath, $this->data );
 		}
 		else{
-			//Fehler
+			//error
 			throw new Exception('Unable to find file or folder!');
 		}
 		
+		// no data => empty array
 		if( empty( $this->data ) ){
 			$this->data = '[]';
 		}
-
 		
-		//Hash für später
+		//hash content of file on disk (in the end, only save if changed)
 		$this->datahash = hash( 'sha512', $this->data );
-		//JSON Parsen
+		//JSON parse
 		$this->data = json_decode( $this->data, true);
-		//Fehler?
+		//error, if no json etc.
 		if( !is_array( $this->data ) ){
 			throw new Exception('Zombiefile!');	
 		}
 
-		//Schreibbar?
-		//	=> nur dann schreiben per Methode erlauben
+		//Check if file is writeable?
+		//	=> enable changes only if writeable
 		if( is_file( $this->filepath ) && is_writeable( $this->filepath ) ){
 			$this->writeable = true;
 		}
 	}
 
-	//schreibe Datei bei Objektzerstörung
+	/**
+	 * Write file contents on exit, if file changed
+	 */
 	public function __destruct(){
 		$this->write_content();
-		//unlock and close
-		flock($this->filehandler, LOCK_UN );
-		fclose($this->filehandler);
+		if( is_resource( $this->filehandler ) ){
+			//unlock and close
+			flock($this->filehandler, LOCK_UN );
+			fclose($this->filehandler);
+		}
 	}
 
-	//Datei schreiben
-	private function write_content(){
-		//schreibbar?
+	/**
+	 * Write file contents, if file writeable and changed
+	 * @return successful written?
+	 */
+	private function write_content() : bool {
 		if( $this->writeable ){
-			//zu JSON
+			//create JSON
 			$json = json_encode( $this->data, JSON_PRETTY_PRINT);
-			//neuen Hash erzuegen
+			//calculate new hash
 			$nowhash = hash( 'sha512', $json );
-			//ueberhaupt geändert?
-			//JSON okay?
+			//file changed? and JSON valid?
 			if( $nowhash != $this->datahash && $json !== false ){
 				if( flock( $this->filehandler, LOCK_EX ) ){ //exclusive log
-					//schreiben
+					//write
 					$re = file_put_contents( $this->filepath, $json );
-					//Hash anpassen?
+					//if written, set new hash
 					if( $re !== false ){
 						$this->datahash = $nowhash;
 					}
-					//Rückgabe
+					//return error/ ok
 					return $re;
 				}
 				return false;
@@ -151,19 +139,11 @@ class JSONReader{
 		return false;
 	}
 
-	//Array der Datei holen
-	//	Return => Array der Datei
-	public function getArray(){
+	public function getArray() : array {
 		return $this->data;
 	}
 
-	//Array der Datei ersetzen
-	//	alles wird überschrieben
-	//	(Array muss sich zu JSON konvertieren lassen!!)
-	//	$data => Neues Array
-	//	Return => true/false 
-	public function setArray( $data ){
-		//schreibbar?
+	public function setArray( array $data ) : bool {
 		if( $this->writeable ){
 			if( is_array( $data ) ){
 				$this->data = $data;
@@ -178,40 +158,26 @@ class JSONReader{
 		}
 	}
 
-	//Ausgabe des Arrays
-	public function output(){
-		//raus
-		print_r( $this->data );
-	}
-
-	//Prüfen, ob ein Wert vorhanden
-	//	$index => array() der Indexe
-	//	$value => gewuenschter Wert
-	//	Return => true/false, gefunden und gleich $value (nicht typecht)
-	public function isValue( $index, $value = null ){
-		//Daten kopieren
+	public function isValue( array $index, $value = null ) : bool {
+		// copy
 		$data = $this->data;
-		//nach und nach zu gesuchtem Wert gehen
+		// iterate to index
 		foreach( $index as $i ){
-			//Wert vorhanden?
+			// found key
 			if( isset( $data[$i] ) ){
-				//Immer einen Weiter
+				// go to this key (step by step)
 				$data = $data[$i];
 			}
 			else{
+				// index not found
 				return false;
 			}
 		}
-		//Rückgabe
+		// return if index found or value correct
 		return ( is_null( $value ) ) ? true : ( $data == $value );
 	}
 
-	
-	//Einen Wert aus Array holen
-	//	$index => array() der Indexe
-	//	$exception => true/ false Fehlermeldung werfen, wenn Index nicht gefunden
-	//	Return => Wert unter diesem Index, bzw. false
-	public function getValue( $index, $exception = false ){
+	public function getValue( array $index, bool $exception = false ){
 		//Daten kopieren
 		$data = $this->data;
 		//nach und nach zu gesuchtem Wert gehen
@@ -270,10 +236,11 @@ class JSONReader{
 	//Einen Wert in das Array schreiben (neu oder dazu)
 	//	$index => array() der Indexe, wenn der letze Wert 'null' ist, wir $value angefügt
 	//	$value => Neuer Wert (einfach 'null' um Wert zu löschen, Indexe bleiben erhalten)
-	public function setValue( $index, $value ){
+	public function setValue( array $index, $value ) : bool {
 		//schreibbar?
 		if( $this->writeable ){
 			$this->data = $this->setValueHelper( $index, $value, $this->data );
+			return true;
 		}
 		else{
 			return false;

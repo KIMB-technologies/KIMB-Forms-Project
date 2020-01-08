@@ -3,7 +3,7 @@
  * KIMB-Forms-Project
  * https://github.com/KIMB-technologies/KIMB-Forms-Project
  * 
- * (c) 2018 KIMB-technologies 
+ * (c) 2018 - 2020 KIMB-technologies 
  * https://github.com/KIMB-technologies/
  * 
  * released under the terms of GNU Public License Version 3
@@ -59,14 +59,46 @@ class Export{
 
 		$data = array();
 		$data[] = array( $this->polldata->getValue(['pollname']) );
-		
+
+		$addsHeader = array();
+		if( $this->polldata->isValue(['additionals']) ){
+			foreach( $this->polldata->getValue(['additionals']) as $key => $add ){
+				$addsHeader[] = $add['text'];
+			}
+		}
+
 		foreach( $this->polldata->getValue( ['termine'] ) as $id => $values){
 			$data[] = array();
-			$data[] = array( $values['bez'] );
+			$data[] = array_merge(
+				array( $values['bez'] , '', '', '', '' ),
+				$addsHeader
+			);
 
 			$i = 1;
-			foreach( $this->pollsub->getValue( [$id] ) as $sub){
-				$data[] = array( '', $i++, $sub['name'], $sub['mail'], date( 'H:i:s d.m.Y', $sub['time'] ) );
+			if( $this->pollsub->isValue( [$id] ) ){
+				foreach( $this->pollsub->getValue( [$id] ) as $sub){
+					$addsCells = array();
+					if( $this->polldata->isValue(['additionals']) ){
+						foreach( $this->polldata->getValue(['additionals']) as $key => $add ){
+							if( isset($sub['additionals'][$key]) ){
+								if( $add['type'] === 'checkbox' ){
+									$addsCells[] = ($sub['additionals'][$key] ? 'yes' : 'no');
+								}
+								else {
+									$addsCells[] = $sub['additionals'][$key];
+								}
+							}
+							else {
+								$addsCells[] = '';
+							}
+						}
+					}
+
+					$data[] = array_merge(
+						array( '', $i++, $sub['name'], $sub['mail'], date( 'H:i:s d.m.Y', $sub['time'] ) ),
+						$addsCells
+					);
+				}
 			}
 			if( $values['anz'] !== false ){
 				$data[] = array('', ($i-1) . '/' . $values['anz']);
@@ -96,15 +128,39 @@ class Export{
 		$h.= '<h2>' . Utilities::optimizeOutputString( $this->polldata->getValue(['pollname']) ) . '</h2>';
 		$h .= '<div>' . $mdp->text($this->polldata->getValue( ['description'] )) . '</div>';
 
+		$addsHeader = '';
+		if( $this->polldata->isValue(['additionals']) ){
+			foreach( $this->polldata->getValue(['additionals']) as $key => $add ){
+				$addsHeader .= '<th>'. Utilities::optimizeOutputString( $add['text'] ) .'</th>';
+			}
+		}
+
 		$termine = array();
 		foreach( $this->polldata->getValue( ['termine'] ) as $id => $values){
 			$h .= '<hr /><h3>'. Utilities::optimizeOutputString( $values['bez'] ) .'</h3>';
 			$h .= empty( $values['des'] ) ? '' : '<div>'. $mdp->text($values['des']) .'</div>';
-			$h .= '<table style="width: 100%;"><tr><th>ID</th><th>Name</th><th>E-Mail</th><th style="width:30%;">Time</th></tr>';
-
+			$h .= '<table style="width: 100%;"><tr><th>ID</th><th>Name</th><th>E-Mail</th><th>Time</th>'. $addsHeader .'</tr>';
 			$i = 1;
-			foreach( $this->pollsub->getValue( [$id] ) as $sub){
-				$h .= '<tr><td>'. $i++ .'</td><td>'. Utilities::optimizeOutputString( $sub['name'] ) .'</td><td>'. Utilities::optimizeOutputString( $sub['mail'] ) .'</td><td>'. date( 'H:i:s d.m.Y', $sub['time'] ) .'</td></tr>';
+			if( $this->pollsub->isValue( [$id] ) ){
+				foreach( $this->pollsub->getValue( [$id] ) as $sub){
+					$addsCells = '';
+					if( $this->polldata->isValue(['additionals']) ){
+						foreach( $this->polldata->getValue(['additionals']) as $key => $add ){
+							if( isset($sub['additionals'][$key]) ){
+								if( $add['type'] === 'checkbox' ){
+									$addsCells .= '<td>'. ($sub['additionals'][$key] ? '&check;' : '&cross;' ) .'</td>';
+								}
+								else {
+									$addsCells .= '<td>'. Utilities::optimizeOutputString( $sub['additionals'][$key] ) .'</td>';
+								}
+							}
+							else {
+								$addsCells .= '<td></td>';
+							}
+						}
+					}
+					$h .= '<tr><td>'. $i++ .'</td><td>'. Utilities::optimizeOutputString( $sub['name'] ) .'</td><td>'. Utilities::optimizeOutputString( $sub['mail'] ) .'</td><td>'. date( 'H:i:s d.m.Y', $sub['time'] ) .'</td>'. $addsCells .'</tr>';
+				}
 			}
 			$h .= '</table>';
 			$h .= $values['anz'] === false ? '' : '<p>'. ($i-1) . '/' . $values['anz'] .'</p>';

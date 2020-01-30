@@ -26,5 +26,6 @@
     "FillAdditionals": "Please fill in all values, fields not marked as optional are required.",
     "InvalMail": "The given E-Mail-Address does not fullfil the requirements!",
     "mailPollSubm": "List of my entries",
+    "mailAdminDel": "Deleted entry",
     "MailTimeout": "Error while sending mail, because too many mails have been send to this address. Please try again later."
 }

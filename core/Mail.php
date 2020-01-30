@@ -27,7 +27,8 @@ class Mail {
 	private static $templates = array(
 		'mailAdminNotif',
 		'mailNewPollNotif',
-		'mailPollSubm'
+		'mailPollSubm',
+		'mailAdminDel'
 	);
 
 	private $type, $template, $mailHeader, $maillog;

@@ -23,10 +23,9 @@ class DelUserSubmission {
 	const MAXL_ID = 10;
 
 	/**
-	 * Poll submission storage
+	 * Poll submission storages and pollid
 	 */
-	private $pollsub;
-	private $pollid;
+	private $pollid, $pollsub, $polldata;
 
 	/**
 	 * Deletes a submisson from a poll
@@ -57,6 +56,7 @@ class DelUserSubmission {
 			$this->pollid = $_GET['poll'];
 			if( Utilities::checkFileName($this->pollid) && in_array( $this->pollid, $polls->getArray() ) ){
 				$this->pollsub = new JSONReader( 'pollsub_' . $this->pollid, true ); //exclusive
+				$this->polldata = new JSONReader( 'poll_' . $this->pollid );
 			}
 		}
 		else{
@@ -89,8 +89,32 @@ class DelUserSubmission {
 					__DIR__ . '/../../data/pollsubmissions.log',
 					json_encode( array( $this->pollid, 'delted entry' , $name, $mail, [$id], time() ) ) . "\r\n",
 					FILE_APPEND | LOCK_EX );
+				
+				$this->informAdmin($name, $mail, $id);
 
 				die('ok');
+			}
+		}
+	}
+
+	/**
+	 * Send Mail to Poll Admin
+	 */
+	private function informAdmin(string $name, string $mail, int $termin) {
+		if( $this->polldata->isValue(['notifymails']) ){
+			$tos = $this->polldata->getValue(['notifymails']);
+			if( !empty($tos) ){
+				$m = new Mail( 'AdminDel' );
+
+				$m->setContent('POLLNAME', Utilities::optimizeOutputString($this->polldata->getValue( ['pollname'] )));
+				$m->setContent('TERMINE', Utilities::optimizeOutputString( $this->polldata->getValue( ['termine', $termin, 'bez'] ) ) );
+				$m->setContent('NAME', Utilities::optimizeOutputString( $name ));
+				$m->setContent('EMAIL', Utilities::optimizeOutputString( $mail ));
+				$m->setContent('ADMINLINK', URL::generateLink('admin', '', $this->polldata->getValue(['code', 'admin'])));
+				
+				foreach( $tos as $to ){
+					$m->sendMail( $to );
+				}
 			}
 		}
 	}

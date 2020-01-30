@@ -240,27 +240,33 @@
 <div id="deletepoll" class="d-none" title="Delete?">
 	<div class="pollsubm" class="d-none">
 		<span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
-		Do your really want to delete all submissions?<br />
+		Do you really want to delete all submissions?<br />
 		This can't be undone!
 	</div>
 	<div class="pollentire" class="d-none">
 		<span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
-		Do your really want to delete the entire poll?<br />
+		Do you really want to delete the entire poll?<br />
 		This can't be undone!
 	</div>
 </div>
 <div id="swapdate" class="d-none" title="Swap two dates.">
-		<div class="form-group">
-			<select class="form-control" id="swapA">
-			</select>
-			<span class="ui-icon ui-icon-arrowthick-2-e-w"></span>
-			<select class="form-control" id="swapB">
-			</select>
-		</div>
-		<div class="alert alert-danger d-none" role="alert">
-			Unable to save changes.
-		</div>
+	<div class="form-group">
+		<select class="form-control" id="swapA">
+		</select>
+		<span class="ui-icon ui-icon-arrowthick-2-e-w"></span>
+		<select class="form-control" id="swapB">
+		</select>
 	</div>
+	<div class="alert alert-danger d-none" role="alert">
+		Unable to save changes.
+	</div>
+</div>
+<div id="delsingle" class="d-none" title="Delete this entry?">
+	<span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+		Do you really want to delete this entry?<br />
+		This can't be undone!
+	</div>
+</div>
 
 <script>
 	localStorage.removeItem('newPollData');

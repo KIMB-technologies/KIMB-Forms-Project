@@ -563,6 +563,48 @@ function template_admin(){
 		$("ul#listofadditionals li span.additionals-delete").click(removeAdditionalInput);
 		$( "ul#listofadditionals" ).sortable({ items: "> li.additionals-element" });
 	}
+
+	function deleteSingleEntry(){
+		var codes = $(this).attr('subcode').split(',');
+		const changecolor = (newcol) => $(this).css('background-image').replace(/^(url\(".*\/ui\-icons_)[0-9a-f]{6}(_256x240\.png"\))$/, '$1' + newcol + '$2'); 
+
+		$( "div#delsingle" ).removeClass('d-none');
+		$( "div#delsingle" ).dialog({
+			resizable: true,
+			height: "auto",
+			width: Math.min($(window).width(), 600),
+			modal: true,
+			buttons: [
+				{
+					text: "OK",
+					icon: "ui-icon-check",
+					class: "delsingle-buttons",
+					click: () => {
+						$("button.delsingle-buttons").button({disabled: true});
+						$.post( template_data.delsinglesub, { terminid : parseInt(codes[0]), code : codes[1] }, (data) => {
+							$("button.delsingle-buttons").button({disabled: false});
+							if( data == 'ok' ){
+								$(this).parent().remove();
+							}
+							else{
+								$(this).css('background-image', changecolor('cc0000') );
+							}
+							$( "div#delsingle" ).dialog( "close" );
+						});
+					},
+				},
+				{
+					text: "Cancel",
+					icon: "ui-icon-close",
+					class: "delsingle-buttons",
+					click: function() {
+						$( this ).dialog( "close" );
+					},
+				}
+			]
+		});
+	}
+	$("span.delsinglesub").click(deleteSingleEntry);
 }
 
 function template_submissionquery(){

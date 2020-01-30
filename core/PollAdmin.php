@@ -132,7 +132,9 @@ class PollAdmin{
 			if( $this->pollsub->isValue( [$id] ) ){
 				foreach( $this->pollsub->getValue( [$id] ) as $sub){
 					$i++;
-					$submiss[] = Utilities::optimizeOutputString( $sub['name'] . ' (' . $sub['mail'] . ') ' );
+					$submiss[] = Utilities::optimizeOutputString(
+							$sub['name'] . ' (' . $sub['mail'] . ') '
+						) . (!empty($sub['editcode']) ? '<span class="ui-icon ui-icon-trash delsinglesub" subcode="'.$id.','.$sub['editcode'].'"></span>' : '' );
 					$submissempty = false;
 				}
 			}
@@ -177,7 +179,8 @@ class PollAdmin{
 				"terminmeta" => $terminmeta,
 				"editurl" => URL::generateAPILink( 'editpoll', array( 'admin' =>  $this->polldata->getValue(['code', 'admin']) ) ),
 				"polltype" => $type,
-				"submissempty" => $submissempty
+				"submissempty" => $submissempty,
+				"delsinglesub" => URL::generateAPILink( 'delsubmission', array( 'poll' => $this->polldata->getValue(['code', 'poll']) ) )
 			)
 		)));
 	}

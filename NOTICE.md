@@ -8,6 +8,7 @@ This repository contains the following libraries:
 - Marked MD Parser `/load/`
 - Parsedown `/core/external`
 - random_compat `/core/external`
+- Awesome Bootstrap Checkbox `/load/` (as part of `main.css`)
 
 > All these released under terms of MIT License.
 

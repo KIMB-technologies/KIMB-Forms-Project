@@ -18,3 +18,107 @@
 	border-top: 1px solid var(--secondary);
 }
 
+
+/**
+Below Code heavily based on:
+	Awesome Bootstrap Checkbox
+	https://github.com/flatlogic/awesome-bootstrap-checkbox/tree/bump-to-bootstrap4
+	The MIT License (MIT)
+	Copyright (c) 2014-2018 flatlogic.com
+*/
+.abc-checkbox {
+	cursor: default;
+	padding-left: 4px;
+}
+.abc-checkbox label {
+	cursor: pointer;
+	display: inline;
+	vertical-align: top;
+	position: relative;
+	padding-left: 5px;
+}
+.abc-checkbox label::before {
+	cursor: pointer;
+	content: "";
+	display: inline-block;
+	position: absolute;
+	width: 17px;
+	height: 17px;
+	top: 2px;
+	left: 0;
+	margin-left: -1.25rem;
+	border: 1px solid #ced4da;
+	border-radius: 3px;
+	background-color: #fff;
+	transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+.abc-checkbox label::after {
+	cursor: pointer;
+	display: inline-block;
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	left: 0;
+	top: 2px;
+	margin-left: -1.25rem;
+	padding-left: 3px;
+	padding-top: 1px;
+	font-size: 11px;
+	color: #495057;
+}
+.abc-checkbox input[type="checkbox"]{
+	position: static;
+	margin-left: 0;
+	cursor: pointer;
+	opacity: 0;
+	z-index: 1;
+}
+.abc-checkbox input[type="checkbox"]:focus + label::before{
+	outline: thin dotted;
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
+}
+.abc-checkbox input[type="checkbox"]:checked + label::after {
+	font-family: sans-serif;
+	content: "\2714";
+}
+.abc-checkbox input[type="checkbox"]:indeterminate + label::after {
+	display: block;
+	content: "";
+	width: 10px;
+	height: 3px;
+	background-color: #555555;
+	border-radius: 2px;
+	margin-left: -16.5px;
+	margin-top: 7px;
+}
+.abc-checkbox input[type="checkbox"]:disabled + label {
+	opacity: 0.65;
+}
+.abc-checkbox input[type="checkbox"]:disabled + label::before {
+	background-color: #e9ecef;
+	cursor: not-allowed;
+}
+.abc-checkbox input[type="checkbox"]:disabled + label::after{
+	cursor: not-allowed;
+}
+.abc-checkbox-success input[type="checkbox"]:checked + label::before {
+	background-color: #28a745;
+	border-color: #28a745;
+}
+.abc-checkbox-success input[type="checkbox"]:checked + label::after{
+	color: #fff;
+}
+.abc-checkbox-success input[type="checkbox"]:indeterminate + label::before {
+	background-color: #28a745;
+	border-color: #28a745;
+}
+.abc-checkbox-success input[type="checkbox"]:indeterminate + label::after{
+	background-color: #fff;
+}
+/**
+End of Code based on:
+	Awesome Bootstrap Checkbox
+*/
+ 
+

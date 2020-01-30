@@ -85,6 +85,10 @@ class PollAdmin{
 			}
 			else if( !empty($_SESSION['DELETE_SUBMISSIONS_CODE']) && $_GET['delete'] == $_SESSION['DELETE_SUBMISSIONS_CODE'] ){
 				$this->pollsub->setArray(array());
+				file_put_contents(
+					__DIR__ . '/../data/pollsubmissions.log',
+					json_encode( array( $this->polldata->getValue(['code', 'poll']), 'deleted all submissions', time() ) ) . "\r\n",
+					FILE_APPEND | LOCK_EX );
 			}
 		}
 	}

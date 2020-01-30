@@ -176,8 +176,11 @@ class Poll{
 			$it->setContent('VALUES', json_encode($addedids)); 
 			$it->setContent('CODE', $editcode); 
 
-			//logfile
-			file_put_contents( __DIR__ . '/../data/pollsubmissions.log', json_encode( array( $this->id, $name, $mail, $termine, time() ) ) . "\r\n" , FILE_APPEND | LOCK_EX );
+			//logfile [PollID, Name, Mail, [Option IDs], Timestamp, [Additional Inputs]]
+			file_put_contents(
+				__DIR__ . '/../data/pollsubmissions.log',
+				json_encode( array( $this->id, 'submission', $name, $mail, $termine, time(), $additionals ) ) . "\r\n",
+				FILE_APPEND | LOCK_EX );
 
 			if( $this->polldata->isValue(['notifymails']) ){
 				$tos = $this->polldata->getValue(['notifymails']);

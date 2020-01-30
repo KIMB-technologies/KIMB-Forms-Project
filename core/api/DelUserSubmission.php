@@ -26,6 +26,7 @@ class DelUserSubmission {
 	 * Poll submission storage
 	 */
 	private $pollsub;
+	private $pollid;
 
 	/**
 	 * Deletes a submisson from a poll
@@ -53,9 +54,9 @@ class DelUserSubmission {
 	private function openPollSubmissions() {
 		if( isset($_GET['poll']) ){
 			$polls = new JSONReader( 'polls' );
-			$pollid = $_GET['poll'];
-			if( Utilities::checkFileName($pollid) && in_array( $pollid, $polls->getArray() ) ){
-				$this->pollsub = new JSONReader( 'pollsub_' . $pollid, true ); //exclusive
+			$this->pollid = $_GET['poll'];
+			if( Utilities::checkFileName($this->pollid) && in_array( $this->pollid, $polls->getArray() ) ){
+				$this->pollsub = new JSONReader( 'pollsub_' . $this->pollid, true ); //exclusive
 			}
 		}
 		else{
@@ -77,8 +78,17 @@ class DelUserSubmission {
 				}
 			}
 			if( $key !== false ){
+				$name = $submisson[$key]['name'];
+				$mail = $submisson[$key]['mail'];
+
 				unset($submisson[$key]);
 				$this->pollsub->setValue([$id], array_values($submisson));
+
+				// log delete [PollID, Name, Mail, [Option ID], Timestamp]
+				file_put_contents(
+					__DIR__ . '/../../data/pollsubmissions.log',
+					json_encode( array( $this->pollid, 'delted entry' , $name, $mail, [$id], time() ) ) . "\r\n",
+					FILE_APPEND | LOCK_EX );
 
 				die('ok');
 			}

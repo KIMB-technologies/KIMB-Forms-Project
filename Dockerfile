@@ -35,7 +35,8 @@ RUN mkdir /sysdata/ \
 		rewrite ^(.*)$ /index.php?uri=$1 last; \n\
 	} \n\
 	' > /etc/nginx/more-server-conf.conf \
-	&& rm -rf /php-code/Dockerfile /php-code/.travis.yml /php-code/dockerpublish.sh
+	&& rm -rf /php-code/Dockerfile /php-code/.travis.yml /php-code/dockerpublish.sh \
+	&& echo "chown -R www-data:www-data /php-code/data/" > /startup-before.sh
 
 # tell the system that it runs in docker container
 ENV DOCKERMODE=true \

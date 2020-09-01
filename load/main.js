@@ -9,6 +9,33 @@
  * https://www.gnu.org/licenses/gpl-3.0.txt
  */
 
+(function (){ // load marked and style custom
+	var markRend = new marked.Renderer();
+	markRend.heading = function (text, level) {
+		return '<h' + (level + 2) + '>' + text + '</h' + (level + 2) + '>';
+	}
+	markRend.link = function (href, title, text) {
+		if( typeof title !== "string" ){
+			title = 'Open external link.'
+		}
+		return '<a href="' + href + '" title="' + title + '" target="_blank">' + text + '</a>';
+	}
+	marked.setOptions({
+		renderer: markRend,
+		gfm: true,
+		tables: false,
+	});
+})();
+
+/**
+ * Markdown Parsing
+ * @param {*string} toParse the markdown string
+ * @return the output as html
+ */
+function md_parser(toParse){
+	return marked(toParse);
+}
+
 /**
  * Switch on Template
  */

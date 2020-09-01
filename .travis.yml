@@ -2,7 +2,7 @@ services:
   - docker
 
 before_script:
-  - rm -rf .github/ .git/ .gitignore *.md .htaccess ./*/.htaccess docker-compose.*
+  - rm -rf .github/ .git/ .gitignore *.md .htaccess ./*/.htaccess docker-compose.* updateLibraries.php
 
 jobs:
   include:

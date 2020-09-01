@@ -40,6 +40,7 @@
 	- one may remove the folder `/.github/*`
 	- one may remove all in Markdown files `/*.md`
 	- if not using Apache, the `.htaccess` can be removed
+	- remove the `updateLibraries.php`
 3. Make sure the follwing directories can not be accessed 
 	- if using Apache done by the `/core/.htaccess`, `/data/.htaccess` provided
 	- if using NGINX, see the configuation below [&darr; NGINX Configuration](#nginx-configuration)

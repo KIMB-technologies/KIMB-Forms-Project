@@ -13,7 +13,7 @@ defined( 'KIMB-FORMS-PROJECT' ) or die('Invalid Endpoint!');
 
 class EditPoll{
 
-	private $polldata;
+	private JSONReader $polldata;
 
 	/**
 	 * Does the change in the polls json file

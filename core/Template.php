@@ -32,6 +32,7 @@ class Template{
 	private $multiples = array();
 	private $multiples_data = array();
 	private $inner = null;
+	private $htmldata;
 
 	private static $lang = 'de';
 	private static $allLangs = array(

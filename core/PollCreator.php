@@ -137,7 +137,7 @@ class PollCreator{
 				foreach( $_POST['bezeichnungen'] as $key => $value ){
 					$b = $value; // = $_POST['bezeichnungen'][$key];
 					$a = (empty( $_POST['anzahlen'][$key]) || $this->data['formtype'] === 'meeting' ) ? false : $_POST['anzahlen'][$key];
-					$h = isset( $_POST['hinweise'][$key] ) ? $_POST['hinweise'][$key] : '';
+					$h = $_POST['hinweise'][$key] ?? '';
 
 					$b = Utilities::validateInput($b, self::PREG_TEXTINPUT, self::MAXL_TEXTINPUT);
 					if($a !== false){

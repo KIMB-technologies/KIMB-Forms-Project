@@ -16,7 +16,7 @@ class Utilities {
 	/**
 	 * The system's Version
 	 */
-	const SYS_VERSION = 'v1.2.7';
+	const SYS_VERSION = 'v1.2.8';
 
 	/**
 	 * Possible chars for:

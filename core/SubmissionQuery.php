@@ -17,6 +17,7 @@ class SubmissionQuery {
 		$pollsub,
 		$configjson,
 		$id,
+		$template,
 		$mailsend = false;
 
 	/**

@@ -278,7 +278,7 @@ class JSONReader extends Reader {
 			//ersten Index raus
 			$i0 = array_shift( $index );
 			//machen (Rekursion)
-			$data[$i0] = $this->setValueHelper( $index, $value, $data[$i0] );
+			$data[$i0] = $this->setValueHelper( $index, $value, $data[$i0] ); // @phan-suppress-current-line PhanTypeArraySuspiciousNullable
 		}
 		//ganzes Array zurueck
 		return $data;

@@ -21,9 +21,9 @@ class Export{
 		'print'
 	);
 
-	private $type,
-		$pollsub,
-		$polldata;
+	private $type;
+	private JSONReader $pollsub;
+	private JSONReader $polldata;
 
 	/**
 	 * Does the data export, the get[type] will choose the mode

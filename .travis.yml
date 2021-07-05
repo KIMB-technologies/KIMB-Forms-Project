@@ -1,3 +1,5 @@
+dist: focal
+
 services:
   - docker
 

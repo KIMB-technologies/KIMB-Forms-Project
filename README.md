@@ -18,7 +18,7 @@ in the US and now this tools shall replace them.
     - Dark and light theme
     - English and german user interface
     - Submissions without javascript are possible
-- PHP 7 (or 5.6)
+- PHP 7+
     - Fully object oriented
 - Possible to add captcha, cookie banner and notices
 
@@ -32,7 +32,7 @@ in the US and now this tools shall replace them.
 
 ## Try out & develop
 
- Having PHP 7 (or 5.6) installed, one can start a session by executing
+ Having PHP 7+ installed, one can start a session by executing
  `php -S localhost:8000` in the respository folder, the system can then be accessed
  under `http://localhost:8000/`.
 

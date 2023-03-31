@@ -3,3 +3,6 @@
 /.phan/*
 /updateLibraries.php
 .htaccess
+.gitignore
+*.md
+docker-compose.*

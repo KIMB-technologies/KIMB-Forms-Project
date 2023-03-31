@@ -8,7 +8,7 @@
 ## Notes
 
 ### Server Requirements
-- Webserver running PHP **7**
+- Webserver running PHP **7+**
     - PHP 5.6 should work as also, but is not recommended
 - PHP-GD for captchas
 - Filesystem which supports filelocking `flock()`
